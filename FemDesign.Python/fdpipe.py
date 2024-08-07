@@ -2,12 +2,12 @@ import subprocess
 from datetime import datetime
 from time import sleep
 
-from enum import Enum, auto
+from enum import Enum
 
 import win32file
 import win32pipe
 
-import fdscript
+from fdscript import Fdscript
 
 import os
 
@@ -250,6 +250,12 @@ class _FdConnect:
         '''
         self.Send("exit")
 
+    def Detach(self):
+        '''
+        Close pipe and continue in normal interface mode
+        '''
+        self.Send("detach")
+
     def ClosePipe(self):
         '''
         Regular closing of fd pipe
@@ -265,7 +271,6 @@ class _FdConnect:
                 print("Program gone in meantime")
 
 
-## define enum for Verbosity
 class Verbosity(Enum):
     BASIC = 1
     ECHO_ALL_INPUT_COMMANDS = 2
@@ -273,7 +278,6 @@ class Verbosity(Enum):
     SCRIPT_LOG_LINES = 8
     CALCULATION_WINDOW_MESSAGES = 16
     PROGRESS_WINDOW_TITLE = 32
-
 
 
 class FemDesignConnection(_FdConnect):
@@ -287,70 +291,16 @@ class FemDesignConnection(_FdConnect):
         self._output_dir = None
         self._output_dirs_to_be_deleted = [] # Uncomment if you need this functionality
 
-    def RunScript(self, fdscript : fdscript.Fdscript, file_name : str = "script"):
+    def RunScript(self, fdscript : Fdscript, file_name : str = "script"):
 
-        path = rf"C:\temp\test\{file_name}.fdscript"
+        path = rf"C:\GitHub\femdesign-api\FemDesign.Python\temp\{file_name}.fdscript"
         fdscript.serialise_to_file(path)
         super().RunScript(path)
 
     def SetVerbosity(self, verbosity : Verbosity):
         super().LogLevel(verbosity.value)
 
-def main():
-    ## Usage example and unit test
-    print("Unit test of connection with sample script")
-    pipe = _FdConnect()
-    try:
-        pipe.Start(fd_path=r"..\..\2300\DEBUG64\fd3dstruct.exe") ## path of fd3dstruct.exe
-        pipe.LogLevel(15)
-        print("Send end receive test with echo:")
-        print(pipe.SendAndReceive("echo Ping"))
-        print(pipe.SendAndReceive("echo Pong"))
-        print("Run examples script:")
-        pipe.RunScript(
-            r"d:\proj\test\fdscript_test_files\fdscript_results\2024-04-09-16-43-41\verification_example_1.1.fdscript", ## path of sample fdscript
-            timeout=20,
-        )
-        pipe.Exit()
-        pipe.ClosePipe()
-    except Exception as err:
-        pipe.KillProgramIfExists()
-        raise err
-    finally:
-        pipe.ClosePipe()
-
-def test():
-    fdscript_header = Fdscript.FdscriptHeader("FEM-Design example script", 2300, "SFRAME", r"C:\temp\test\x.log")
-
-    open = Fdscript.CmdOpen(r"C:\temp\test\model.str")
-    #end_session = Fdscript.CmdEndSession()
-
-    fdscript = Fdscript.Fdscript(fdscript_header, [open])
-
-    fdscript.serialise_to_file(r"C:\temp\test\x.fdscript")
-
-
-    ## Usage example and unit test
-    pipe = _FdConnect()
-    try:
-        pipe.Start(r"C:\Program Files\StruSoft\FEM-Design 23\fd3dstruct.exe") ## path of fd3dstruct.exe
-        pipe.LogLevel(15)
-        pipe.RunScript(
-            r"C:\temp\test\x.fdscript", ## path of sample fdscript
-        )
-        pipe.Exit()
-    except Exception as err:
-        pipe.KillProgramIfExists()
-        raise err
-    finally:
-        pipe.ClosePipe()
-
-
-if __name__ == "__main__":
-    #main()
-    test()
-
-    
-
-
-
+    def Disconnect(self):
+        super().Detach()
+        #win32pipe.DisconnectNamedPipe(self.pipe_send)
+        #win32pipe.DisconnectNamedPipe(self.pipe_read)
