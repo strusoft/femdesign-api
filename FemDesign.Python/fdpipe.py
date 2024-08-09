@@ -7,7 +7,9 @@ from enum import Enum
 import win32file
 import win32pipe
 
-from fdscript import Fdscript
+from command import *
+import analysis
+from fdscript import Fdscript, FdscriptHeader
 
 import os
 
@@ -264,6 +266,9 @@ class _FdConnect:
         win32file.CloseHandle(self.pipe_read)
 
     def KillProgramIfExists(self):
+        '''
+        Kill program if exists
+        '''
         if not (self.process.poll()):
             try:
                 self.process.kill()
@@ -280,12 +285,15 @@ class Verbosity(Enum):
     PROGRESS_WINDOW_TITLE = 32
 
 
+## define a private class
+
+
 class FemDesignConnection(_FdConnect):
     def __init__(self,
                  fd_path : str = r"C:\Program Files\StruSoft\FEM-Design 23\fd3dstruct.exe", pipe_name : str ="FdPipe1",
-                 verbose : Verbosity = 15):
+                 verbose : Verbosity = Verbosity.SCRIPT_LOG_LINES):
         super().__init__(pipe_name)
-        self.Start(fd_path) ## path of fd3dstruct.exe
+        self.Start(fd_path)
         self.LogLevel(verbose)
 
         self._output_dir = None
@@ -293,14 +301,20 @@ class FemDesignConnection(_FdConnect):
 
     def RunScript(self, fdscript : Fdscript, file_name : str = "script"):
 
-        path = rf"C:\GitHub\femdesign-api\FemDesign.Python\temp\{file_name}.fdscript"
+        path = rf"C:\GitHub\femdesign-api\FemDesign.Python\example\{file_name}.fdscript"
         fdscript.serialise_to_file(path)
         super().RunScript(path)
+
+    def RunAnalysis(self, analysis : analysis.Analysis):
+        
+        header = FdscriptHeader(r"C:\GitHub\femdesign-api\FemDesign.Python\example\x.log")
+
+        fdscript = Fdscript(header, [CmdUser.ResMode(), analysis])
+        self.RunScript(fdscript)
 
     def SetVerbosity(self, verbosity : Verbosity):
         super().LogLevel(verbosity.value)
 
     def Disconnect(self):
         super().Detach()
-        #win32pipe.DisconnectNamedPipe(self.pipe_send)
-        #win32pipe.DisconnectNamedPipe(self.pipe_read)
+        win32pipe.DisconnectNamedPipe(self.pipe_send)

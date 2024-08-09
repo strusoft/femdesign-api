@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from enum import Enum, auto
 from abc import ABC, abstractmethod
 from analysis import Analysis, Design
+import uuid
 
 class User(Enum):
     STRUCT = auto()
@@ -34,6 +35,46 @@ class CmdUser(Command):
         cmd_user.attrib = {"command": f"; CXL $MODULE {self.module.name}"}
         
         return cmd_user
+    
+    @classmethod
+    def ResMode(cls):
+        return cls(User.RESMODE)
+    
+    @classmethod
+    def Load(cls):
+        return cls(User.LOADS)
+    
+    @classmethod
+    def Mesh(cls):
+        return cls(User.MESH)
+    
+    @classmethod
+    def FoundationDesign(cls):
+        return cls(User.FOUNDATIONDESIGN)
+    
+    @classmethod
+    def RcDesign(cls):
+        return cls(User.RCDESIGN)
+    
+    @classmethod
+    def SteelDesign(cls):
+        return cls(User.STEELDESIGN)
+    
+    @classmethod
+    def TimberDesign(cls):
+        return cls(User.TIMBERDESIGN)
+    
+    @classmethod
+    def MasonryDesign(cls):
+        return cls(User.MASONRYDESIGN)
+    
+    @classmethod
+    def CompositeDesign(cls):
+        return cls(User.COMPOSITEDESIGN)
+    
+    @classmethod
+    def PerformanceBasedDesign(cls):
+        return cls(User.PERFORMANCEBASEDDESIGN)
 
 
 class CmdOpen(Command):
@@ -98,7 +139,7 @@ class CmdEndSession(Command):
 
 
 class CmdProjDescr(Command):
-    def __init__(self, project : str, description : str, designer : str, signature : str, comment : str, items : dict, read : bool = False, reset : bool = False):
+    def __init__(self, project : str, description : str, designer : str, signature : str, comment : str, items : dict = None, read : bool = False, reset : bool = False):
         self.project = project
         self.description = description
         self.designer = designer
@@ -125,8 +166,39 @@ class CmdProjDescr(Command):
         ## join two dictionaries
         cmd_proj_descr.attrib = attributes
 
-        for key, value in self.items.items():
-            item = ET.SubElement(cmd_proj_descr, "item")
-            item.attrib = {"id": key, "txt": value}
+        if self.items:
+            for key, value in self.items.items():
+                item = ET.SubElement(cmd_proj_descr, "item")
+                item.attrib = {"id": key, "txt": value}
 
         return cmd_proj_descr
+    
+class CmdListGen:
+    def __init__(self, bscfile : str, outfile : str, guids : list[uuid.UUID] = None, regional : bool = True, fillcells : bool = True, headers : bool = True):
+        self.bscfile = bscfile
+        self.outfile = outfile
+        self.regional = regional
+        self.fillcells = fillcells
+        self.headers = headers
+        self.guids = guids
+
+    def to_xml_element(self) -> ET.Element:
+        cmd_listgen = ET.Element("cmdlistgen")
+
+        attributes = {
+            "command": "$ MODULECOM LISTGEN",
+            "bscfile": self.bscfile,
+            "outfile": self.outfile,
+            "regional": str(int(self.regional)),
+            "fillcells": str(int(self.fillcells)),
+            "headers": str(int(self.headers)),
+        }
+
+        cmd_listgen.attrib = attributes
+
+        if self.guids:
+            for guid in self.guids:
+                guid_elem = ET.SubElement(cmd_listgen, "GUID")
+                guid_elem.text = str(guid)
+
+        return cmd_listgen

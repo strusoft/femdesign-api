@@ -1,0 +1,25 @@
+step: cmdopen
+t: 08/09 15.00.02.945
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/09 15.00.05.219
+step: cmdprojdescr
+t: 08/09 15.00.05.220
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/09 15.00.05.221
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/09 15.00.05.306
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/09 15.00.07.837
+step: cmdlistgen
+t: 08/09 15.00.07.838
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/09 15.00.07.845
+step: cmdsave
+t: 08/09 15.00.07.845
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/09 15.00.08.048
+Script file finished

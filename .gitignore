@@ -38,3 +38,4 @@ FemDesign.Tests/Results/**/*.log
 !**/Assets/*.str
 !**/Assets/*.strFEM
 /FemDesign.Python/__pycache__
+/FemDesign.Python/test/__pycache__

@@ -49,8 +49,8 @@ class CombItem:
         return cls(Calc = False)
 
     def to_xml_element(self):
-        combitem = ET.Element("combitem")
-        combitem.attrib = {
+        comb_item = ET.Element("combitem")
+        comb_item.attrib = {
             "Calc": str(int(self.Calc)),
             "NLE": str(int(self.NLE)),
             "PL": str(int(self.PL)),
@@ -64,7 +64,7 @@ class CombItem:
             "ImpfRqd": str(self.ImpfRqd),
             "StabRqd": str(self.StabRqd),
         }
-        return combitem
+        return comb_item
 
 
 class Comb:
@@ -87,6 +87,9 @@ class Comb:
         self.CRstifferror = CRstifferror
         self.combitems = combitems or []
 
+    @classmethod
+    def Default(cls):
+        return cls()
 
     def to_xml_element(self) -> ET.Element:
         comb = ET.Element("comb")
@@ -112,6 +115,7 @@ class Comb:
         for combitem in self.combitems:
             comb.append(combitem.to_xml_element())
         return comb
+
 
 
 class Freq:
@@ -144,6 +148,9 @@ class Freq:
         }
         return freq
 
+    @classmethod
+    def Default(cls, num_shapes = 5, auto_iter = 0, max_sturm = 0, norm_unit  = ShapeNormalization.MassMatrix, x = True, y = True, z = True, top = -0.01):
+        return cls(num_shapes, auto_iter, max_sturm, norm_unit, x, y, z, top)
 
 class Footfall:
     def __init__(self, TopOfSubstructure : float = -0.01):
@@ -279,30 +286,29 @@ class Design:
         check_element.text = str(self.check).lower()
         return design
 
-
 class Analysis:
     def __init__(self,
                  calcCase : bool = True,
                  calcComb : bool = True,
-                 calcGmax : bool = True,
-                 calcStage : bool = True,
-                 calcImpf : bool = True,
-                 calcStab : bool = True,
-                 calcFreq : bool = True,
-                 calcSeis : bool = True,
-                 calcFootfall : bool = True,
-                 calcMovingLoad : bool = True,
-                 calcThGrounAcc : bool = True,
-                 calcThExforce : bool = True,
-                 calcPeriodicExc : bool = True,
-                 calcStoreyFreq : bool = True,
-                 calcBedding : bool = True,
-                 calcDesign : bool = True,
+                 calcGmax : bool = False,
+                 calcStage : bool = False,
+                 calcImpf : bool = False,
+                 calcStab : bool = False,
+                 calcFreq : bool = False,
+                 calcSeis : bool = False,
+                 calcFootfall : bool = False,
+                 calcMovingLoad : bool = False,
+                 calcThGrounAcc : bool = False,
+                 calcThExforce : bool = False,
+                 calcPeriodicExc : bool = False,
+                 calcStoreyFreq : bool = False,
+                 calcBedding : bool = False,
+                 calcDesign : bool = False,
                  elemfine : bool = True,
-                 diaphragm : bool = True,
-                 peaksmoothings : bool = True,
-                 stage : Stage = None,
+                 diaphragm : bool = False,
+                 peaksmoothings : bool = False,
                  comb : Comb = None,
+                 stage : Stage = None,
                  freq : Freq = None,
                  footfall : Footfall = None,
                  #bedding=None,
@@ -359,36 +365,37 @@ class Analysis:
             "calcStoreyFreq":   str(int(self.calcStoreyFreq)),
             "calcBedding":      str(int(self.calcBedding)),
             "calcDesign":       str(int(self.calcDesign)),
+
             "elemfine":         str(int(self.elemfine)),
             "diaphragm":        str(int(self.diaphragm)),
             "peaksmoothings":   str(int(self.peaksmoothings))
         }
 
-        if self.stage:
-            analysis.append(self.stage.to_xml_element())
         if self.comb:
             analysis.append(self.comb.to_xml_element())
+        if self.stage:
+            analysis.append(self.stage.to_xml_element())
         if self.freq:
             analysis.append(self.freq.to_xml_element())
         if self.footfall:
             analysis.append(self.footfall.to_xml_element())
-        # if self.bedding:
-        #     analysis.append(self.bedding.to_xml_element())
         if self.thgroundacc:
             analysis.append(self.thgroundacc.to_xml_element())
         if self.thexforce:
             analysis.append(self.thexforce.to_xml_element())
         if self.periodicexc:
             analysis.append(self.periodicexc.to_xml_element())
+        # if self.bedding:
+        #     analysis.append(self.bedding.to_xml_element())
 
         return analysis
     
     @classmethod
-    def StaticAnalysis(cls, comb : Comb, calcCase : bool = True, calcComb : bool = True):
+    def StaticAnalysis(cls, comb : Comb = Comb.Default(), calcCase : bool = True, calcComb : bool = True):
         return cls(calcCase = calcCase, calcComb = calcComb, comb = comb)
     
     @classmethod
-    def FrequencyAnalysis(cls, freq : Freq, calcFreq : bool = True):
+    def FrequencyAnalysis(cls, freq : Freq = Freq.Default(), calcFreq : bool = True):
         return cls(calcFreq = calcFreq, freq = freq)
     
     @classmethod

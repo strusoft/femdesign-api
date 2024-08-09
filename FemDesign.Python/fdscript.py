@@ -5,7 +5,7 @@ from command import Command
 
 class FdscriptHeader:
 
-    def __init__(self, title, version, module, log_file):
+    def __init__(self, log_file : str, title : str = "FEM-Design API", version : int = 2400, module : str = "SFRAME"):
         self.title = title
         self.version = str(version)
         self.module = module
@@ -42,7 +42,7 @@ class Fdscript:
         self.fdscriptheader = fdscriptheader
         self.commands = commands
 
-    def add_command(self, command):
+    def add_command(self, command : Command):
         self.commands.append(command)
 
     def to_xml_element(self) -> ET.Element:
@@ -56,7 +56,7 @@ class Fdscript:
 
         return fdscript
     
-    def serialise_to_file(self, file_name):
+    def serialise_to_file(self, file_name : str):
         fdscript = self.to_xml_element()
 
         tree = ET.ElementTree(fdscript)

@@ -169,3 +169,157 @@ t: 08/06 17.07.37.219
 cmdprojdescr:'$ MODULECOM PROJDESCR'
 t: 08/06 17.07.37.219
 Script file finished
+step: cmdopen
+t: 08/08 10.53.51.293
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/08 10.53.54.058
+step: cmdprojdescr
+t: 08/08 10.53.54.058
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/08 10.53.54.060
+step: cmdsave
+t: 08/08 10.53.54.061
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/08 10.53.54.236
+Script file finished
+step: cmdopen
+t: 08/08 10.59.07.220
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/08 10.59.09.625
+step: cmdprojdescr
+t: 08/08 10.59.09.625
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/08 10.59.09.625
+step: cmdsave
+t: 08/08 10.59.09.625
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/08 10.59.09.795
+Script file finished
+step: cmdopen
+t: 08/08 11.11.38.436
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/08 11.11.41.061
+step: cmdprojdescr
+t: 08/08 11.11.41.061
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/08 11.11.41.061
+step: cmdsave
+t: 08/08 11.11.41.061
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/08 11.11.41.258
+Script file finished
+step: cmdopen
+t: 08/08 11.14.33.545
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/08 11.14.35.795
+step: cmdprojdescr
+t: 08/08 11.14.35.795
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/08 11.14.35.803
+step: cmdsave
+t: 08/08 11.14.35.803
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/08 11.14.35.976
+Script file finished
+step: cmdopen
+t: 08/09 14.42.26.198
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/09 14.42.28.925
+step: cmdprojdescr
+t: 08/09 14.42.28.925
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/09 14.42.28.925
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/09 14.42.29.017
+cmdcalculation:'; CXL $MODULE CALC'
+At least one load combination has to be calculated.
+analysis
+t: 08/09 14.42.29.122
+aborting script execution
+Script file finished
+step: cmdopen
+t: 08/09 14.43.21.649
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/09 14.43.23.906
+step: cmdprojdescr
+t: 08/09 14.43.23.906
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/09 14.43.23.906
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/09 14.43.23.988
+cmdcalculation:'; CXL $MODULE CALC'
+At least one load combination has to be calculated.
+analysis
+t: 08/09 14.43.24.100
+aborting script execution
+Script file finished
+step: cmdopen
+t: 08/09 14.47.52.803
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/09 14.47.55.179
+step: cmdprojdescr
+t: 08/09 14.47.55.180
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/09 14.47.55.181
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/09 14.47.55.265
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/09 14.47.57.759
+step: cmdlistgen
+t: 08/09 14.47.57.760
+cmdlistgen:'; CXL $MODULE LISTGEN'
+invalid command
+
+t: 08/09 14.47.57.761
+aborting script execution
+Script file finished
+step: cmdopen
+t: 08/09 14.56.54.534
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/09 14.56.56.890
+step: cmdprojdescr
+t: 08/09 14.56.56.891
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/09 14.56.56.891
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/09 14.56.56.972
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/09 14.56.59.398
+step: cmdlistgen
+t: 08/09 14.56.59.399
+cmdlistgen:'$MODULE LISTGEN'
+step: cmdopen
+t: 08/09 14.58.45.582
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/09 14.58.47.879
+step: cmdprojdescr
+t: 08/09 14.58.47.880
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/09 14.58.47.881
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/09 14.58.47.964
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/09 14.58.50.323
+step: cmdlistgen
+t: 08/09 14.58.50.323
+cmdlistgen:'$ MODULECOM LISTGEN'
+Cannot load specified file. File is missing or damaged.
+error writing list file
+t: 08/09 14.58.50.330
+aborting script execution
+Script file finished
