@@ -9,7 +9,7 @@ class FdscriptHeader:
         self.title = title
         self.version = str(version)
         self.module = module
-        self.logfile = log_file
+        self.logfile = os.path.abspath(log_file)
 
 
     def to_xml_element(self) -> ET.Element:
@@ -38,8 +38,8 @@ class Fdscript:
         "xsi:noNamespaceSchemaLocation" : "fdscript.xsd"
         }
 
-    def __init__(self, fdscriptheader : FdscriptHeader, commands : list[Command] ):
-        self.fdscriptheader = fdscriptheader
+    def __init__(self, log_file : str, commands : list[Command] ):
+        self.fdscriptheader = FdscriptHeader(log_file)
         self.commands = commands
 
     def add_command(self, command : Command):

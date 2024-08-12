@@ -2,11 +2,12 @@ from fdpipe import FemDesignConnection, Verbosity
 from fdscript import *
 from analysis import *
 from command import *
+import pandas as pd
 
 def main():
-    fdscript_header = FdscriptHeader(r"C:\GitHub\femdesign-api\FemDesign.Python\example\x.log")
+    log = r"example\x.log"
 
-    cmd_open =  CmdOpen(r"C:\GitHub\femdesign-api\FemDesign.Python\example\simple_beam.str")
+    cmd_open =  CmdOpen(r"example\simple_beam.str")
     
     cmd_resmode = CmdUser(User.RESMODE)
 
@@ -15,19 +16,20 @@ def main():
     analysis = Analysis.StaticAnalysis(comb)
     cmd_analysis = CmdCalculation(analysis)
 
-    cmd_save = CmdSave(r"C:\GitHub\femdesign-api\FemDesign.Python\example\simple_beam_out.str")
+    cmd_save = CmdSave(r"example\simple_beam_out.str")
 
 
     # design = Design()
     # cmd_design = CmdCalculation(None, design)
 
-    cmd_list_gen = CmdListGen(r"C:\GitHub\femdesign-api\FemDesign.Python\example\nodal_displacement.bsc",
-                              r"C:\GitHub\femdesign-api\FemDesign.Python\example\nodal_displacement.csv")
+    cmd_list_gen = CmdListGen(r"example\nodal_displacement.bsc",
+                              r"example\nodal_displacement.csv")
 
     cmd_project = CmdProjDescr("Test project", "Test project description", "Test designer", "Test signature",
-                               "Test comment", {"a": "a_txt", "b": "b_txt"}, read = False, reset = False)
+                               "Test comment", {"a": "a_txt", "b": "b_txt"})
 
-    fdscript = Fdscript(fdscript_header, [cmd_open, cmd_project, cmd_resmode, cmd_analysis , cmd_list_gen, cmd_save])
+
+    fdscript = Fdscript(log, [cmd_open, cmd_project, cmd_resmode, cmd_analysis , cmd_list_gen, cmd_save])
 
 
     ## Usage example and unit test
@@ -38,11 +40,12 @@ def main():
             fdscript,
             file_name="script",
         )
-        pipe.Disconnect()
+
+        pipe.Detach()
     except Exception as err:
         pipe.KillProgramIfExists()
         raise err
 
-
+    
 if __name__ == "__main__":
     main()

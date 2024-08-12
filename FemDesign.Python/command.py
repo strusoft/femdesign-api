@@ -79,7 +79,7 @@ class CmdUser(Command):
 
 class CmdOpen(Command):
     def __init__(self, file_name : str):
-        self.file_name = file_name
+        self.file_name = os.path.abspath(file_name)
 
     def to_xml_element(self) -> ET.Element:
         cmd_open = ET.Element("cmdopen")
@@ -115,7 +115,7 @@ class CmdCalculation(Command):
 
 class CmdSave(Command):
     def __init__(self, file_name : str):
-        self.file_name = file_name
+        self.file_name = os.path.abspath(file_name)
 
     def to_xml_element(self) -> ET.Element:
         cmd_save = ET.Element("cmdsave")
@@ -175,8 +175,8 @@ class CmdProjDescr(Command):
     
 class CmdListGen:
     def __init__(self, bscfile : str, outfile : str, guids : list[uuid.UUID] = None, regional : bool = True, fillcells : bool = True, headers : bool = True):
-        self.bscfile = bscfile
-        self.outfile = outfile
+        self.bscfile = os.path.abspath(bscfile)
+        self.outfile = os.path.abspath(outfile)
         self.regional = regional
         self.fillcells = fillcells
         self.headers = headers
@@ -202,3 +202,4 @@ class CmdListGen:
                 guid_elem.text = str(guid)
 
         return cmd_listgen
+

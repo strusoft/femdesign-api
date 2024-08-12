@@ -97,6 +97,11 @@ def GetElapsedTime(start_time):
 
 
 class _FdConnect:
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.Detach()
+        self.ClosePipe()
+
     def __init__(self, pipe_name="FdPipe1"):
         """
         Creating fd pipe
@@ -136,16 +141,16 @@ class _FdConnect:
         raise TimeoutError(f"Program not connected in {timeout} second")
 
     def Start(self, fd_path, timeout=60):
-        '''
+        """
         Start and connect of fem-design with specified path
-        '''
+        """
         self.process = subprocess.Popen([fd_path, "/p", self.pipe_name])
         self._ConnectPipe(timeout=timeout)
 
     def _Read(self):
-        '''
+        """
         Read one message if exists
-        '''
+        """
         try:
             return win32file.ReadFile(self.pipe_read, 4096)[1].decode()
         except Exception as err:
@@ -157,9 +162,9 @@ class _FdConnect:
                 raise err
 
     def ReadAll(self):
-        '''
+        """
         Read all existing message
-        '''
+        """
         results = []
         while True:
             result = self._Read()
@@ -169,15 +174,15 @@ class _FdConnect:
             self._log_message_history.append(result)
 
     def GetLogMessageHistory(self):
-        '''
+        """
         Return all collected message
-        '''
+        """
         return self._log_message_history
 
     def Send(self, message):
-        '''
+        """
         Send one message
-        '''
+        """
         try:
             win32file.WriteFile(self.pipe_send, message.encode())
         except Exception as err:
@@ -187,9 +192,9 @@ class _FdConnect:
                 raise err
 
     def SendAndReceive(self, message, timeout=None):
-        '''
+        """
         Complete workflow of send message and receive answer until timeout
-        '''
+        """
         self.Send(message)
         start_time = self.start_time or datetime.now()
         while timeout == None or GetElapsedTime(start_time) <= timeout:
@@ -200,13 +205,13 @@ class _FdConnect:
         raise TimeoutError(f"Program not responding after {timeout} second")
 
     def Stat(self, timeout=None):
-        '''
+        """
         Return queueand processing status
-        '''
+        """
         return self.SendAndReceive("stat", timeout=timeout)
 
     def LogLevel(self, n):
-        '''
+        """
         Set log level
             verbosity control (bits)
                1: enable basic output
@@ -218,13 +223,13 @@ class _FdConnect:
 
               echo and stat always cretes output, otherwise nothing is written aT V = 0
               * not yet supported
-        '''
+        """
         return self.Send(f"v {n}")
 
     def RunScript(self, path, timeout=None):
-        '''
+        """
         Execute script as from tools / run script menu
-        '''
+        """
         self.Send(f"runUTF8 {path}")
         self.start_time = datetime.now()
         while timeout == None or GetElapsedTime(self.start_time) <= timeout:
@@ -235,40 +240,43 @@ class _FdConnect:
         raise TimeoutError(f"Too long script run time after {timeout} second")
 
     def Cmd(self, cmd_text):
-        '''
+        """
         Execute command as if typed into the command window -- No warranty!!!
-        '''
+        """
         self.Send(f"cmdUTF8 {cmd_text}")
 
     def Esc(self):
-        '''
+        """
         Press Escape during calculation to break it
-        '''
+        """
         self.Send("esc")
 
     def Exit(self):
-        '''
+        """
         Close fem-design
-        '''
+        """
         self.Send("exit")
 
     def Detach(self):
-        '''
-        Close pipe and continue in normal interface mode
-        '''
+        """
+        Disconnect from pipe and close it. You can't reattach to fem-design.
+        It must be outside of KillProgramIfExists scope.
+        """
         self.Send("detach")
+        sleep(2)
+        self.ClosePipe()
 
     def ClosePipe(self):
-        '''
+        """
         Regular closing of fd pipe
-        '''
+        """
         win32file.CloseHandle(self.pipe_send)
         win32file.CloseHandle(self.pipe_read)
 
     def KillProgramIfExists(self):
-        '''
+        """
         Kill program if exists
-        '''
+        """
         if not (self.process.poll()):
             try:
                 self.process.kill()
@@ -290,31 +298,86 @@ class Verbosity(Enum):
 
 class FemDesignConnection(_FdConnect):
     def __init__(self,
-                 fd_path : str = r"C:\Program Files\StruSoft\FEM-Design 23\fd3dstruct.exe", pipe_name : str ="FdPipe1",
-                 verbose : Verbosity = Verbosity.SCRIPT_LOG_LINES):
+                 fd_path : str = r"C:\Program Files\StruSoft\FEM-Design 23\fd3dstruct.exe",
+                 pipe_name : str ="FdPipe1",
+                 verbose : Verbosity = Verbosity.SCRIPT_LOG_LINES,
+                 output_dir : str = None,
+                 minimized : bool = False,):
         super().__init__(pipe_name)
+
+        self._output_dir = output_dir
+
+        os.environ["FD_NOLOGO"] = "1"
+
+        if minimized:
+            os.environ["FD_NOGUI"] = "1"
+        
         self.Start(fd_path)
         self.LogLevel(verbose)
 
-        self._output_dir = None
-        self._output_dirs_to_be_deleted = [] # Uncomment if you need this functionality
+
+    @property
+    def output_dir(self):
+        if self._output_dir == None:
+            return os.path.join(os.getcwd(), "FEM-Design API")
+        else:
+            return os.path.abspath(self._output_dir)
+    
+    @output_dir.setter
+    def output_dir(self, value):
+        self._output_dir = os.path.abspath(value)
+        if not os.path.exists(value):
+            os.makedirs(os.path.abspath(value))
+
+
 
     def RunScript(self, fdscript : Fdscript, file_name : str = "script"):
+        path = os.path.join(self.output_dir, f"{file_name}.fdscript")
 
-        path = rf"C:\GitHub\femdesign-api\FemDesign.Python\example\{file_name}.fdscript"
         fdscript.serialise_to_file(path)
         super().RunScript(path)
 
     def RunAnalysis(self, analysis : analysis.Analysis):
         
-        header = FdscriptHeader(r"C:\GitHub\femdesign-api\FemDesign.Python\example\x.log")
+        log = os.path.join(self.output_dir, "log.log")
 
-        fdscript = Fdscript(header, [CmdUser.ResMode(), analysis])
-        self.RunScript(fdscript)
+        fdscript = Fdscript(log, [CmdUser.ResMode(), analysis])
+        self.RunScript(fdscript, "analysis")
+
+    def RunDesign(self, design : analysis.Design):
+        log = os.path.join(self.output_dir, "log.log")
+
+
+        fdscript = Fdscript(log, [CmdUser.ResMode(), design])
+        self.RunScript(fdscript, "design")
+    
+    def SetProjectDescription(self, project_description : str, project_name : str, designer : str, signature : str, comment : str, additional_info : dict):
+        log = os.path.join(self.output_dir, "log.log")
+
+
+        cmd_project = CmdProjDescr(project_name, project_description, designer, signature, comment, additional_info)
+        fdscript = Fdscript(log, [cmd_project])
+        self.RunScript(fdscript, "project_description")
+
+    def Save(self, file_name : str):
+        cmd_save = CmdSave(file_name)
+        log = os.path.join(self.output_dir, "log.log")
+
+
+        fdscript = Fdscript(log, [cmd_save])
+        self.RunScript(fdscript, "save")
+
+    def Open(self, file_name : str):
+        cmd_open = CmdOpen(file_name)
+        log = os.path.join(self.output_dir, "log.log")
+
+        fdscript = Fdscript(log, [cmd_open])
+        self.RunScript(fdscript, "open")
 
     def SetVerbosity(self, verbosity : Verbosity):
         super().LogLevel(verbosity.value)
 
+    ## it does not work
     def Disconnect(self):
         super().Detach()
         win32pipe.DisconnectNamedPipe(self.pipe_send)
