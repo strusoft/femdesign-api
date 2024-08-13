@@ -4,7 +4,9 @@ import xml.etree.ElementTree as ET
 from command import Command
 
 class FdscriptHeader:
-
+    """
+    Class to represent the header of a FEM-Design script file
+    """
     def __init__(self, log_file : str, title : str = "FEM-Design API", version : int = 2400, module : str = "SFRAME"):
         self.title = title
         self.version = str(version)
@@ -13,6 +15,11 @@ class FdscriptHeader:
 
 
     def to_xml_element(self) -> ET.Element:
+        """Convert the FdscriptHeader object to an xml element
+
+        Returns:
+            ET.Element: xml element representing the FdscriptHeader object
+        """
         fdscript_header = ET.Element("fdscriptheader")
         
         title_elem = ET.SubElement(fdscript_header, "title")
@@ -32,7 +39,9 @@ class FdscriptHeader:
 
 
 class Fdscript:
-
+    """
+    Class to represent a FEM-Design script file
+    """
     attributes = {
         "xmlns:xsi" : "http://www.w3.org/2001/XMLSchema-instance",
         "xsi:noNamespaceSchemaLocation" : "fdscript.xsd"
@@ -43,9 +52,19 @@ class Fdscript:
         self.commands = commands
 
     def add_command(self, command : Command):
+        """Add a command to the Fdscript object
+
+        Args:
+            command (Command): Command object to add to the Fdscript object
+        """
         self.commands.append(command)
 
     def to_xml_element(self) -> ET.Element:
+        """Convert the Fdscript object to an xml element
+
+        Returns:
+            ET.Element: xml element representing the Fdscript object
+        """
         fdscript = ET.Element("fdscript")
         fdscript.attrib = self.attributes
 
@@ -57,7 +76,12 @@ class Fdscript:
         return fdscript
     
     def serialise_to_file(self, file_name : str):
+        """Serialise the Fdscript object to a file
+
+        Args:
+            file_name (str): file name to save the fdscript to
+        """
         fdscript = self.to_xml_element()
 
         tree = ET.ElementTree(fdscript)
-        tree.write(file_name)
+        tree.write(file_name, encoding="utf-8")

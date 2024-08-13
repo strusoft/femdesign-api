@@ -4,8 +4,13 @@ import xml.etree.ElementTree as ET
 
 
 class Stage:
-
+    """
+    Class to represent a stage in FEM-Design
+    """
     class Method(Enum):
+        """
+        Enum to represent the calculation method of the construction stage
+        """
         TRACKING = 0
         GHOST = 1
 
@@ -15,6 +20,11 @@ class Stage:
         self.creepincrementlimit = creepincrementlimit
 
     def to_xml_element(self) -> ET.Element:
+        """Convert the Stage object to an xml element
+
+        Returns:
+            ET.Element: xml element representing the Stage object
+        """
         stage = ET.Element("stage")
         stage.attrib = {
             "ghost": str(self.method.value),
@@ -119,8 +129,13 @@ class Comb:
 
 
 class Freq:
-
+    """
+    Class to represent the frequency analysis settings
+    """
     class ShapeNormalization(Enum):
+        """
+        Enum to represent the normalization unit of the shape
+        """
         MassMatrix = 0
         Unit = 1
 
@@ -134,15 +149,20 @@ class Freq:
         self.Z = z
         self.top = top
 
-    def to_xml_element(self):
+    def to_xml_element(self) -> ET.Element:
+        """ Convert the Freq object to an xml element
+
+        Returns:
+            ET.Element: xml element representing the Freq object
+        """
         freq = ET.Element("freq")
         freq.attrib = {
             "Numshapes": str(self.Numshapes),
             "MaxSturm": str(self.MaxSturm),
             "NormUnit": str(self.NormUnit.value),
-            "X": str(self.X),
-            "Y": str(self.Y),
-            "Z": str(self.Z),
+            "X": str(int(self.X)),
+            "Y": str(int(self.Y)),
+            "Z": str(int(self.Z)),
             "top": str(self.top),
             "AutoIter": str(self.AutoIter)
         }
@@ -257,11 +277,6 @@ class PeriodicExc:
         }
         return periodicexc
 
-# <design>
-# 	<cmax />
-# 	<autodesign>true</autodesign>
-# <check>true</check>
-# </design>
 
 class Design:
     def __init__(self, autodesign : bool = True, check : bool = True, load_combination : bool = True):
@@ -288,8 +303,8 @@ class Design:
 
 class Analysis:
     def __init__(self,
-                 calcCase : bool = True,
-                 calcComb : bool = True,
+                 calcCase : bool = False,
+                 calcComb : bool = False,
                  calcGmax : bool = False,
                  calcStage : bool = False,
                  calcImpf : bool = False,
@@ -391,12 +406,13 @@ class Analysis:
         return analysis
     
     @classmethod
-    def StaticAnalysis(cls, comb : Comb = Comb.Default(), calcCase : bool = True, calcComb : bool = True):
-        return cls(calcCase = calcCase, calcComb = calcComb, comb = comb)
+    def StaticAnalysis(cls, comb : Comb = Comb.Default(), calcComb : bool = True):
+        return cls(calcCase = True, calcComb = calcComb, comb = comb)
     
     @classmethod
-    def FrequencyAnalysis(cls, freq : Freq = Freq.Default(), calcFreq : bool = True):
-        return cls(calcFreq = calcFreq, freq = freq)
+    def FrequencyAnalysis(cls, num_shapes : int = 5, auto_iter : int = 0, max_sturm : int = 0, norm_unit : Freq.ShapeNormalization  = Freq.ShapeNormalization.MassMatrix, x : bool = True, y : bool = True, z : bool = True, top : bool = -0.01):
+        freq = Freq(num_shapes, auto_iter, max_sturm, norm_unit, x, y, z, top)
+        return cls(calcFreq = True, freq = freq)
     
     @classmethod
     def FootfallAnalysis(cls, footfall : Footfall, calcFootfall : bool = True):

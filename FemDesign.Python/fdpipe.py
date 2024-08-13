@@ -2,6 +2,8 @@ import subprocess
 from datetime import datetime
 from time import sleep
 
+from filehelper import OutputFileHelper
+
 from enum import Enum
 
 import win32file
@@ -315,7 +317,6 @@ class FemDesignConnection(_FdConnect):
         self.Start(fd_path)
         self.LogLevel(verbose)
 
-
     @property
     def output_dir(self):
         if self._output_dir == None:
@@ -329,53 +330,105 @@ class FemDesignConnection(_FdConnect):
         if not os.path.exists(value):
             os.makedirs(os.path.abspath(value))
 
-
-
     def RunScript(self, fdscript : Fdscript, file_name : str = "script"):
-        path = os.path.join(self.output_dir, f"{file_name}.fdscript")
+        """
+
+        Args:
+            fdscript (Fdscript): fdscript object to run
+            file_name (str, optional): file name to save the script. Defaults to "script".
+        """
+        path = OutputFileHelper.GetFdscriptFilePath(self.output_dir, file_name)
+
 
         fdscript.serialise_to_file(path)
         super().RunScript(path)
 
     def RunAnalysis(self, analysis : analysis.Analysis):
-        
-        log = os.path.join(self.output_dir, "log.log")
+        """Run analysis
 
-        fdscript = Fdscript(log, [CmdUser.ResMode(), analysis])
+        Args:
+            analysis (analysis.Analysis): analysis object
+        """
+        log = OutputFileHelper.GetLogFilePath(self.output_dir)
+
+        fdscript = Fdscript(log, [CmdUser.ResMode(), CmdCalculation(analysis)])
         self.RunScript(fdscript, "analysis")
 
-    def RunDesign(self, design : analysis.Design):
-        log = os.path.join(self.output_dir, "log.log")
+    def RunDesign(self, designMode : DesignModule  ,design : analysis.Design):
+        """Run design
 
+        Args:
+            designMode (DesignModule): design module
+            design (analysis.Design): design object
+        """
+        log = OutputFileHelper.GetLogFilePath(self.output_dir)
 
-        fdscript = Fdscript(log, [CmdUser.ResMode(), design])
+        fdscript = Fdscript(log, [CmdUser(designMode.to_user()), CmdCalculation(design)])
         self.RunScript(fdscript, "design")
     
-    def SetProjectDescription(self, project_description : str, project_name : str, designer : str, signature : str, comment : str, additional_info : dict):
-        log = os.path.join(self.output_dir, "log.log")
+    def SetProjectDescription(self, project_name : str = "", project_description : str = "", designer : str = "", signature : str = "", comment : str = "", item : dict = None, read : bool = False, reset : bool = False):
+        """Set project description
 
+        Args:
+            project_name (str): project name
+            project_description (str): project description
+            designer (str): designer
+            signature (str): signature
+            comment (str): comment
+            additional_info (dict): define key-value user data. Defaults to None.
+            read (bool, optional): read the project settings. Value will be store in the clipboard. Defaults to False.
+            reset (bool, optional): reset the project settings. Defaults to False.
+        """
+        log = OutputFileHelper.GetLogFilePath(self.output_dir)
 
-        cmd_project = CmdProjDescr(project_name, project_description, designer, signature, comment, additional_info)
+        cmd_project = CmdProjDescr(project_name, project_description, designer, signature, comment, item, read, reset)
         fdscript = Fdscript(log, [cmd_project])
         self.RunScript(fdscript, "project_description")
 
     def Save(self, file_name : str):
-        cmd_save = CmdSave(file_name)
-        log = os.path.join(self.output_dir, "log.log")
+        """Save the project
 
+        Args:
+            file_name (str): name of the file to save
+        """
+        log = OutputFileHelper.GetLogFilePath(self.output_dir)
+
+        cmd_save = CmdSave(file_name)
 
         fdscript = Fdscript(log, [cmd_save])
         self.RunScript(fdscript, "save")
 
     def Open(self, file_name : str):
-        cmd_open = CmdOpen(file_name)
-        log = os.path.join(self.output_dir, "log.log")
+        """Open a model from file
 
+        Args:
+            file_name (str): file path to open
+
+        Raises:
+            ValueError: extension must be .struxml or .str
+            FileNotFoundError: file not found
+        """
+        log = OutputFileHelper.GetLogFilePath(self.output_dir)
+
+        if not file_name.endswith(".struxml") and not file_name.endswith(".str"):
+            raise ValueError(f"File {file_name} must have extension .struxml or .str")
+        if not os.path.exists(file_name):
+            raise FileNotFoundError(f"File {file_name} not found")
+
+        cmd_open = CmdOpen(file_name)
         fdscript = Fdscript(log, [cmd_open])
         self.RunScript(fdscript, "open")
 
     def SetVerbosity(self, verbosity : Verbosity):
         super().LogLevel(verbosity.value)
+
+    def GenerateListTables(self, bsc_file : str, csv_file : str = None):
+        log = OutputFileHelper.GetLogFilePath(self.output_dir)
+
+        cmd_results = CmdListGen(bsc_file, csv_file)
+        fdscript = Fdscript(log, [cmd_results])
+        self.RunScript(fdscript, "generate_list_tables")
+        
 
     ## it does not work
     def Disconnect(self):

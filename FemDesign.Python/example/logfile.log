@@ -1,0 +1,108 @@
+step: cmdopen
+t: 08/13 16.12.56.236
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/13 16.12.58.787
+Script file finished
+step: cmdprojdescr
+t: 08/13 16.13.47.850
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/13 16.13.47.852
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: analysis
+t: 08/13 16.14.07.035
+analysis:''
+invalid command
+
+t: 08/13 16.14.07.036
+aborting script execution
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: analysis
+t: 08/13 16.14.17.528
+analysis:''
+invalid command
+
+t: 08/13 16.14.17.529
+aborting script execution
+Script file finished
+step: cmdsave
+t: 08/13 16.14.49.117
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/13 16.14.49.290
+Script file finished
+step: cmdsave
+t: 08/13 16.15.02.801
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/13 16.15.02.984
+Script file finished
+step: cmdopen
+t: 08/13 16.39.08.280
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/13 16.39.10.822
+Script file finished
+step: cmdprojdescr
+t: 08/13 16.39.12.755
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/13 16.39.12.756
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/13 16.39.15.903
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/13 16.39.18.515
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/13 16.39.27.854
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/13 16.39.29.996
+Script file finished
+step: cmdopen
+t: 08/13 16.56.43.920
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/13 16.56.46.333
+Script file finished
+step: cmdprojdescr
+t: 08/13 16.56.47.550
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/13 16.56.47.551
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/13 16.56.49.256
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/13 16.56.51.870
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/13 16.56.57.930
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/13 16.57.00.073
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE STEELDESIGN'
+step: cmdcalculation
+t: 08/13 16.57.25.798
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/13 16.57.26.275
+Script file finished
+step: cmdsave
+t: 08/13 16.57.27.989
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/13 16.57.28.228
+Script file finished
+step: cmdsave
+t: 08/13 16.57.29.618
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/13 16.57.29.843
+Script file finished
