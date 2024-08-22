@@ -48257,7 +48257,7 @@ namespace StruSoft.Interop.StruXml.Data
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("crosssectional_area")]
+        [System.Xml.Serialization.XmlAttributeAttribute("cross-sectional_area")]
         public double Crosssectional_area
         {
             get
