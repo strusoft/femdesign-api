@@ -126,6 +126,22 @@ namespace FemDesign
         {
             return RestrictedDouble.ValueInClosedInterval(val, 0, 10);
         }
+        
+        /// <summary>
+        /// non_zero_max_10_1
+        /// </summary>
+        internal static double NonZeroMax_10_1(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 0.02, 10);
+        }
+
+        /// <summary>
+        /// non_zero_max_10_1
+        /// </summary>
+        internal static double NonZeroMax_10_2(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 0.03, 10);
+        }
 
         /// <summary>
         /// non_neg_max_10
