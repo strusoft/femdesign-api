@@ -173,8 +173,10 @@ namespace FemDesign.Geometry
 
             for(int j = 0; j < points.Count; j++)
             {
-                bool IsOnPlane = (a * points[j].X + b * points[j].Y + c * points[j].Z + d) == 0;
-                if (IsOnPlane == true)
+                double IsOnPlane = a * points[j].X + b * points[j].Y + c * points[j].Z + d;
+
+                // check is IsOnPlane is within tolerance
+                if (Math.Abs(IsOnPlane) <= Tolerance.LengthComparison)
                     continue;
                 else
                     return false;
