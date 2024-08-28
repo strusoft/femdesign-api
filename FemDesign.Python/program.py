@@ -3,6 +3,8 @@ from fdscript import *
 from analysis import *
 from command import *
 import pandas as pd
+from database import Database
+import xml.etree.ElementTree as ET
 
 def main():
     log = r"example\x.log"
@@ -52,6 +54,22 @@ def main():
         pipe.KillProgramIfExists()
         raise err
 
+def model():
+    database = Database(r"example\simple_beam.struxml")
+    materials = database.materials
+    sections = database.sections
+    entities = database.entities
+
+    bars = database.bars
+
+    print( database.source_software )
+    print( database.country )
+    print( database.eurocode )
+
+    print("finished!")
+
+
     
 if __name__ == "__main__":
-    main()
+    #main()
+    model()

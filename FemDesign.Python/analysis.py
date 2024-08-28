@@ -404,7 +404,7 @@ class Analysis:
         #     analysis.append(self.bedding.to_xml_element())
 
         return analysis
-    
+
     @classmethod
     def StaticAnalysis(cls, comb : Comb = Comb.Default(), calcComb : bool = True):
         return cls(calcCase = True, calcComb = calcComb, comb = comb)
