@@ -120,6 +120,14 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// non_neg_max_5
+        /// </summary>
+        internal static double NonNegMax_5(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 5);
+        }
+
+        /// <summary>
         /// non_neg_max_10
         /// </summary>
         internal static double NonNegMax_10(double val)
@@ -128,7 +136,7 @@ namespace FemDesign
         }
 
         /// <summary>
-        /// non_neg_max_10
+        /// non_neg_max_20
         /// </summary>
         internal static double NonNegMax_20(double val)
         {

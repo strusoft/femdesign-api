@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("GlobalCfg", "GlobalCfg", "Filepath of the global configuration file. If file path is not provided, the component will read the cmdglobalcfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
+            pManager.AddTextParameter("GlobalConfig", "GlobCfg", "Filepath of the global configuration file or GlobConfig objects.\nIf file path is not provided, the component will read the cmdglobalcfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -33,7 +33,7 @@ namespace FemDesign.Grasshopper
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_Config;
-        public override Guid ComponentGuid => new Guid("{58B5D154-A7AB-4D05-878D-010BF05EA7D6}");
+        public override Guid ComponentGuid => new Guid("{FDEDD8F7-99CC-48F0-8FF8-2946921DC9F6}");
         public override GH_Exposure Exposure => GH_Exposure.obscure;
     }
 
@@ -41,7 +41,7 @@ namespace FemDesign.Grasshopper
     {
         /* INPUT/OUTPUT */
         private FemDesignConnection _connection = null;
-        private string _globalCfgPath = null;
+        private List<dynamic> _globCfg = new List<dynamic>();
         private bool _runNode = true;
         private bool _success = false;
 
@@ -79,15 +79,43 @@ namespace FemDesign.Grasshopper
                 return;
             }
 
+
             // Run the Analysis
 
-            if (_globalCfgPath == null)
+            if (_globCfg.Count == 0)
             {
                 string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-                _globalCfgPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cmdglobalcfg.xml");
+                var _globCfgfilePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cmdglobalcfg.xml");
+                _connection.SetConfig(_globCfgfilePath);
+            }
+            else if(_globCfg.Count == 1)
+            {
+                if (_globCfg[0].Value is string filePath)
+                {
+                    _connection.SetGlobalConfig(filePath);
+                }
+                else if (_globCfg[0].Value is FemDesign.Calculate.GlobConfig globConfig)
+                {
+                    List<Calculate.GlobConfig> globCfg = new List<Calculate.GlobConfig> { _globCfg[0].Value };
+                    _connection.SetGlobalConfig(new Calculate.CmdGlobalCfg(globCfg));
+                }
+                else
+                {
+                    throw new ArgumentException("The input must be a string item (filepath) or a list of `GlobConfig` objects!");
+                }
+            }
+            else
+            {
+                List<Calculate.GlobConfig> globCfg = new List<Calculate.GlobConfig>();
+                foreach (var item in _globCfg)
+                {
+                    globCfg.Add((Calculate.GlobConfig)item.Value);
+                }
+
+                _connection.SetGlobalConfig(new Calculate.CmdGlobalCfg(globCfg));
             }
 
-            _connection.SetGlobalConfig(_globalCfgPath);
+
             _success = true;
 
             Done();
@@ -98,7 +126,7 @@ namespace FemDesign.Grasshopper
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            DA.GetData("GlobalCfg", ref _globalCfgPath);
+            DA.GetDataList("GlobalConfig", _globCfg);
             DA.GetData("RunNode", ref _runNode);
         }
 
