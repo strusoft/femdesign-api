@@ -263,6 +263,16 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Set global settings for a FEM-Design model.
+        /// </summary>
+        /// <param name="globConfig">Can be any type of configuration from CmdGlobalCfg (e.g. MeshGeneral, MeshSettings, Meshfunctions, etc.). See the properties of Calculate.CmdGlobalCfg class.</param>
+        public void SetGlobalConfig(params Calculate.GlobConfig[] globConfig)
+        {
+            var cmd = new CmdGlobalCfg(globConfig);
+            this.SetGlobalConfig(cmd);
+        }
+
+        /// <summary>
         /// Set global settings for a FEM-Design model using a global configuration file.
         /// </summary>
         /// <param name="filepath">Filepath of the global configuration file.</param>

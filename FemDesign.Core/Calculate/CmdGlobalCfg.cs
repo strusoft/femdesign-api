@@ -58,15 +58,25 @@ namespace FemDesign.Calculate
             this.SoilCalculation = soilCalculation;
         }
 
+        public CmdGlobalCfg(params GlobConfig[] globConfigs)
+        {
+            this.Initialize(globConfigs.ToList());
+        }
+
         public CmdGlobalCfg(List<GlobConfig> globConfigs)
         {
-            this.MeshGeneral = MeshGeneral.Default();
-            this.MeshElements = MeshElements.Default();
-            this.Meshfunctions = MeshFunctions.Default();
-            this.MeshPrepare = MeshPrepare.Default();
-            this.PeaksmMethod = PeaksmMethod.Default();
-            this.PeaksmAuto = PeaksmAuto.Default();
-            this.SoilCalculation = SoilCalculation.Default();
+            this.Initialize(globConfigs);
+        }
+
+        private void Initialize(List<GlobConfig> globConfigs)
+        {
+            //this.MeshGeneral = MeshGeneral.Default();
+            //this.MeshElements = MeshElements.Default();
+            //this.Meshfunctions = MeshFunctions.Default();
+            //this.MeshPrepare = MeshPrepare.Default();
+            //this.PeaksmMethod = PeaksmMethod.Default();
+            //this.PeaksmAuto = PeaksmAuto.Default();
+            //this.SoilCalculation = SoilCalculation.Default();
 
             List<string> types = new List<string>();
             foreach (var config in globConfigs)
@@ -82,7 +92,7 @@ namespace FemDesign.Calculate
                         break;
                     case nameof(Calculate.MeshElements):
                         this.MeshElements = (MeshElements)config;
-                        break ;
+                        break;
                     case nameof(Calculate.MeshFunctions):
                         this.Meshfunctions = (MeshFunctions)config;
                         break;
@@ -100,7 +110,7 @@ namespace FemDesign.Calculate
                         break;
                     case null:
                         throw new ArgumentNullException("Input has null elements!");
-                    default: 
+                    default:
                         throw new ArgumentException($"Input has elemets with invalid type! Valid types are: {nameof(Calculate.SoilCalculation)}, {nameof(Calculate.MeshGeneral)}, {nameof(Calculate.MeshElements)}, " +
                             $"{nameof(Calculate.MeshFunctions)}, {nameof(Calculate.MeshPrepare)}, {nameof(Calculate.PeaksmMethod)}, {nameof(Calculate.PeaksmAuto)}");
                 }
@@ -906,13 +916,6 @@ namespace FemDesign.Calculate
     /// <summary>
     /// Base class for all GlobalConfigs that can be use for CmdGlobalCfg
     /// </summary>
-    [XmlInclude(typeof(MeshGeneral))]
-    [XmlInclude(typeof(MeshElements))]
-    [XmlInclude(typeof(MeshFunctions))]
-    [XmlInclude(typeof(MeshPrepare))]
-    [XmlInclude(typeof(PeaksmMethod))]
-    [XmlInclude(typeof(PeaksmAuto))]
-    [XmlInclude(typeof(SoilCalculation))]
     public abstract class GlobConfig
     {
         public override string ToString()

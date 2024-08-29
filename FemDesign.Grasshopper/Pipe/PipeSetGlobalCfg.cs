@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddTextParameter("GlobalConfig", "GlobCfg", "Filepath of the global configuration file or GlobConfig objects.\nIf file path is not provided, the component will read the cmdglobalcfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.list);
+            pManager.AddGenericParameter("GlobalConfig", "GlobCfg", "Filepath of the global configuration file or GlobConfig objects.\nIf file path is not provided, the component will read the cmdglobalcfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -88,32 +88,48 @@ namespace FemDesign.Grasshopper
                 var _globCfgfilePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cmdglobalcfg.xml");
                 _connection.SetConfig(_globCfgfilePath);
             }
-            else if(_globCfg.Count == 1)
-            {
-                if (_globCfg[0].Value is string filePath)
-                {
-                    _connection.SetGlobalConfig(filePath);
-                }
-                else if (_globCfg[0].Value is FemDesign.Calculate.GlobConfig globConfig)
-                {
-                    List<Calculate.GlobConfig> globCfg = new List<Calculate.GlobConfig> { _globCfg[0].Value };
-                    _connection.SetGlobalConfig(new Calculate.CmdGlobalCfg(globCfg));
-                }
-                else
-                {
-                    throw new ArgumentException("The input must be a string item (filepath) or a list of `GlobConfig` objects!");
-                }
-            }
             else
             {
-                List<Calculate.GlobConfig> globCfg = new List<Calculate.GlobConfig>();
-                foreach (var item in _globCfg)
+                foreach (var config in _globCfg)
                 {
-                    globCfg.Add((Calculate.GlobConfig)item.Value);
+                    // Check if the value is a string
+                    if (config.Value is string filePath)
+                    {
+                        _connection.SetConfig(filePath);
+                    }
+                    // Check if the value is of type FemDesign.Calculate.CONFIG
+                    else if (config.Value is FemDesign.Calculate.GlobConfig globConfig)
+                    {
+                        _connection.SetGlobalConfig(globConfig);
+                    }
                 }
-
-                _connection.SetGlobalConfig(new Calculate.CmdGlobalCfg(globCfg));
             }
+            //else if(_globCfg.Count == 1)
+            //{
+            //    if (_globCfg[0].Value is string filePath)
+            //    {
+            //        _connection.SetGlobalConfig(filePath);
+            //    }
+            //    else if (_globCfg[0].Value is FemDesign.Calculate.GlobConfig globConfig)
+            //    {
+            //        List<Calculate.GlobConfig> globCfg = new List<Calculate.GlobConfig> { _globCfg[0].Value };
+            //        _connection.SetGlobalConfig(new Calculate.CmdGlobalCfg(globCfg));
+            //    }
+            //    else
+            //    {
+            //        throw new ArgumentException("The input must be a string item (filepath) or a list of `GlobConfig` objects!");
+            //    }
+            //}
+            //else
+            //{
+            //    List<Calculate.GlobConfig> globCfg = new List<Calculate.GlobConfig>();
+            //    foreach (var item in _globCfg)
+            //    {
+            //        globCfg.Add((Calculate.GlobConfig)item.Value);
+            //    }
+
+            //    _connection.SetGlobalConfig(new Calculate.CmdGlobalCfg(globCfg));
+            //}
 
 
             _success = true;
