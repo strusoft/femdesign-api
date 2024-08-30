@@ -220,10 +220,24 @@ namespace FemDesign.Calculate
         }
 
         [XmlAttribute("sDefaultDivision")]
-        public int DefaultDivision { get; set; }
+        public int _defaultDivision;
+
+        [XmlIgnore]
+        public int DefaultDivision 
+        {
+            get => _defaultDivision;
+            set => _defaultDivision = RestrictedInteger.DefaultBarElemDiv(value);
+        }
 
         [XmlAttribute("rDefaultAngle")]
-        public double DefaultAngle { get; set; }
+        public double _defaultAngle;
+
+        [XmlIgnore]
+        public double DefaultAngle
+        {
+            get => _defaultAngle;
+            set => _defaultAngle = RestrictedDouble.NonNegMax_90(value);
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization.
@@ -285,7 +299,14 @@ namespace FemDesign.Calculate
         }
 
         [XmlAttribute("sSmoothStepNum")]
-        public int SmoothStepNum { get; set; }
+        public int _smoothStepNum;
+
+        [XmlIgnore]
+        public int SmoothStepNum
+        {
+            get => _smoothStepNum;
+            set => _smoothStepNum = RestrictedInteger.MeshSmoothSteps(value);
+        }
 
         [XmlAttribute("fCheckMeshGeom")]
         public int _checkMeshGeom;
@@ -298,13 +319,34 @@ namespace FemDesign.Calculate
         }
 
         [XmlAttribute("rCheckGeomMinAngle")]
-        public double CheckGeomMinAngle { get; set; }
+        public double _checkGeomMinAngle;
+
+        [XmlIgnore]
+        public double CheckGeomMinAngle
+        {
+            get => _checkGeomMinAngle;
+            set => _checkGeomMinAngle = RestrictedDouble.NonNegMax_90(value);
+        }
 
         [XmlAttribute("rCheckGeomMaxAngle")]
-        public double CheckGeomMaxAngle { get; set; }
+        public double _checkGeomMaxAngle;
+
+        [XmlIgnore]
+        public double CheckGeomMaxAngle
+        {
+            get => _checkGeomMaxAngle;
+            set => _checkGeomMaxAngle = RestrictedDouble.MeshMaxAngle(value);
+        }
 
         [XmlAttribute("rCheckGeomMaxSideRatio")]
-        public double CheckGeomMaxSideRatio { get; set; }
+        public double _checkGeomMaxSideRatio;
+
+        [XmlIgnore]
+        public double CheckGeomMaxSideRatio
+        {
+            get => _checkGeomMaxSideRatio;
+            set => _checkGeomMaxSideRatio = RestrictedDouble.MeshMaxRatio(value);
+        }
 
         [XmlAttribute("fCheckMeshOverlap")]
         public int _checkMeshOverLap;

@@ -4,6 +4,7 @@ using Grasshopper.Kernel.Types;
 using FemDesign.Grasshopper.Components.UIWidgets;
 using System;
 using System.Linq;
+using FemDesign.Calculate;
 
 namespace FemDesign.Grasshopper
 {
@@ -18,17 +19,17 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Icon = FemDesign.Properties.Resources.Config;
             mngr.RegisterUnit(evaluationUnit);
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "Mx', My' and Mx'y'", "M", "Moments.\n\nConnect 'ValueList' to get the options:\nDontSmooth\nHigherOrderShapeFunc\nConstShapeFunc\nSetToZero", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_String(), "M", "M", "Mx', My' and Mx'y'.\n\nConnect 'ValueList' to get the options:\nDontSmooth\nHigherOrderShapeFunc\nConstShapeFunc\nSetToZero", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.SecondOrder)).ToList();
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(PeaksmMethod.PeaksmMethodOptions)).ToList();
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "Nx', Ny' and Nx'y'", "N", "Normal internal forces.\n\nConnect 'ValueList' to get the options:\nDontSmooth\nHigherOrderShapeFunc\nConstShapeFunc\nSetToZero", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_String(), "N", "N", "Nx', Ny' and Nx'y'.\n\nConnect 'ValueList' to get the options:\nDontSmooth\nHigherOrderShapeFunc\nConstShapeFunc\nSetToZero", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.SecondOrder)).ToList();
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(PeaksmMethod.PeaksmMethodOptions)).ToList();
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "Vx', Vy' and Vx'y'", "V", "Shear internal forces.\n\nConnect 'ValueList' to get the options:\nDontSmooth\nHigherOrderShapeFunc\nConstShapeFunc\nSetToZero", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_String(), "V", "V", "Vx', Vy' and Vx'y'.\n\nConnect 'ValueList' to get the options:\nDontSmooth\nHigherOrderShapeFunc\nConstShapeFunc\nSetToZero", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.SecondOrder)).ToList();
+            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(PeaksmMethod.PeaksmMethodOptions)).ToList();
         }
 
         public override void SolveInstance(IGH_DataAccess DA, out string msg, out GH_RuntimeMessageLevel level)
@@ -42,12 +43,12 @@ namespace FemDesign.Grasshopper
             var moment = GenericClasses.EnumParser.Parse<Calculate.PeaksmMethod.PeaksmMethodOptions>(_moment);
 
             string _normal = "HigherOrderShapeFunc";
-            DA.GetData(0, ref _normal);
+            DA.GetData(1, ref _normal);
 
             var normal = GenericClasses.EnumParser.Parse<Calculate.PeaksmMethod.PeaksmMethodOptions>(_normal);
 
             string _shear = "HigherOrderShapeFunc";
-            DA.GetData(0, ref _shear);
+            DA.GetData(2, ref _shear);
 
             var shear = GenericClasses.EnumParser.Parse<Calculate.PeaksmMethod.PeaksmMethodOptions>(_shear);
 

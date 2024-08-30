@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Icon = FemDesign.Properties.Resources.Config;
             mngr.RegisterUnit(evaluationUnit);
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Adjust mesh", "Adjust mesh", "Adjust mesh to load positions.\nDefault is True.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "AdjustMeshToLoads", "AdjustMeshToLoads", "Adjust mesh to load positions.\nDefault is True.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
         }
 

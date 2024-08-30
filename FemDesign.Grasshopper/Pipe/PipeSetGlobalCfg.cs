@@ -50,89 +50,71 @@ namespace FemDesign.Grasshopper
 
         public override void DoWork(Action<string, string> ReportProgress, Action Done)
         {
-            if (_runNode == false)
+            try
             {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
-                ReportProgress(Id, 0.0.ToString());
-                return;
-            }
-
-            if (_connection == null)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
-                return;
-            }
-
-            if (_connection.IsDisconnected)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
-                return;
-            }
-
-            if (_connection.HasExited)
-            {
-                _success = false;
-                Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
-                return;
-            }
-
-
-            // Run the Analysis
-
-            if (_globCfg.Count == 0)
-            {
-                string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-                var _globCfgfilePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cmdglobalcfg.xml");
-                _connection.SetConfig(_globCfgfilePath);
-            }
-            else
-            {
-                foreach (var config in _globCfg)
+                if (_runNode == false)
                 {
-                    // Check if the value is a string
-                    if (config.Value is string filePath)
+                    _success = false;
+                    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Run node set to false.");
+                    ReportProgress(Id, 0.0.ToString());
+                    return;
+                }
+
+                if (_connection == null)
+                {
+                    _success = false;
+                    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Connection is null.");
+                    return;
+                }
+
+                if (_connection.IsDisconnected)
+                {
+                    _success = false;
+                    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Connection to FEM-Design have been lost.");
+                    return;
+                }
+
+                if (_connection.HasExited)
+                {
+                    _success = false;
+                    Parent.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "FEM-Design have been closed.");
+                    return;
+                }
+
+
+                // Run the Analysis
+
+                if (_globCfg.Count == 0)
+                {
+                    string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+                    var _globCfgfilePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cmdglobalcfg.xml");
+                    _connection.SetConfig(_globCfgfilePath);
+                }
+                else
+                {
+                    foreach (var config in _globCfg)
                     {
-                        _connection.SetConfig(filePath);
-                    }
-                    // Check if the value is of type FemDesign.Calculate.CONFIG
-                    else if (config.Value is FemDesign.Calculate.GlobConfig globConfig)
-                    {
-                        _connection.SetGlobalConfig(globConfig);
+                        // Check if the value is a string
+                        if (config.Value is string filePath)
+                        {
+                            _connection.SetGlobalConfig(filePath);
+                        }
+                        // Check if the value is of type FemDesign.Calculate.CONFIG
+                        else if (config.Value is FemDesign.Calculate.GlobConfig globConfig)
+                        {
+                            _connection.SetGlobalConfig(globConfig);
+                        }
                     }
                 }
+
+                _success = true;
             }
-            //else if(_globCfg.Count == 1)
-            //{
-            //    if (_globCfg[0].Value is string filePath)
-            //    {
-            //        _connection.SetGlobalConfig(filePath);
-            //    }
-            //    else if (_globCfg[0].Value is FemDesign.Calculate.GlobConfig globConfig)
-            //    {
-            //        List<Calculate.GlobConfig> globCfg = new List<Calculate.GlobConfig> { _globCfg[0].Value };
-            //        _connection.SetGlobalConfig(new Calculate.CmdGlobalCfg(globCfg));
-            //    }
-            //    else
-            //    {
-            //        throw new ArgumentException("The input must be a string item (filepath) or a list of `GlobConfig` objects!");
-            //    }
-            //}
-            //else
-            //{
-            //    List<Calculate.GlobConfig> globCfg = new List<Calculate.GlobConfig>();
-            //    foreach (var item in _globCfg)
-            //    {
-            //        globCfg.Add((Calculate.GlobConfig)item.Value);
-            //    }
-
-            //    _connection.SetGlobalConfig(new Calculate.CmdGlobalCfg(globCfg));
-            //}
-
-
-            _success = true;
+            catch (Exception ex)
+            {
+                RuntimeMessages.Add((GH_RuntimeMessageLevel.Error, ex.Message));
+                _success = false;
+                _connection = null;
+            }
 
             Done();
         }
@@ -148,6 +130,11 @@ namespace FemDesign.Grasshopper
 
         public override void SetData(IGH_DataAccess DA)
         {
+            foreach (var (level, message) in RuntimeMessages)
+            {
+                Parent.AddRuntimeMessage(level, message);
+            }
+
             DA.SetData("Connection", _connection);
             DA.SetData("Success", _success);
         }

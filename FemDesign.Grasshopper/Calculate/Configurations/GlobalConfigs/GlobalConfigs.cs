@@ -21,7 +21,7 @@ namespace FemDesign.Grasshopper
     {
         private List<SubComponent> _subcomponents = new List<SubComponent>();
         public override string UnitMenuName => "GlobalConfigs";
-        protected override string DefaultEvaluationUnit => _subcomponents[2].name();
+        protected override string DefaultEvaluationUnit => _subcomponents[1].name();
         public override Guid ComponentGuid => new Guid("{41175D83-48B2-4614-A074-DC8BE7F71CAC}");
         public override GH_Exposure Exposure => GH_Exposure.quinary;
 
@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
 
         protected override void RegisterEvaluationUnits(EvaluationUnitManager mngr)
         {
-            _subcomponents.Add(new SoilCalculationSettings());
+            //_subcomponents.Add(new SoilCalculationSettings());
             _subcomponents.Add(new MeshGeneralSettings());
             _subcomponents.Add(new MeshElementSettings());
             _subcomponents.Add(new MeshFunctionSettings());

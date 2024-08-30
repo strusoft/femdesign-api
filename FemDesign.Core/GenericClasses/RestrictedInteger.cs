@@ -18,8 +18,24 @@ namespace FemDesign
             }
             else
             {
-                throw new System.ArgumentOutOfRangeException($"Value should be between {min} and {max}");
+                throw new System.ArgumentOutOfRangeException($"Value should be between or equal to {min} and {max}");
             }
+        }
+
+        /// <summary>
+        /// Check if val in range [1, 250]
+        /// </summary>
+        internal static int DefaultBarElemDiv(int val)
+        {
+            return RestrictedInteger.ValueInRange(val, 1, 250);
+        }
+
+        /// <summary>
+        /// Check if val in range [1, 50]
+        /// </summary>
+        internal static int MeshSmoothSteps(int val)
+        {
+            return RestrictedInteger.ValueInRange(val, 1, 50);
         }
 
         /// <summary>

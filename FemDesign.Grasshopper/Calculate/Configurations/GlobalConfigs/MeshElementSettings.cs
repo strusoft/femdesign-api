@@ -22,19 +22,18 @@ namespace FemDesign.Grasshopper
             evaluationUnit.RegisterInputParam(new Param_Boolean(), "Correct", "Correct", "Correct according to the minimum division numbers.\nDefault is True.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "All regions together", "All regions together", "Consider all regions together.\nDefault is True. If false, the `Region by region` option is set.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "RegionByRegion", "RegionByRegion", "Region by region.\nDefault is True. If false, the `Consider all regions together` option is set.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Integer(), "Min div. number", "Min div. number", "Lowest minimum division number.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Integer(), "MinDivNumber", "MinDivNumber", "Lowest minimum division number.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Number(), "Max central angle", "Max central angle", "Maximal central angle for arcs.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Number(), "MaxCentralAngle", "MaxCentralAngle", "Maximal central angle for arcs.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
             GH_ExtendableMenu gH_ExtendableMenu0 = new GH_ExtendableMenu(0, "");
             gH_ExtendableMenu0.Name = "Calculated average element size";
-            gH_ExtendableMenu0.Expand();
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[0]);
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[1]);
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[2]);
@@ -60,8 +59,8 @@ namespace FemDesign.Grasshopper
             bool correct = true;
             DA.GetData(1, ref correct);
 
-            bool allRegions = true;
-            DA.GetData(2, ref allRegions);
+            bool regByReg = true;
+            DA.GetData(2, ref regByReg);
 
             int minDiv = 2;
             DA.GetData(3, ref minDiv);
@@ -69,7 +68,7 @@ namespace FemDesign.Grasshopper
             double angle = 10.00;
             DA.GetData(4, ref angle);
 
-            var meshElem = new Calculate.MeshElements(allRegions, scale, correct, minDiv, angle);
+            var meshElem = new Calculate.MeshElements(regByReg, scale, correct, minDiv, angle);
             DA.SetData(0, meshElem);
         }
 

@@ -16,19 +16,19 @@ namespace FemDesign.Grasshopper
             EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Finite element mesh preparation settings. For more details, see the FEM-Design GUI > Settings > Calculation > Mesh.");
             mngr.RegisterUnit(evaluationUnit);
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Check mesh", "Check mesh", "Default is True.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "CheckMesh", "CheckMesh", "Default is True.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Autoregenerate mesh", "Autoregenerate mesh", "Regenerate mesh automatically on the changed objects.\nDefault is True.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "AutoregenerateMesh", "AutoregenerateMesh", "Regenerate mesh automatically on the changed objects.\nDefault is True.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Optimal rebuild", "Optimal rebuild", "Optimal rebuild surface mesh after refine.\nDefault is True.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "OptimalRebuild", "OptimalRebuild", "Optimal rebuild surface mesh after refine.\nDefault is True.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Smooth mesh", "Smooth mesh", "Smooth mesh after optimal rebuild.\nDefault is True.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "SmoothMesh", "SmoothMesh", "Smooth mesh after optimal rebuild.\nDefault is True.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Peak smoothing", "Peak smoothing", "Default is True.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "PeakSmoothing", "PeakSmoothing", "Default is True.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_Boolean(), "Beams", "Beams", "Default is False.", GH_ParamAccess.item);
@@ -40,55 +40,54 @@ namespace FemDesign.Grasshopper
             evaluationUnit.RegisterInputParam(new Param_Boolean(), "Trusses", "Trusses", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Fictitious bars", "Fictitious bars", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "FictitiousBars", "FictitiousBars", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Free edges", "Free edges", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "FreeEdges", "FreeEdges", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Region borders", "Region borders", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "RegionBorders", "RegionBorders", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Point supports", "Point supports", "Default is True.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "PointSupports", "PointSupports", "Default is True.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Line supports", "Line supports", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "LineSupports", "LineSupports", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Surface support edges", "Surface support edges", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "SurfaceSupportEdges", "SurfaceSupportEdges", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Edge connections", "Edge connections", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "EdgeConnections", "EdgeConnections", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Point connections", "Point connections", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "PointConnections", "PointConnections", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Line connections", "Line connections", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "LineConnections", "LineConnections", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Surface connection edges", "Surface connection edges", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "SurfaceConnectionEdges", "SurfaceConnectionEdges", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Point loads", "Point loads", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "PointLoads", "PointLoads", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Line loads", "Line loads", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "LineLoads", "LineLoads", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Surface load edges", "Surface load edges", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "SurfaceLoadEdges", "SurfaceLoadEdges", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Fixed points", "Fixed points", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "FixedPoints", "FixedPoints", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Fixed lines", "Fixed lines", "Default is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "FixedLines", "FixedLines", "Default is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
                         
 
             GH_ExtendableMenu gH_ExtendableMenu0 = new GH_ExtendableMenu(0, "");
             gH_ExtendableMenu0.Name = "Refine mesh after regenerate around...";
-            gH_ExtendableMenu0.Expand();
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[4]);
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[5]);
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[6]);
@@ -120,70 +119,70 @@ namespace FemDesign.Grasshopper
             DA.GetData(0, ref autoCheck);
 
             bool autoRegen = true;
-            DA.GetData(0, ref autoRegen);
+            DA.GetData(1, ref autoRegen);
 
             bool autoRebuild = true;
-            DA.GetData(0, ref autoRebuild);
+            DA.GetData(2, ref autoRebuild);
 
             bool autoSmooth = true;
-            DA.GetData(0, ref autoSmooth);
+            DA.GetData(3, ref autoSmooth);
 
             bool peakSmth = true;
-            DA.GetData(0, ref peakSmth);
+            DA.GetData(4, ref peakSmth);
 
             bool beams = false;
-            DA.GetData(0, ref beams);
+            DA.GetData(5, ref beams);
 
             bool columns = true;
-            DA.GetData(0, ref columns);
+            DA.GetData(6, ref columns);
 
             bool trusses = false;
-            DA.GetData(0, ref trusses);
+            DA.GetData(7, ref trusses);
 
             bool fictBars = false;
-            DA.GetData(0, ref fictBars);
+            DA.GetData(8, ref fictBars);
 
             bool freeEdges= false;
-            DA.GetData(0, ref freeEdges);
+            DA.GetData(9, ref freeEdges);
 
             bool regionBorders = false;
-            DA.GetData(0, ref regionBorders);
+            DA.GetData(10, ref regionBorders);
 
             bool ptSupp = true;
-            DA.GetData(0, ref ptSupp);
+            DA.GetData(11, ref ptSupp);
 
             bool LnSupp = false;
-            DA.GetData(0, ref LnSupp);
+            DA.GetData(12, ref LnSupp);
 
             bool SrfSuppEdges = false;
-            DA.GetData(0, ref SrfSuppEdges);
+            DA.GetData(13, ref SrfSuppEdges);
 
             bool EdgeConn = false;
-            DA.GetData(0, ref EdgeConn);
+            DA.GetData(14, ref EdgeConn);
 
             bool PtConn = false;
-            DA.GetData(0, ref PtConn);
+            DA.GetData(15, ref PtConn);
 
             bool LnConn = false;
-            DA.GetData(0, ref LnConn);
+            DA.GetData(16, ref LnConn);
 
             bool SrfConnEdges = false;
-            DA.GetData(0, ref SrfConnEdges);
+            DA.GetData(17, ref SrfConnEdges);
 
             bool PtLoads = false;
-            DA.GetData(0, ref PtLoads);
+            DA.GetData(18, ref PtLoads);
 
             bool LnLoads = false;
-            DA.GetData(0, ref LnLoads);
+            DA.GetData(19, ref LnLoads);
 
             bool SrfLoadEdges = false;
-            DA.GetData(0, ref SrfLoadEdges);
+            DA.GetData(20, ref SrfLoadEdges);
 
             bool FixedPts = false;
-            DA.GetData(0, ref FixedPts);
+            DA.GetData(21, ref FixedPts);
 
             bool FixedLns = false;
-            DA.GetData(0, ref FixedLns);
+            DA.GetData(22, ref FixedLns);
 
 
 
