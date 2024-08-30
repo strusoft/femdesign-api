@@ -57,16 +57,16 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "Stiff Direction Buckling Curve", "Stiff Direction Buckling Curve", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_String(), "StiffDirectionBucklingCurve", "StiffDirectionBucklingCurve", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurve)).ToList();
 
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "Weak Direction Buckling Curve", "Weak Direction Buckling Curve", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_String(), "WeakDirectionBucklingCurve", "WeakDirectionBucklingCurve", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurve)).ToList();
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "Torsional Direction Buckling Curve", "Torsional Direction Buckling Curve", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_String(), "TorsionalDirectionBucklingCurve", "TorsionalDirectionBucklingCurve", "Connect 'ValueList' to get the options.\nAuto\na0\na\nb\nc\nd", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurve)).ToList();
 
@@ -77,12 +77,12 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "Top Flange Buckling Curve", "Top Flange Buckling Curve", "Connect 'ValueList' to get the options.\nAuto\na\nb\nc\nd", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_String(), "TopFlangeBucklingCurve", "TopFlangeBucklingCurve", "Connect 'ValueList' to get the options.\nAuto\na\nb\nc\nd", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurveLt)).ToList();
 
 
-            evaluationUnit.RegisterInputParam(new Param_String(), "Bottom Flange Buckling Curve", "Bottom Flange Buckling Curve", "Connect 'ValueList' to get the options.\nAuto\na\nb\nc\nd", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_String(), "BottomFlangeBucklingCurve", "BottomFlangeBucklingCurve", "Connect 'ValueList' to get the options.\nAuto\na\nb\nc\nd", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].EnumInput = Enum.GetNames(typeof(FemDesign.Calculate.SteelBarCalculationParameters.BucklingCurveLt)).ToList();
 
@@ -176,19 +176,19 @@ namespace FemDesign.Grasshopper
             DA.GetData("Iteration", ref iteration);
 
             string stiffDirection = "Auto";
-            DA.GetData("Stiff Direction Buckling Curve", ref stiffDirection);
+            DA.GetData("StiffDirectionBucklingCurve", ref stiffDirection);
 
             var _stiffDirection = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurve>(stiffDirection);
 
 
             string weakDirection = "Auto";
-            DA.GetData("Weak Direction Buckling Curve", ref weakDirection);
+            DA.GetData("WeakDirectionBucklingCurve", ref weakDirection);
 
             var _weakDirection = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurve>(weakDirection);
 
 
             string torsionalDirection = "Auto";
-            DA.GetData("Torsional Direction Buckling Curve", ref torsionalDirection);
+            DA.GetData("TorsionalDirectionBucklingCurve", ref torsionalDirection);
 
             var _torsionalDirection = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurve>(torsionalDirection);
 
@@ -200,12 +200,12 @@ namespace FemDesign.Grasshopper
             DA.GetData("EN1993-1-1:6.3.2.3", ref en1993_1_1_6_3_2_3);
 
             string topFlange = "Auto";
-            DA.GetData("Top Flange Buckling Curve", ref topFlange);
+            DA.GetData("TopFlangeBucklingCurve", ref topFlange);
 
             var _topFlange = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurveLt>(topFlange);
 
             string bottomFlange = "Auto";
-            DA.GetData("Bottom Flange Buckling Curve", ref bottomFlange);
+            DA.GetData("BottomFlangeBucklingCurve", ref bottomFlange);
 
             var _bottomFlange = FemDesign.GenericClasses.EnumParser.Parse<SteelBarCalculationParameters.BucklingCurveLt>(bottomFlange);
 
