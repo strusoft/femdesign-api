@@ -58,8 +58,8 @@ The FEM-Design API repository is developed and maintained by [StruSoft](https://
 In addition to the disclaimer under the license ([LICENSE.md](LICENSE)) - All files and related documentation is for illustrative and educational purposes and may not interact with FEM-Design in a reliable way depending on your version, installation and content of the files. Furthermore, Strusoft won´t guarantee full support of the package. 😊
 
 ## License
-[LICENSE-MIT.md](MIT LICENSE)
-[LICENSE-APACHE.md](APACHE LICENSE)
+[MIT LICENSE](LICENSE-MIT.md)  
+[APACHE LICENSE](LICENSE-APACHE.md)
 
 ### NOTICE
 
