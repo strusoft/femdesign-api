@@ -9,20 +9,19 @@ using System.Windows.Forms;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using GrasshopperAsyncComponent;
 using System.Reflection;
-using System.Dynamic;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeSetCfg : GH_AsyncComponent
+    public class PipeSetGlobalCfg_OBSOLETE2306 : GH_AsyncComponent
     {
-        public PipeSetCfg() : base("FEM-Design.SetConfigurations", "SetCfg", "Set design settings for a FEM-Design model using a configuration file.", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeSetGlobalCfg_OBSOLETE2306() : base("FEM-Design.SetGlobalConfigurations", "SetGlobalCfg", "Set global settings for a FEM-Design model using a global configuration file. It defines the calculation settings that will instruct FEM-Design in operation like creating the finite element mesh.", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ApplicationSetCfgWorker(this);
+            BaseWorker = new ApplicationSetGlobalCfg_OBSOLETE2306Worker(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Config", "Cfg", "Filepath of the configuration file or Config objects.\nIf file path is not provided, the component will read the cfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.list);
+            pManager.AddTextParameter("GlobalCfg", "GlobalCfg", "Filepath of the global configuration file. If file path is not provided, the component will read the cmdglobalcfg.xml file in the package manager library folder.\n%AppData%\\McNeel\\Rhinoceros\\packages\\7.0\\FemDesign\\", GH_ParamAccess.item);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -34,20 +33,19 @@ namespace FemDesign.Grasshopper
         }
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_Config;
-        public override Guid ComponentGuid => new Guid("{AADEF422-856D-4798-9936-125B614F1D8C}");
-        public override GH_Exposure Exposure => GH_Exposure.obscure;
+        public override Guid ComponentGuid => new Guid("{58B5D154-A7AB-4D05-878D-010BF05EA7D6}");
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
     }
 
-    public class ApplicationSetCfgWorker : WorkerInstance
+    public class ApplicationSetGlobalCfg_OBSOLETE2306Worker : WorkerInstance
     {
         /* INPUT/OUTPUT */
         private FemDesignConnection _connection = null;
-        private List<dynamic> _cfg = new List<dynamic>();
+        private string _globalCfgPath = null;
         private bool _runNode = true;
         private bool _success = false;
 
-
-        public ApplicationSetCfgWorker(GH_Component component) : base(component) { }
+        public ApplicationSetGlobalCfg_OBSOLETE2306Worker(GH_Component component) : base(component) { }
 
 
         public override void DoWork(Action<string, string> ReportProgress, Action Done)
@@ -83,39 +81,24 @@ namespace FemDesign.Grasshopper
 
             // Run the Analysis
 
-            if (_cfg.Count == 0)
+            if (_globalCfgPath == null)
             {
                 string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-                var _cfgfilePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cfg.xml");
-                _connection.SetConfig(_cfgfilePath);
+                _globalCfgPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(assemblyLocation), @"cmdglobalcfg.xml");
             }
-            else
-            {
-                foreach (var cfg in _cfg)
-                {
-                    // Check if the value is a string
-                    if (cfg.Value is string filePath)
-                    {
-                        _connection.SetConfig(filePath);
-                    }
-                    // Check if the value is of type FemDesign.Calculate.CONFIG
-                    else if (cfg.Value is FemDesign.Calculate.CONFIG config)
-                    {
-                        _connection.SetConfig(config);
-                    }
-                }
-            }
+
+            _connection.SetGlobalConfig(_globalCfgPath);
             _success = true;
 
             Done();
         }
 
-        public override WorkerInstance Duplicate() => new ApplicationSetCfgWorker(Parent);
+        public override WorkerInstance Duplicate() => new ApplicationSetGlobalCfg_OBSOLETE2306Worker(Parent);
 
         public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
         {
             if (!DA.GetData("Connection", ref _connection)) return;
-            DA.GetDataList("Config", _cfg);
+            DA.GetData("GlobalCfg", ref _globalCfgPath);
             DA.GetData("RunNode", ref _runNode);
         }
 
