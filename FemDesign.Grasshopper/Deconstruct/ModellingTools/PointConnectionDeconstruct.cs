@@ -49,7 +49,7 @@ namespace FemDesign.Grasshopper
             DA.SetData(6, obj.Rigidity.PlasticLimitMoments);
             DA.SetData(7, obj.LocalX.ToRhino());
             DA.SetData(8, obj.LocalY.ToRhino());
-            DA.SetData(9, obj.Identifier);
+            DA.SetData(9, obj.Name);
         }
         protected override System.Drawing.Bitmap Icon
         {

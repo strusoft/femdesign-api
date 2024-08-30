@@ -1,4 +1,4 @@
-﻿// https://strusoft.com/
+// https://strusoft.com/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,9 @@ using Rhino.Geometry;
 
 namespace FemDesign.Grasshopper
 {
-    public class LineConnectionDeconstruct : FEM_Design_API_Component
+    public class LineConnectionDeconstruct_OBSOLETE : FEM_Design_API_Component
     {
-        public LineConnectionDeconstruct() : base("LineConnection.Deconstruct", "Deconstruct", "Deconstruct a LineConnection.", CategoryName.Name(), "Deconstruct")
+        public LineConnectionDeconstruct_OBSOLETE() : base("LineConnection.Deconstruct", "Deconstruct", "Deconstruct a LineConnection.", CategoryName.Name(), "Deconstruct")
         {
 
         }
@@ -49,7 +49,7 @@ namespace FemDesign.Grasshopper
             DA.SetData(6, obj.Rigidity.PlasticLimitMoments);
             DA.SetData(7, obj.LocalX.ToRhino());
             DA.SetData(8, obj.LocalY.ToRhino());
-            DA.SetData(9, obj.Name);
+            DA.SetData(9, obj.Identifier);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -60,10 +60,10 @@ namespace FemDesign.Grasshopper
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{0327EABF-6045-439C-AB65-B1E34DB190C6}"); }
+            get { return new Guid("{B4480216-0C2E-4B63-AA52-3764992D3886}"); }
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
     }
 }
