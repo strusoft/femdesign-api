@@ -106,3 +106,663 @@ t: 08/13 16.57.29.618
 cmdsave:'; CXL CS2SHELL SAVE'
 t: 08/13 16.57.29.843
 Script file finished
+step: cmdopen
+t: 08/28 15.55.53.451
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 15.55.56.056
+Script file finished
+step: cmdprojdescr
+t: 08/28 15.56.30.002
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 15.56.30.018
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 15.56.49.972
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 15.56.52.269
+Script file finished
+step: cmdsave
+t: 08/28 15.57.09.039
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 15.57.09.228
+Script file finished
+step: cmdlistgen
+t: 08/28 15.57.44.210
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 15.57.44.227
+Script file finished
+step: cmdlistgen
+t: 08/28 15.57.57.825
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 15.57.57.828
+Script file finished
+step: cmdlistgen
+t: 08/28 15.58.17.944
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 15.58.17.961
+Script file finished
+step: cmdopen
+t: 08/28 16.03.59.005
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 16.04.01.466
+Script file finished
+step: cmdprojdescr
+t: 08/28 16.04.02.060
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 16.04.02.061
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 16.04.21.875
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 16.04.23.959
+Script file finished
+step: cmdsave
+t: 08/28 16.04.26.065
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 16.04.26.260
+Script file finished
+step: cmdlistgen
+t: 08/28 16.04.27.499
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.04.27.499
+Script file finished
+step: cmdlistgen
+t: 08/28 16.04.28.720
+cmdlistgen:'$ MODULECOM LISTGEN'
+error writing list file
+t: 08/28 16.04.28.726
+aborting script execution
+Script file finished
+step: cmdlistgen
+t: 08/28 16.04.30.350
+cmdlistgen:'$ MODULECOM LISTGEN'
+error writing list file
+t: 08/28 16.04.30.366
+aborting script execution
+Script file finished
+step: cmdopen
+t: 08/28 16.06.03.143
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 16.06.05.357
+Script file finished
+step: cmdprojdescr
+t: 08/28 16.06.06.007
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 16.06.06.007
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 16.06.06.702
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 16.06.08.980
+Script file finished
+step: cmdsave
+t: 08/28 16.06.09.872
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 16.06.10.068
+Script file finished
+step: cmdlistgen
+t: 08/28 16.06.12.704
+cmdlistgen:'$ MODULECOM LISTGEN'
+error writing list file
+t: 08/28 16.06.12.704
+aborting script execution
+Script file finished
+step: cmdlistgen
+t: 08/28 16.06.26.739
+cmdlistgen:'$ MODULECOM LISTGEN'
+error writing list file
+t: 08/28 16.06.26.763
+aborting script execution
+Script file finished
+step: cmdopen
+t: 08/28 16.06.51.601
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 16.06.53.815
+Script file finished
+step: cmdprojdescr
+t: 08/28 16.06.54.334
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 16.06.54.334
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 16.06.55.028
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 16.06.57.199
+Script file finished
+step: cmdsave
+t: 08/28 16.06.57.997
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 16.06.58.197
+Script file finished
+step: cmdlistgen
+t: 08/28 16.07.01.672
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.07.01.672
+Script file finished
+step: cmdlistgen
+t: 08/28 16.07.02.681
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.07.02.690
+Script file finished
+step: cmdopen
+t: 08/28 16.07.35.256
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 16.07.37.535
+Script file finished
+step: cmdprojdescr
+t: 08/28 16.07.37.876
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 16.07.37.879
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 16.07.38.561
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 16.07.40.750
+Script file finished
+step: cmdsave
+t: 08/28 16.07.41.727
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 16.07.41.953
+Script file finished
+step: cmdlistgen
+t: 08/28 16.07.42.355
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.07.42.366
+Script file finished
+step: cmdlistgen
+t: 08/28 16.07.42.956
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.07.42.968
+Script file finished
+step: cmdopen
+t: 08/28 16.08.13.348
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 16.08.15.596
+Script file finished
+step: cmdprojdescr
+t: 08/28 16.08.15.706
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 16.08.15.706
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 16.08.16.401
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 16.08.18.570
+Script file finished
+step: cmdsave
+t: 08/28 16.08.19.586
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 16.08.19.782
+Script file finished
+step: cmdlistgen
+t: 08/28 16.08.20.198
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.08.20.198
+Script file finished
+step: cmdlistgen
+t: 08/28 16.08.20.798
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.08.20.814
+Script file finished
+step: cmdopen
+t: 08/28 16.09.21.043
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 16.09.23.289
+Script file finished
+step: cmdprojdescr
+t: 08/28 16.09.23.952
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 16.09.23.952
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 16.09.24.629
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 16.09.26.687
+Script file finished
+step: cmdsave
+t: 08/28 16.09.27.816
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 16.09.28.018
+Script file finished
+step: cmdlistgen
+t: 08/28 16.09.28.414
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.09.28.430
+Script file finished
+step: cmdlistgen
+t: 08/28 16.09.29.030
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.09.29.046
+Script file finished
+step: cmdopen
+t: 08/28 16.11.03.879
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 16.11.06.151
+Script file finished
+step: cmdprojdescr
+t: 08/28 16.11.06.781
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 16.11.06.781
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 16.11.07.458
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 16.11.09.672
+Script file finished
+step: cmdsave
+t: 08/28 16.11.10.634
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 16.11.10.824
+Script file finished
+step: cmdlistgen
+t: 08/28 16.11.11.249
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.11.11.249
+Script file finished
+step: cmdlistgen
+t: 08/28 16.11.11.850
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.11.11.850
+Script file finished
+step: cmdopen
+t: 08/28 16.53.50.907
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 16.53.53.137
+Script file finished
+step: cmdprojdescr
+t: 08/28 16.53.53.817
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 16.53.53.817
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 16.53.54.496
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 16.53.56.728
+Script file finished
+step: cmdsave
+t: 08/28 16.53.57.677
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 16.53.57.868
+Script file finished
+step: cmdlistgen
+t: 08/28 16.53.58.281
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.53.58.296
+Script file finished
+step: cmdlistgen
+t: 08/28 16.53.58.692
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.53.58.692
+Script file finished
+step: cmdopen
+t: 08/28 16.55.26.158
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 16.55.28.495
+Script file finished
+step: cmdprojdescr
+t: 08/28 16.55.28.789
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 16.55.28.804
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 16.55.29.631
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 16.55.32.090
+Script file finished
+step: cmdsave
+t: 08/28 16.55.33.047
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 16.55.33.322
+Script file finished
+step: cmdlistgen
+t: 08/28 16.55.33.659
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.55.33.659
+Script file finished
+step: cmdlistgen
+t: 08/28 16.55.34.265
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 16.55.34.273
+Script file finished
+step: cmdopen
+t: 08/28 17.05.37.283
+cmdopen:'; CXL CS2SHELL OPEN'
+Result file is missing.
+t: 08/28 17.05.39.532
+Script file finished
+step: cmdprojdescr
+t: 08/28 17.05.40.163
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 17.05.40.163
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 17.05.40.857
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 17.05.43.171
+Script file finished
+step: cmdsave
+t: 08/28 17.05.44.025
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 17.05.44.223
+Script file finished
+step: cmdlistgen
+t: 08/28 17.05.44.642
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 17.05.44.642
+Script file finished
+step: cmdlistgen
+t: 08/28 17.05.45.051
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 17.05.45.066
+Script file finished
+step: cmdlistgen
+t: 08/28 17.05.45.653
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 17.05.45.657
+Script file finished
+step: cmdlistgen
+t: 08/28 17.05.46.263
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 17.05.46.267
+Script file finished
+step: cmdopen
+t: 08/28 17.20.05.458
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/28 17.20.07.635
+Script file finished
+step: cmdprojdescr
+t: 08/28 17.20.08.140
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/28 17.20.08.140
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/28 17.20.08.865
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/28 17.20.10.874
+Script file finished
+step: cmdsave
+t: 08/28 17.20.12.012
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/28 17.20.12.202
+Script file finished
+step: cmdlistgen
+t: 08/28 17.20.12.611
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 17.20.12.611
+Script file finished
+step: cmdlistgen
+t: 08/28 17.20.13.243
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 17.20.13.243
+Script file finished
+step: cmdlistgen
+t: 08/28 17.20.13.829
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 17.20.13.829
+Script file finished
+step: cmdlistgen
+t: 08/28 17.20.14.233
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/28 17.20.14.239
+Script file finished
+step: cmdopen
+t: 08/29 11.16.10.194
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/29 11.16.12.598
+Script file finished
+step: cmdprojdescr
+t: 08/29 11.16.13.086
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/29 11.16.13.086
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/29 11.16.13.796
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/29 11.16.15.854
+Script file finished
+step: cmdsave
+t: 08/29 11.16.29.143
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/29 11.16.29.339
+Script file finished
+step: cmdlistgen
+t: 08/29 11.16.34.825
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.16.34.840
+Script file finished
+step: cmdlistgen
+t: 08/29 11.16.39.503
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.16.39.512
+Script file finished
+step: cmdlistgen
+t: 08/29 11.16.40.729
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.16.40.745
+Script file finished
+step: cmdlistgen
+t: 08/29 11.16.41.932
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.16.41.950
+Script file finished
+step: cmdopen
+t: 08/29 11.21.37.222
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/29 11.21.39.311
+Script file finished
+step: cmdprojdescr
+t: 08/29 11.21.39.832
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/29 11.21.39.832
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/29 11.21.40.541
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/29 11.21.42.275
+Script file finished
+step: cmdopen
+t: 08/29 11.26.06.437
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/29 11.26.08.577
+Script file finished
+step: cmdprojdescr
+t: 08/29 11.26.09.015
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/29 11.26.09.015
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/29 11.26.09.722
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/29 11.26.11.467
+Script file finished
+step: cmdsave
+t: 08/29 11.26.11.665
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/29 11.26.11.875
+Script file finished
+step: cmdlistgen
+t: 08/29 11.26.12.267
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.26.12.275
+Script file finished
+step: cmdlistgen
+t: 08/29 11.26.12.881
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.26.12.881
+Script file finished
+step: cmdlistgen
+t: 08/29 11.26.13.493
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.26.13.498
+Script file finished
+step: cmdlistgen
+t: 08/29 11.26.14.109
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.26.14.113
+Script file finished
+step: cmdopen
+t: 08/29 11.28.37.215
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/29 11.28.39.378
+Script file finished
+step: cmdprojdescr
+t: 08/29 11.28.39.714
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/29 11.28.39.714
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/29 11.28.40.404
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/29 11.28.42.166
+Script file finished
+step: cmdsave
+t: 08/29 11.28.42.956
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/29 11.28.43.148
+Script file finished
+step: cmdlistgen
+t: 08/29 11.28.43.573
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.28.43.573
+Script file finished
+step: cmdlistgen
+t: 08/29 11.28.44.176
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.28.44.187
+Script file finished
+step: cmdlistgen
+t: 08/29 11.28.44.791
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.28.44.791
+Script file finished
+step: cmdlistgen
+t: 08/29 11.28.45.392
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.28.45.392
+Script file finished
+step: cmdopen
+t: 08/29 11.32.12.707
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 08/29 11.32.14.888
+Script file finished
+step: cmdprojdescr
+t: 08/29 11.32.15.280
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 08/29 11.32.15.280
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 08/29 11.32.15.971
+cmdcalculation:'; CXL $MODULE CALC'
+t: 08/29 11.32.17.729
+Script file finished
+step: cmdsave
+t: 08/29 11.32.18.523
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 08/29 11.32.18.720
+Script file finished
+step: cmdlistgen
+t: 08/29 11.32.19.138
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.32.19.138
+Script file finished
+step: cmdlistgen
+t: 08/29 11.32.19.750
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.32.19.750
+Script file finished
+step: cmdlistgen
+t: 08/29 11.32.20.358
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.32.20.358
+Script file finished
+step: cmdlistgen
+t: 08/29 11.32.20.959
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 08/29 11.32.20.959
+Script file finished

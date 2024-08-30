@@ -21,6 +21,7 @@ class User(Enum):
     COMPOSITEDESIGN = auto()
     PERFORMANCEBASEDDESIGN = auto()
 
+
 class DesignModule(Enum):
     """Enum class to represent the different design modules in FEM-Design
     """
@@ -44,8 +45,6 @@ class DesignModule(Enum):
             DesignModule.COMPOSITEDESIGN: User.COMPOSITEDESIGN
         }
         return mapping[self]
-
-
 
 
 class Command(ABC):
@@ -184,6 +183,7 @@ class CmdUser(Command):
         if module == DesignModule.COMPOSITEDESIGN:
             return cls.CompositeDesign()
 
+
 class CmdOpen(Command):
     """CmdOpen class to represent the fdscript 'cmdopen' command
     """
@@ -249,6 +249,13 @@ class CmdSave(Command):
         Args:
             file_name (str): path to the file to save
         """
+
+        if not file_name.endswith(".str") and not file_name.endswith(".struxml"):
+            raise ValueError("file_name must have suffix .str or .struxml")
+        
+        if not os.path.exists(os.path.dirname(os.path.abspath(file_name))):
+            os.makedirs(os.path.dirname(os.path.abspath(file_name)))
+
         self.file_name = os.path.abspath(file_name)
 
     def to_xml_element(self) -> ET.Element:
@@ -338,7 +345,8 @@ class CmdProjDescr(Command):
                 item.attrib = {"id": key, "txt": value}
 
         return cmd_proj_descr
-    
+
+
 class CmdListGen:
     """Class to represent the fdscript 'cmdlistgen' command
     """
@@ -353,9 +361,19 @@ class CmdListGen:
             fillcells (bool, optional):
             headers (bool, optional):
         """
-        self.bscfile = os.path.abspath(bscfile)
+        if not bscfile.endswith(".bsc"):
+            raise ValueError("bscfile must have suffix .bsc")
+
+        if outfile and not outfile.endswith(".csv"):
+            raise ValueError("outfile must have suffix .csv")
+
         if not outfile:
             outfile = pathlib.Path(self.bscfile).with_suffix(".csv")
+
+        if not os.path.exists(os.path.dirname(os.path.abspath(outfile))):
+            os.makedirs(os.path.dirname(os.path.abspath(outfile)))
+
+        self.bscfile = os.path.abspath(bscfile)
         self.outfile = os.path.abspath(outfile)
         self.regional = regional
         self.fillcells = fillcells

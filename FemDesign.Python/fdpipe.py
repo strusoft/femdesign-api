@@ -235,7 +235,7 @@ class _FdConnect:
         self.Send(f"runUTF8 {path}")
         self.start_time = datetime.now()
         while timeout == None or GetElapsedTime(self.start_time) <= timeout:
-            sleep(1)
+            sleep(0.1)
             if "script idle" in self.Stat(timeout=timeout):
                 self.start_time = None
                 return

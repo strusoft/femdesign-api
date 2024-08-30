@@ -3,7 +3,6 @@ from fdscript import *
 from analysis import *
 from command import *
 import pandas as pd
-from database import Database
 import xml.etree.ElementTree as ET
 
 def main():
@@ -55,21 +54,36 @@ def main():
         raise err
 
 def model():
-    database = Database(r"example\simple_beam.struxml")
-    materials = database.materials
-    sections = database.sections
-    entities = database.entities
+    pipe = FemDesignConnection(
+        fd_path= r"C:\Program Files\StruSoft\FEM-Design 23 Night Install\fd3dstruct.exe",
+        output_dir="example",
+        minimized= True)
+    try:
+        file_path = r"example\simple_beam.str"
+        pipe.Open(file_path)
+        pipe.SetProjectDescription("Test project", "", "Marco Pellegrino", "MP")
 
-    bars = database.bars
+        analysis = Analysis.FrequencyAnalysis()
+        pipe.RunAnalysis(analysis)
 
-    print( database.source_software )
-    print( database.country )
-    print( database.eurocode )
+        pipe.Save(r"example\to_delete\simple_beam_out_2.str")
+        pipe.GenerateListTables(r"example\bsc\finite-elements-nodes.bsc", r"example\output\finite-elements-nodes.csv")
+        pipe.GenerateListTables(r"example\bsc\finite-elements-bars.bsc", r"example\output\finite-elements-bars.csv")
+        pipe.GenerateListTables(r"example\bsc\quantity-estimation-steel.bsc", r"example\output\quantity-estimation-steel.csv")
+        pipe.GenerateListTables(r"example\bsc\quantity-estimation-total.bsc", r"example\output\quantity-estimation-total.csv")
+        pipe.Exit()
+    except Exception as err:
+        pipe.KillProgramIfExists()
+        raise err
 
-    print("finished!")
+    df_estimation = pd.read_csv(r"example\output\quantity-estimation-steel.csv", delimiter="\t", skiprows=1)
+    df_finite_elements_nodes = pd.read_csv(r"example\output\finite-elements-nodes.csv", delimiter="\t", skiprows=1)
+    df_finite_elements_bars = pd.read_csv(r"example\output\finite-elements-bars.csv", delimiter="\t", skiprows=1)
 
+    print(df_estimation)
+    print(df_finite_elements_nodes)
+    print(df_finite_elements_bars)
 
     
 if __name__ == "__main__":
-    #main()
     model()

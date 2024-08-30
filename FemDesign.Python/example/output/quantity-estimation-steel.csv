@@ -1,0 +1,7 @@
+Quantity estimation, Steel
+Storey	Struct.	Identifier	Quality	Section/	Unit weight	Total length[m]/	Total weight	Painted area	CO2 footprint (A1-A3)
+	type			Thickness[m]	[t/m, t/m2]	Total area[m2]	[t]	[m2]	[kg CO2e]
+-	Beam	B.1	S 235	HE-B 220	0.071	6.487	0.464	8.239	1,168.2
+-	Beam	B.2	S 235	HE-B 220	0.071	6.487	0.464	8.239	1,168.2
+TOTAL							0.927	16.477	2,336.5
+
