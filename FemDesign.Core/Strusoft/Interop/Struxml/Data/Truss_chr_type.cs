@@ -25,6 +25,10 @@ namespace StruSoft.Interop.StruXml.Data
             return trussBehaviour;
         }
 
+        public override string ToString()
+        {
+            return $"Compression: {this.Compression}; Tension: {this.Tension};";
+        }
     }
 
     public partial class Simple_truss_chr_type
@@ -36,6 +40,7 @@ namespace StruSoft.Interop.StruXml.Data
             this.Compression = compression;
             this.Tension = tension;
         }
+
         public static Simple_truss_chr_type Elastic()
         {
             var compression = Simple_truss_behaviour_type.Elastic();
@@ -46,8 +51,11 @@ namespace StruSoft.Interop.StruXml.Data
             return trussBehaviour;
         }
 
+        public override string ToString()
+        {
+            return $"Compression: {this.Compression}; Tension: {this.Tension};";
+        }
     }
-
 
     public partial class Truss_behaviour_type
     {
@@ -105,6 +113,18 @@ namespace StruSoft.Interop.StruXml.Data
             var brittle = new Truss_behaviour_type(new Truss_capacity_type(value), ItemChoiceType.Brittle);
             return brittle;
         }
+
+        public override string ToString()
+        {
+            if(this.ItemElementName is ItemChoiceType.Elastic)
+            {
+                return $"{this.ItemElementName}";
+            }
+            else
+            {
+                return $"{this.ItemElementName}, Capacity [kN]: {this.Item}";
+            }
+        }
     }
 
     public partial class Simple_truss_behaviour_type
@@ -133,6 +153,18 @@ namespace StruSoft.Interop.StruXml.Data
         {
             var brittle = new Simple_truss_behaviour_type(new Simple_truss_capacity_type(value), ItemChoiceType1.Brittle);
             return brittle;
+        }
+
+        public override string ToString()
+        {
+            if (this.ItemElementName is ItemChoiceType1.Elastic)
+            {
+                return $"{this.ItemElementName}";
+            }
+            else
+            {
+                return $"{this.ItemElementName}, Capacity [kN]: {this.Item}";
+            }
         }
     }
 
@@ -168,14 +200,31 @@ namespace StruSoft.Interop.StruXml.Data
 
             this.Limit_force = trussLimits;
         }
+
+        public override string ToString()
+        {
+            string text = $"{this.Limit_force[0]}";
+            for(int i=1; i< this.Limit_force.Count; i++)
+            {
+                text += $", {this.Limit_force[i]}";
+            }
+
+            return $"{text}";
+        }
     }
 
     public partial class Simple_truss_capacity_type
     {
         private Simple_truss_capacity_type() { }
+
         public Simple_truss_capacity_type(double value)
         {
             this.Limit_force = new Truss_limit_type(value);
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Limit_force}";
         }
     }
 
@@ -186,6 +235,11 @@ namespace StruSoft.Interop.StruXml.Data
         public Truss_limit_type(double x)
         {
             this.Value = FemDesign.RestrictedDouble.NonNegMax_1e20(x);
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Value}";
         }
     }
 }

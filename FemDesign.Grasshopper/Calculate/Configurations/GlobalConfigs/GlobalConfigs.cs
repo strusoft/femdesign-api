@@ -17,19 +17,19 @@ using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
-    public class Configs : GH_SwitcherComponent
+    public class GlobalConfigs : GH_SwitcherComponent
     {
         private List<SubComponent> _subcomponents = new List<SubComponent>();
-        public override string UnitMenuName => "Configs";
-        protected override string DefaultEvaluationUnit => _subcomponents[0].name();
-        public override Guid ComponentGuid => new Guid("{C854705D-555D-4784-8C2D-0299763484BD}");
+        public override string UnitMenuName => "GlobalConfigs";
+        protected override string DefaultEvaluationUnit => _subcomponents[1].name();
+        public override Guid ComponentGuid => new Guid("{41175D83-48B2-4614-A074-DC8BE7F71CAC}");
         public override GH_Exposure Exposure => GH_Exposure.quinary;
 
         protected override Bitmap Icon => FemDesign.Properties.Resources.Config;
 
-        public Configs()
-            : base("Config", "Config",
-              "Calculation and design configurations",
+        public GlobalConfigs()
+            : base("GlobConfig", "GlobalConfigurations",
+              "General calculation settings for a FEM-Design model.",
               CategoryName.Name(), SubCategoryName.Cat7a())
         {
             ((GH_Component)this).Hidden = true;
@@ -41,15 +41,18 @@ namespace FemDesign.Grasshopper
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.RegisterParam(new Param_GenericObject(), "Config", "Config", "Config");
+            pManager.RegisterParam(new Param_GenericObject(), "GlobConfig", "GlobalConfiguration", "Global configurations.");
         }
 
         protected override void RegisterEvaluationUnits(EvaluationUnitManager mngr)
         {
-            _subcomponents.Add(new SteelDesignConfiguration());
-            _subcomponents.Add(new SteelBarDesignParameters());
-            _subcomponents.Add(new SteelCalculationParameters());
-            _subcomponents.Add(new ConcreteDesignConfiguration());
+            //_subcomponents.Add(new SoilCalculationSettings());
+            _subcomponents.Add(new MeshGeneralSettings());
+            _subcomponents.Add(new MeshElementSettings());
+            _subcomponents.Add(new MeshFunctionSettings());
+            _subcomponents.Add(new MeshPrepareSettings());
+            _subcomponents.Add(new PeakSmMethodSettings());
+            _subcomponents.Add(new PeakSmAutoSettings());
 
             foreach (SubComponent item in _subcomponents)
             {
@@ -94,7 +97,7 @@ namespace FemDesign.Grasshopper
             if (evalUnits.Units.Count > 0)
             {
                 Menu_AppendSeparator(menu);
-                ToolStripMenuItem toolStripMenuItem = Menu_AppendItem(menu, "Configs");
+                ToolStripMenuItem toolStripMenuItem = Menu_AppendItem(menu, "GlobConfigs");
                 foreach (EvaluationUnit unit in evalUnits.Units)
                 {
                     Menu_AppendItem(toolStripMenuItem.DropDown, unit.Name, Menu_ActivateUnit, null, true, unit.Active).Tag = unit;

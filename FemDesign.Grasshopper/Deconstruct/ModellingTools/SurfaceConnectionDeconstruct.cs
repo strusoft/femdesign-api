@@ -45,7 +45,7 @@ namespace FemDesign.Grasshopper
             DA.SetData(5, obj.LocalX.ToRhino());
             DA.SetData(6, obj.LocalZ.ToRhino());
             DA.SetData(7, obj.Distance);
-            DA.SetData(8, obj.Identifier);
+            DA.SetData(8, obj.Name);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FemDesign;
+using FemDesign.Calculate;
 
 namespace FemDesign.Examples
 {
@@ -156,11 +157,16 @@ namespace FemDesign.Examples
             newModel.AddLoadCombinations(model.Entities.Loads.LoadCombinations);
             newModel.AddElements(storeyAsList);
 
-            
+
+            // CREATE PROJECT SETTINGS
+            var projDescription = new CmdProjDescr("Project name", "Description", "Designer", "Signature", "Comment");
+
+
             // OPEN MODEL IN FEM-DESIGN:
             using (var femDesign = new FemDesignConnection(keepOpen: true))
             {
                 femDesign.Open(newModel);
+                femDesign.SetProjDescription(projDescription);
             }
         }
     }

@@ -29,7 +29,8 @@ namespace FemDesign.Calculate
                 new CmdApplyDesignChanges(),
                 new CmdSave("model.struxml"),
                 new CmdSaveDocx("model.docx"),
-                new CmdConfig("config.xml")
+                new CmdConfig("config.xml"),
+                new CmdProjDescr("Project", "Description", "Designer", "Signature", "Comment")
                 );
             script.Serialize(fdScriptPath);
 
@@ -50,6 +51,7 @@ namespace FemDesign.Calculate
             Assert.IsTrue(xmlText.Contains("<cmdsave"));
             Assert.IsTrue(xmlText.Contains("<cmdsavedocx"));
             Assert.IsTrue(xmlText.Contains("<cmdconfig"));
+            Assert.IsTrue(xmlText.Contains("<cmdprojdescr"));
         }
 
         [TestMethod("Validate schema")]

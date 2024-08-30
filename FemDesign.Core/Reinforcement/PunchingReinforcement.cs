@@ -133,13 +133,34 @@ namespace FemDesign.Reinforcement
         public string Patter { get; set; }
 
         [XmlAttribute("s0")]
-        public double S0 { get; set; }
+        public double _s0 { get; set; }
+
+        [XmlIgnore]
+        public double S0 
+        {
+            get => _s0;
+            set => _s0 = RestrictedDouble.NonZeroMax_10_1(value);
+        }
 
         [XmlAttribute("s1")]
-        public double S1 { get; set; }
+        public double _s1 { get; set; }
+
+        [XmlIgnore]
+        public double S1
+        {
+            get => _s1;
+            set => _s1 = RestrictedDouble.NonZeroMax_10_2(value);
+        }
 
         [XmlAttribute("s2")]
-        public double S2 { get; set; }
+        public double _s2 { get; set; }
+
+        [XmlIgnore]
+        public double S2
+        {
+            get => _s2;
+            set => _s2 = RestrictedDouble.NonZeroMax_10_2(value);
+        }
 
         [XmlAttribute("rails_on_circle")]
         public string _railsOnCircle;

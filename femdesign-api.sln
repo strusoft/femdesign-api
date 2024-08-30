@@ -65,7 +65,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example11 - Dynamic Loads",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practical example - Windows Presentation Foundation (WPF)", "FemDesign.Examples\C#\Practical example - Windows Presentation Foundation (WPF)\Practical example - Windows Presentation Foundation (WPF).csproj", "{0FB2E28B-8C5B-49C4-98B3-E34B6EE9F2FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practical example - Optimise for CO2 emission", "FemDesign.Examples\C#\Practical example - Optimise for CO2 emission\Practical example - Optimise for CO2 emission.csproj", "{5425BE85-A616-4DC7-8E80-CB124C8320EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practical example - Optimise for CO2 emission", "FemDesign.Examples\C#\Practical example - Optimise for CO2 emission\Practical example - Optimise for CO2 emission.csproj", "{5425BE85-A616-4DC7-8E80-CB124C8320EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example 8 - SlabReinforcement", "FemDesign.Examples\C#\Example 8 - SlabReinforcement\Example 8 - SlabReinforcement.csproj", "{BEC4FB61-E232-4680-8B90-F154BF3C5884}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -148,6 +150,10 @@ Global
 		{5425BE85-A616-4DC7-8E80-CB124C8320EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5425BE85-A616-4DC7-8E80-CB124C8320EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5425BE85-A616-4DC7-8E80-CB124C8320EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC4FB61-E232-4680-8B90-F154BF3C5884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC4FB61-E232-4680-8B90-F154BF3C5884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC4FB61-E232-4680-8B90-F154BF3C5884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC4FB61-E232-4680-8B90-F154BF3C5884}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +180,7 @@ Global
 		{C22928AC-7359-40E3-8042-5C5BCF90343B} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{0FB2E28B-8C5B-49C4-98B3-E34B6EE9F2FF} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 		{5425BE85-A616-4DC7-8E80-CB124C8320EC} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
+		{BEC4FB61-E232-4680-8B90-F154BF3C5884} = {C68FA42C-7B20-4FE3-AED6-8B6619EE5410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDF9D949-F79B-4EA6-A766-976B0BE0BC79}

@@ -254,8 +254,8 @@ namespace FemDesign.Calculate
             this.BucklingCurveTf = torsionalDirection;
             this.LatTorBuckGen = en1993_1_1_6_3_2_2;
             this.LatTorBuckGenSpecForI = en1993_1_1_6_3_2_3;
-            this.BucklingCurveLtb = topFlange;
-            this.BucklingCurveLtt = bottomFlange;
+            this.BucklingCurveLtb = bottomFlange;
+            this.BucklingCurveLtt = topFlange;
         }
     }
 }

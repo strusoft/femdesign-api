@@ -120,19 +120,51 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// non_neg_max_5
+        /// </summary>
+        internal static double NonNegMax_5(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 5);
+        }
+
+        /// <summary>
         /// non_neg_max_10
         /// </summary>
         internal static double NonNegMax_10(double val)
         {
             return RestrictedDouble.ValueInClosedInterval(val, 0, 10);
         }
+        
+        /// <summary>
+        /// non_zero_max_10_1
+        /// </summary>
+        internal static double NonZeroMax_10_1(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 0.02, 10);
+        }
 
         /// <summary>
-        /// non_neg_max_10
+        /// non_zero_max_10_1
+        /// </summary>
+        internal static double NonZeroMax_10_2(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 0.03, 10);
+        }
+
+        /// <summary>
+        /// non_neg_max_20
         /// </summary>
         internal static double NonNegMax_20(double val)
         {
             return RestrictedDouble.ValueInClosedInterval(val, 0, 20);
+        }
+
+        /// <summary>
+        /// non_neg_max_90
+        /// </summary>
+        internal static double NonNegMax_90(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 0, 90);
         }
 
         /// <summary>
@@ -229,6 +261,22 @@ namespace FemDesign
         internal static double NonZeroMax_1e30(double val)
         {
             return RestrictedDouble.ValueInClosedInterval(val, 1E-5, 1E30);
+        }
+
+        /// <summary>
+        /// Check if val in range [90.0, 180.0]
+        /// </summary>
+        internal static double MeshMaxAngle(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 90, 180);
+        }
+
+        /// <summary>
+        /// Check if val in range [2.0, 500.0]
+        /// </summary>
+        internal static double MeshMaxRatio(double val)
+        {
+            return RestrictedDouble.ValueInClosedInterval(val, 2, 500);
         }
 
         /// <summary>

@@ -46,6 +46,11 @@ namespace FemDesign
         public System.Guid Guid { get; set; } // guidtype
         [XmlAttribute("convertid")]
         public string ConvertId { get; set; } // guidtype
+
+        // set the default value that does not have to be serialised
+        [XmlAttribute("soil_as_solid")]
+        public bool SoilAsSolid { get; set; } = false;
+
         /// <summary>Calculation code</summary>
         [XmlAttribute("standard")]
         public string Standard { get; set; } // standardtype

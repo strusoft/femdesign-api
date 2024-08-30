@@ -37,3 +37,4 @@ FemDesign.Tests/Results/**/*.log
 
 !**/Assets/*.str
 !**/Assets/*.strFEM
+*.pyc

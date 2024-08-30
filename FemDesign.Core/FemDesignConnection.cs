@@ -263,6 +263,16 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// Set global settings for a FEM-Design model.
+        /// </summary>
+        /// <param name="globConfig">Can be any type of configuration from CmdGlobalCfg (e.g. MeshGeneral, MeshSettings, Meshfunctions, etc.). See the properties of Calculate.CmdGlobalCfg class.</param>
+        public void SetGlobalConfig(params Calculate.GlobConfig[] globConfig)
+        {
+            var cmd = new CmdGlobalCfg(globConfig);
+            this.SetGlobalConfig(cmd);
+        }
+
+        /// <summary>
         /// Set global settings for a FEM-Design model using a global configuration file.
         /// </summary>
         /// <param name="filepath">Filepath of the global configuration file.</param>
@@ -298,12 +308,7 @@ namespace FemDesign
             var filePath = OutputFileHelper.GetConfigfilePath(OutputDir);
             var cmdconfig = new Calculate.CmdConfig(filePath, configs);
 
-            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
-            var script = new FdScript(
-                logfile,
-                cmdconfig
-            );
-            this.RunScript(script, "SetConfig");
+            this.SetConfig(cmdconfig);
         }
 
         public void SetConfig(CmdConfig cmdConfig)
@@ -315,6 +320,23 @@ namespace FemDesign
             );
             this.RunScript(script, "SetConfig");
         }
+
+        public void SetProjDescription(CmdProjDescr cmdProjDescr)
+        {
+            string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
+            var script = new FdScript(
+                logfile,
+                cmdProjDescr
+            );
+            this.RunScript(script, "SetConfig");
+        }
+
+        public void SetProjDescription(string project, string description, string designer, string signature, string comment, List<UserDefinedData> items = null)
+        {
+            var cmdProjdescr = new CmdProjDescr(project, description, designer, signature, comment, items);
+            this.SetProjDescription(cmdProjdescr);
+        }
+
 
         /// <summary>
         /// Open a <see cref="Model"/> in FEM-Design application.
