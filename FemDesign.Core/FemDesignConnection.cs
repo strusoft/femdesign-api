@@ -498,7 +498,6 @@ namespace FemDesign
 
             var script = new FdScript(
                     logfile,
-                    new CmdUser(CmdUserModule.RESMODE),
                     new CmdApplyDesignChanges()
                 );
 
@@ -750,10 +749,7 @@ namespace FemDesign
                 listGenCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i]));
 
             // FdScript commands
-            List<CmdCommand> scriptCommands = new List<CmdCommand>
-            {
-                new CmdUser(CmdUserModule.RESMODE),
-            };
+            List<CmdCommand> scriptCommands = new List<CmdCommand>();
             scriptCommands.AddRange(resultPoints);
             scriptCommands.AddRange(listGenCommands);
 
@@ -1180,10 +1176,7 @@ namespace FemDesign
         private void _listResultsByFdScript(string scriptFileName, List<string> bscPaths, List<string> csvPaths, List<FemDesign.GenericClasses.IStructureElement> elements = null)
         {
             // FdScript commands
-            List<CmdCommand> scriptCommands = new List<CmdCommand>
-            {
-                new CmdUser(CmdUserModule.RESMODE)
-            };
+            List<CmdCommand> scriptCommands = new List<CmdCommand>();
             for (int i = 0; i < bscPaths.Count; i++)
                 scriptCommands.Add(new CmdListGen(bscPaths[i], csvPaths[i], elements));
 
