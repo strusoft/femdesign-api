@@ -66,7 +66,7 @@ namespace FemDesign.Grasshopper
             // Parse 'method' input to enum
             DampingType _type = FemDesign.GenericClasses.EnumParser.Parse<DampingType>(type);
 
-            PeriodicExcitation obj = new Calculate.PeriodicExcitation(dT, tEnd, _type, alpha, beta, ksi);
+            Calculate.PeriodicExcitation obj = new Calculate.PeriodicExcitation(dT, tEnd, _type, alpha, beta, ksi);
 
             // return
             DA.SetData(0, obj);

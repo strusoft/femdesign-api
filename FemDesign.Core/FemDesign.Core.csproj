@@ -100,6 +100,7 @@
     <Compile Include="Loads\Loads\LineSupportMotion.cs" />
     <Compile Include="Loads\Loads\Mass.cs" />
     <Compile Include="Loads\Loads\MovingLoad.cs" />
+    <Compile Include="Loads\Loads\PeriodicExcitation.cs" />
     <Compile Include="Loads\Loads\PointSupportMotion.cs" />
     <Compile Include="Loads\Loads\PressureLoad.cs" />
     <Compile Include="Loads\Load groups\RelationTable.cs" />

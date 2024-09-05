@@ -136,6 +136,8 @@
     <Compile Include="Loads\Loads\Dynamics\ExcitationDiagram.cs" />
     <Compile Include="Loads\Loads\Dynamics\ExcitationForceCombination.cs" />
     <Compile Include="Loads\Loads\Dynamics\ExcitationLoad.cs" />
+    <Compile Include="Loads\Loads\Dynamics\PeriodicCase.cs" />
+    <Compile Include="Loads\Loads\Dynamics\PeriodicRecord.cs" />
     <Compile Include="Loads\Loads\LineLoadDefine.cs" />
     <Compile Include="Loads\Loads\LineSupportMotionDefine.cs" />
     <Compile Include="Loads\Loads\Mass.cs" />

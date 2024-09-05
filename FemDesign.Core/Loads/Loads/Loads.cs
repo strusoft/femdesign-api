@@ -71,7 +71,7 @@ namespace FemDesign.Loads
         public ExcitationForce ExcitationForce { get; set; }
 
         [XmlElement("periodic_excitation", Order = 18)]
-        public StruSoft.Interop.StruXml.Data.Periodic_excitation_type PeriodicExcitations { get; set; } // periodic_excitation_type
+        public PeriodicExcitation PeriodicExcitations { get; set; } // periodic_excitation_type
 
         [XmlElement("moving_load", Order = 19)]
         public List<StruSoft.Interop.StruXml.Data.Moving_load_type> MovingLoads { get; set; } // moving_load_type

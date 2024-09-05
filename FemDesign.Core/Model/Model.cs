@@ -1386,6 +1386,57 @@ namespace FemDesign
             return false;
         }
 
+        private void AddPeriodicExcitationForce(Loads.PeriodicLoad obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.PeriodicExcitationForceInModel();
+
+            if (!inModel)
+            {
+                this.Entities.Loads.PeriodicExcitations = new PeriodicExcitation();
+            }
+
+            // check if record is in model
+            if (this.Entities.Loads.PeriodicExcitations.Records.Any(x => x.Name == obj.Name))
+            {
+                throw new System.ArgumentException($"{obj.GetType().FullName} with Name: {obj.Name} has already been added to model.");
+            }
+
+            this.Entities.Loads.PeriodicExcitations.Records.Add(obj);
+        }
+
+
+
+        private void AddPeriodicExcitationForce(PeriodicExcitation obj, bool overwrite)
+        {
+            // in model?
+            bool inModel = this.PeriodicExcitationForceInModel();
+
+            // in model, don't overwrite
+            if (inModel && overwrite == false)
+            {
+                throw new System.ArgumentException($"Model has already a periodic excitation load. Only one excitation load is supported.");
+            }
+
+            // in model, overwrite
+            else if (inModel && overwrite == true)
+            {
+                this.Entities.Loads.PeriodicExcitations = null;
+            }
+
+            // add mass load
+            this.Entities.Loads.PeriodicExcitations = obj;
+        }
+
+        private bool PeriodicExcitationForceInModel()
+        {
+            if (this.Entities.Loads.PeriodicExcitations != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// Add PointLoad to Model.
@@ -3700,6 +3751,9 @@ namespace FemDesign
         private void AddEntity(Loads.Mass obj, bool overwrite) => AddMass(obj, overwrite);
 
         private void AddEntity(Loads.ExcitationForce obj, bool overwrite) => AddExcitationForce(obj, overwrite);
+
+        private void AddEntity(Loads.PeriodicExcitation obj, bool overwrite) => AddPeriodicExcitationForce(obj, overwrite);
+        private void AddEntity(Loads.PeriodicLoad obj, bool overwrite) => AddPeriodicExcitationForce(obj, overwrite);
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);
