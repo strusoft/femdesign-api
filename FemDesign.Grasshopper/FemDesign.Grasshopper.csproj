@@ -137,7 +137,7 @@
     <Compile Include="Loads\Loads\Dynamics\ExcitationForceCombination.cs" />
     <Compile Include="Loads\Loads\Dynamics\ExcitationLoad.cs" />
     <Compile Include="Loads\Loads\Dynamics\PeriodicCase.cs" />
-    <Compile Include="Loads\Loads\Dynamics\PeriodicRecord.cs" />
+    <Compile Include="Loads\Loads\Dynamics\PeriodicLoad.cs" />
     <Compile Include="Loads\Loads\LineLoadDefine.cs" />
     <Compile Include="Loads\Loads\LineSupportMotionDefine.cs" />
     <Compile Include="Loads\Loads\Mass.cs" />
@@ -941,8 +941,10 @@
     <Content Include="Resources\icons\ImperfectionDefine3.png" />
     <Content Include="Resources\icons\LabelledSection.png" />
     <Content Include="Resources\icons\LineConnection.bmp" />
+    <None Include="Resources\icons\PeriodicCase.png" />
     <Content Include="Resources\icons\PeriodicExcitationDefine2.png" />
     <Content Include="Resources\icons\PeriodicExcitationDefine3.png" />
+    <None Include="Resources\icons\PeriodicExcitationLoad.png" />
     <Content Include="Resources\icons\StabilityDefine2.png" />
     <Content Include="Resources\icons\StabilityDefine3.png" />
     <Content Include="Resources\icons\StageDefine2.png" />

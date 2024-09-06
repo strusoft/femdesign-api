@@ -1703,6 +1703,16 @@ namespace FemDesign.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PeriodicCase {
+            get {
+                object obj = ResourceManager.GetObject("PeriodicCase", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PeriodicExcitationDefine2 {
             get {
                 object obj = ResourceManager.GetObject("PeriodicExcitationDefine2", resourceCulture);
@@ -1716,6 +1726,16 @@ namespace FemDesign.Properties {
         internal static System.Drawing.Bitmap PeriodicExcitationDefine3 {
             get {
                 object obj = ResourceManager.GetObject("PeriodicExcitationDefine3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PeriodicExcitationLoad {
+            get {
+                object obj = ResourceManager.GetObject("PeriodicExcitationLoad", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

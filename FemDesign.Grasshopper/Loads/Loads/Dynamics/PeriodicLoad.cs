@@ -14,14 +14,14 @@ namespace FemDesign.Grasshopper
 {
     public class PeriodicLoad : FEM_Design_API_Component
     {
-        public PeriodicLoad() : base("PeriodicLoad", "PeriodicLoad", "", CategoryName.Name(), SubCategoryName.Cat3())
+        public PeriodicLoad() : base("PeriodicLoad.Define", "PeriodicLoad.Define", "", CategoryName.Name(), SubCategoryName.Cat3())
         {
         }
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Frequency", "Frequency", "", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Frequency", "Frequency", "Hz", GH_ParamAccess.item);
             pManager.AddGenericParameter("PeriodicCases", "PeriodicCases", "", GH_ParamAccess.list);
         }
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -47,13 +47,15 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.PeriodicExcitationLoad;
             }
         }
         public override Guid ComponentGuid
         {
             get { return new Guid("{F6A3C3AC-8399-4894-9B77-BF0A65CF4F46}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.obscure;
+
+
     }
 }

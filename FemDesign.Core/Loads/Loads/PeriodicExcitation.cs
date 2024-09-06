@@ -60,11 +60,30 @@ namespace FemDesign.Loads
 
         public PeriodicLoad() { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="frequency">Hz</param>
+        /// <param name="cases"></param>
         public PeriodicLoad(string name, double frequency, List<PeriodicCase> cases)
         {
             this.Name = name;
             this.Frequency = frequency;
             this.Case = cases;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="frequency">Hz</param>
+        /// <param name="cases"></param>
+        public PeriodicLoad(string name, double frequency, params PeriodicCase[] cases)
+        {
+            this.Name = name;
+            this.Frequency = frequency;
+            this.Case = cases.ToList();
         }
 
 
@@ -121,7 +140,6 @@ namespace FemDesign.Loads
                 LoadCaseGuid = value.Guid;
             }
         }
-
 
         public PeriodicCase() { }
 

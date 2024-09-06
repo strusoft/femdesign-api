@@ -14,7 +14,7 @@ namespace FemDesign.Grasshopper
 {
     public class PeriodicCase : FEM_Design_API_Component
     {
-        public PeriodicCase() : base("PeriodicCase", "PeriodicCase", "", CategoryName.Name(), SubCategoryName.Cat3())
+        public PeriodicCase() : base("PeriodicCase.Define", "PeriodicCase.Define", "", CategoryName.Name(), SubCategoryName.Cat3())
         {
 
         }
@@ -22,7 +22,7 @@ namespace FemDesign.Grasshopper
         {
             pManager.AddNumberParameter("Factor", "Factor", "", GH_ParamAccess.item, 1.0);
             pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddTextParameter("Phase", "Phase", "", GH_ParamAccess.item, "Sin");
+            pManager.AddTextParameter("Phase", "Phase", "\"Connect 'ValueList' to get the options.\\nPhase type:\\nSin\\\nCos", GH_ParamAccess.item, "Sin");
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddGenericParameter("LoadCase", "LoadCase", "", GH_ParamAccess.item);
         }
@@ -51,13 +51,18 @@ namespace FemDesign.Grasshopper
         {
             get
             {
-                return null;
+                return FemDesign.Properties.Resources.PeriodicCase;
             }
         }
         public override Guid ComponentGuid
         {
             get { return new Guid("{4305829A-FDB0-4B7D-9F0D-12278C013661}"); }
         }
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.obscure;
+
+        protected override void BeforeSolveInstance()
+        {
+            ValueListUtils.UpdateValueLists(this, 1, Enum.GetNames(typeof(FemDesign.Loads.PeriodicCase.Shape)).ToList(), null, GH_ValueListMode.DropDown);
+        }
     }
 }

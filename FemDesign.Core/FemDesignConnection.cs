@@ -393,7 +393,7 @@ namespace FemDesign
                 this.RunScript(script, "RunAnalysis");
             }
 
-            if (analysis.Freq != null || analysis.Footfall != null)
+            if (analysis.Freq != null || analysis.Footfall != null || analysis.PeriodicEx != null || analysis.ExForce != null || analysis.GroundAcc != null)
             {
                 script = new FdScript(
                     logfile,
