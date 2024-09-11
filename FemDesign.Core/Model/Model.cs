@@ -704,6 +704,10 @@ namespace FemDesign
         /// </summary>
         private void AddComplexSection(Sections.ComplexSection complexSection, bool overwrite)
         {
+            if (this.Sections == null)
+            {
+                this.Sections = new Sections.ModelSections();
+            }
             // in model?
             bool inModel = this.ComplexSectionInModel(complexSection);
 

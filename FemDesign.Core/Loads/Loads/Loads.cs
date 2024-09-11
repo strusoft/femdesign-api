@@ -104,6 +104,10 @@ namespace FemDesign.Loads
             objs.AddRange(this.SurfaceTemperatureLoads);
             objs.AddRange(this.FootfallAnalysisData);
             objs.AddRange(this.Masses);
+            objs.Add(this.ExcitationForce);
+            objs.Add(this.PeriodicExcitations);
+            //objs.Add(this.GroundAccelerations);
+            //objs.Add(this.SeismicLoads);
             return objs;
         }
 
