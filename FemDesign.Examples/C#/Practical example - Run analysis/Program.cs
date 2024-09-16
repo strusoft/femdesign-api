@@ -9,6 +9,7 @@ using FemDesign;
 using FemDesign.Results;
 using FemDesign.Calculate;
 using System.Linq.Expressions;
+using FemDesign.Loads;
 
 
 namespace FemDesign.Examples
@@ -221,6 +222,18 @@ namespace FemDesign.Examples
 
             var combDefault = Calculate.Comb.Default();
 
+
+            var loadCombinations = new List<string> { "SNOW LEAD", "WIND LEAD", "ULS VERTICAL" };
+            var imperfectionSettings = new Calculate.Imperfection
+            (
+                loadCombinations,
+                new List<int> { 5, 4,2 },
+                true,
+                5,
+                true
+            );
+
+
             // RUN ANALYSIS
 
             Analysis analysis;
@@ -237,13 +250,17 @@ namespace FemDesign.Examples
                 analysis = new Analysis(comb: noComb, calcCase: true, calcComb: true);
                 connection.RunAnalysis(analysis);
 
+
                 analysis = new Analysis(comb: combDefault, calcCase: true, calcComb: true);
                 connection.RunAnalysis(analysis);
 
                 analysis = new Analysis(freq: freqSettings, calcFreq: true);
                 connection.RunAnalysis(analysis);
 
-                analysis = new Analysis(stability: stabilitySettings, calcStab: true);
+                //analysis = new Analysis(stability: stabilitySettings, calcStab: true);
+                //connection.RunAnalysis(analysis);
+
+                analysis = new Analysis(imperfection: imperfectionSettings, calcImpf: true);
                 connection.RunAnalysis(analysis);
             }
         }
