@@ -504,7 +504,7 @@ namespace FemDesign.Calculate
         }
 
 
-        public void SetCombAnalysis(FemDesignConnection connection)
+        internal void SetCombAnalysis(FemDesignConnection connection)
         {
             //this.Comb.CombItem.Clear();
             // ordered load combinations in the model
@@ -550,7 +550,7 @@ namespace FemDesign.Calculate
         }
 
 
-        public void SetStabilityAnalysis(FemDesignConnection connection)
+        internal void SetStabilityAnalysis(FemDesignConnection connection)
         {
             // ordered load combinations in the model
             var loadCombination = connection.GetLoadCombinations();
@@ -590,7 +590,7 @@ namespace FemDesign.Calculate
             }
         }
 
-        public void SetImperfectionAnalysis(FemDesignConnection connection)
+        internal void SetImperfectionAnalysis(FemDesignConnection connection)
         {
             // ordered load combinations in the model
             var loadCombination = connection.GetLoadCombinations();
