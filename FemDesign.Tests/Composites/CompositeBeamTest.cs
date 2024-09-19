@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FemDesign;
 using System;
 using System.IO;
 using System.Xml;
@@ -7,7 +6,6 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 
-using FemDesign;
 using FemDesign.Materials;
 using FemDesign.Sections;
 using FemDesign.Geometry;
@@ -33,7 +31,7 @@ namespace FemDesign.Composites
             
 
             // Create composite beam
-            CompositeSection compositeSection = CompositeSection.FilledHSQProfile(steel, concrete, name: "beamB1", b: 200, bt: 250, o1: 400, o2: 150, h: 360, tw: 10, tfb: 50, tft: 20);
+            CompositeSection compositeSection = CompositeSection.FilledHSQProfile(name: "beamB1", steel, concrete, b: 200, bt: 250, o1: 400, o2: 150, h: 360, tw: 10, tfb: 50, tft: 20);
             Bars.Bar compositeBar = new Bars.Bar(line, Bars.BarType.Beam, compositeSection, null, null, "B");
             
 

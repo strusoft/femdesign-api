@@ -1406,7 +1406,7 @@ namespace FemDesign
             return false;
         }
 
-        private void AddPeriodicExcitationForce(Loads.PeriodicLoad obj, bool overwrite)
+        private void AddPeriodicExcitationForceRecords(Loads.PeriodicLoad obj, bool overwrite)
         {
             // in model?
             bool inModel = this.PeriodicExcitationForceInModel();
@@ -3773,7 +3773,7 @@ namespace FemDesign
         private void AddEntity(Loads.ExcitationForce obj, bool overwrite) => AddExcitationForce(obj, overwrite);
 
         private void AddEntity(Loads.PeriodicExcitation obj, bool overwrite) => AddPeriodicExcitationForce(obj, overwrite);
-        private void AddEntity(Loads.PeriodicLoad obj, bool overwrite) => AddPeriodicExcitationForce(obj, overwrite);
+        private void AddEntity(Loads.PeriodicLoad obj, bool overwrite) => AddPeriodicExcitationForceRecords(obj, overwrite);
 
         private void AddEntity(Loads.LoadCase obj, bool overwrite) => AddLoadCase(obj, overwrite);
         private void AddEntity(Loads.LoadCombination obj, bool overwrite) => AddLoadCombination(obj, overwrite);

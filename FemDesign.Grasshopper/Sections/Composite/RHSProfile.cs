@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(2, ref concrete)) { return; }
 
             Sections.Section rhsProf = null;
-            if (DA.GetData(3, ref rhsProf)) { return; }
+            if (!DA.GetData(3, ref rhsProf)) { return; }
 
             // check input data
             if (steel.Family != Materials.Family.Steel)

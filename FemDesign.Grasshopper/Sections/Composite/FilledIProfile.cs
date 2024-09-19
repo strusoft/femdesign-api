@@ -52,7 +52,7 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(2, ref concrete)) { return; }
 
             Sections.Section iProf = null;
-            if (DA.GetData(3, ref iProf)) { return; }
+            if (!DA.GetData(3, ref iProf)) { return; }
 
             double cy = 80;
             DA.GetData(4, ref cy);
