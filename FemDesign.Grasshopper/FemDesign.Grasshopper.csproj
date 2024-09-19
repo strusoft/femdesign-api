@@ -69,6 +69,7 @@
     <Compile Include="..\FemDesign.Core\Properties\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Bars\CompositeBar.cs" />
     <Compile Include="Bars\TrussBehaviour_OBSOLETE2305.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
     <Compile Include="Calculate\ApplicationRun.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Deconstruct\ModellingTools\PointConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\OBSOLETE\LineConnectionDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\ModellingTools\SurfaceConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\SectionDeconstruct _OBSOLETE2307.cs" />
     <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
     <Compile Include="Loads\Load groups\LoadGroupToLoadComb.cs" />
     <Compile Include="Loads\Loads\Dynamics\ExcitationDiagram.cs" />
@@ -316,6 +318,15 @@
     <Compile Include="Results\Timber\BarTimberUtilization.cs" />
     <Compile Include="Results\Units.cs" />
     <Compile Include="Results\Utils\UtilGhMethods.cs" />
+    <Compile Include="Sections\Composite\CompositeSectionDefine.cs" />
+    <Compile Include="Sections\Composite\FilledCruciformProfile.cs" />
+    <Compile Include="Sections\Composite\EffectiveCompositeSlab.cs" />
+    <Compile Include="Sections\Composite\FilledIProfile.cs" />
+    <Compile Include="Sections\Composite\SteelTubeWithIProfile.cs" />
+    <Compile Include="Sections\Composite\SteelTubeWithSteelCore.cs" />
+    <Compile Include="Sections\Composite\RHSProfile.cs" />
+    <Compile Include="Sections\Composite\HSQProfile.cs" />
+    <Compile Include="Sections\Composite\FilledSteelTube.cs" />
     <Compile Include="Sections\SectionGetSectionProperties.cs" />
     <Compile Include="Sections\SectionByFamily.cs" />
     <Compile Include="Sections\SectionDatabase.cs" />
