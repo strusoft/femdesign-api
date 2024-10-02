@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
+
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
+
 using FemDesign.Grasshopper.Components.UIWidgets;
+using FemDesign.Materials;
 
 
 namespace FemDesign.Grasshopper
@@ -53,7 +57,7 @@ namespace FemDesign.Grasshopper
             if (!DA.GetData(1, ref steelTube)) { return; }
 
             Materials.Material iMaterial = new Materials.Material();
-            if (!DA.GetData(2, ref steelTube)) { return; }
+            if (!DA.GetData(2, ref iMaterial)) { return; }
 
             Materials.Material concrete = new Materials.Material();
             if (!DA.GetData(3, ref concrete)) { return; }
@@ -73,8 +77,23 @@ namespace FemDesign.Grasshopper
             if (concrete.Family != Materials.Family.Concrete)
                 throw new ArgumentException($"Concrete input must be concrete material but it is {concrete.Family}");
 
-            // create composite section
-            Composites.CompositeSection compositeSection = Composites.CompositeSection.FilledSteelTubeWithIProfile(name, steelTube, iMaterial, concrete, iProfile, d, t);
+            // create task to create composite section
+            Composites.CompositeSection compositeSection = null;
+            var task = Task.Run(() =>
+            {
+                compositeSection = Composites.CompositeSection.FilledSteelTubeWithIProfile(name, steelTube, iMaterial, concrete, iProfile, d, t);
+            });
+
+            task.ConfigureAwait(false);
+            try
+            {
+                task.Wait();
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+
 
             // get output
             DA.SetData(0, compositeSection);

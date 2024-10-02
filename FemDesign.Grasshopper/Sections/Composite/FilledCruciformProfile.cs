@@ -67,10 +67,10 @@ namespace FemDesign.Grasshopper
             DA.GetData(5, ref bf);
 
             double tw = 15;
-            DA.GetData(8, ref tw);
+            DA.GetData(6, ref tw);
 
             double tf = 25;
-            DA.GetData(9, ref tf);
+            DA.GetData(7, ref tf);
 
             // check input data
             if (steel.Family != Materials.Family.Steel)

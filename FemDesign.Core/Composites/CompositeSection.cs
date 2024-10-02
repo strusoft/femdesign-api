@@ -8,6 +8,7 @@ using System.Linq;
 using FemDesign.Sections;
 using FemDesign.Materials;
 using FemDesign.Geometry;
+using System.Runtime.CompilerServices;
 
 namespace FemDesign.Composites
 {
@@ -196,10 +197,6 @@ namespace FemDesign.Composites
         /// <returns></returns>
         internal static List<Sections.Section> CreateEffectiveCompositeSlabSection(Section steelProfile, double t, double bEff, double th, double bt, double bb, bool filled = false)
         {
-            Results.SectionProperties secProp = steelProfile.GetSectionProperties(Results.SectionalData.m);
-            double heightI = secProp.Height;
-            double widthI = secProp.Width;
-
             // round inputs
             t = Math.Round(t, 2, MidpointRounding.AwayFromZero);
             bEff = Math.Round(bEff, 2, MidpointRounding.AwayFromZero);
@@ -216,8 +213,8 @@ namespace FemDesign.Composites
                 throw new ArgumentException(" Composite section parameters must be positive, non-zero numbers!");
             if (bt < bb)
                 throw new ArgumentException(" Hunch width at the top must be greater than or equal to the hunch width at the bottom!");
-            if (bb < widthI)
-                throw new ArgumentException($" Hunch width must be greater than or equal to the width of the steel profile!");
+            //if (bb < widthI)
+            //    throw new ArgumentException($" Hunch width must be greater than or equal to the width of the steel profile!");
             if (bEff < bt)
                 throw new ArgumentException(" Concrete slab effective width top must be greater than or equal to the hunch width at the top!");
 
@@ -230,7 +227,8 @@ namespace FemDesign.Composites
 
             // definition of corner points (order of points matters!)
             List<Point3d> points = new List<Point3d>();
-            points.Add(new Point3d(-bEff / 2, heightI / 2 + t + th, 0));
+            //points.Add(new Point3d(-bEff / 2, heightI / 2 + t + th, 0));
+            points.Add(new Point3d(-bEff / 2, 0, 0));
             points.Add(new Point3d(points[0].X, points[0].Y - t, 0));
             points.Add(new Point3d(points[1].X + (bEff - bt) / 2, points[1].Y, 0));
             points.Add(new Point3d(points[2].X + (bt - bb) / 2, points[2].Y - th, 0));
@@ -252,6 +250,12 @@ namespace FemDesign.Composites
             RegionGroup slabRegion = new RegionGroup(new Region(slabContours));
             if (filled)
             {
+                Results.SectionProperties secProp = steelProfile.GetSectionProperties(Results.SectionalData.mm);
+                double heightI = secProp.Height;
+                double widthI = secProp.Width;
+                heightI /= 1000;
+                widthI /= 1000;
+
                 points.Add(new Point3d(widthI / 2, heightI / 2, 0));
                 points.Add(new Point3d(-widthI / 2, heightI / 2, 0));
                 points.Add(new Point3d(-widthI / 2, -heightI / 2, 0));
@@ -292,7 +296,6 @@ namespace FemDesign.Composites
 
             List<Material> materials = new List<Material>() { steel, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
             List<Section> sections = CreateFilledHSQSection(b, bt, o1, o2, h, tw, tfb, tft);
-            (double[], double[]) offsetYZ = CalculateFilledHSQSectionOffset(b, bt, o1, o2, h, tw, tfb, tft);
 
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>
             {
@@ -307,7 +310,7 @@ namespace FemDesign.Composites
                 new CompositeSectionParameter(CompositeSectionParameterType.tft, tft.ToString())
             };
 
-            return new CompositeSection(CompositeSectionType.FilledHSQProfile, materials, sections, offsetYZ.Item1, offsetYZ.Item2, parameters);
+            return new CompositeSection(CompositeSectionType.FilledHSQProfile, materials, sections, parameters);
         }
 
         /// <summary>
@@ -398,66 +401,171 @@ namespace FemDesign.Composites
             return SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
         }
 
+        ///// <summary>
+        ///// Calculate the offset of the steel part from the concrete part in Y and Z for a FilledHSQProfile.
+        ///// </summary>
+        ///// <param name="b">Intermediate width of the bottom flange [mm].</param>
+        ///// <param name="bt">Top flange width [mm].</param>
+        ///// <param name="o1">Left overhang [mm].</param>
+        ///// <param name="o2">Right overhang [mm].</param>
+        ///// <param name="h">Web hight [mm].</param>
+        ///// <param name="tw">Web thickness [mm].</param>
+        ///// <param name="tfb">Bottom flange thickness [mm].</param>
+        ///// <param name="tft">Top flange thickness [mm].</param>
+        ///// <returns></returns>
+        //internal static (double[], double[]) CalculateFilledHSQSectionOffset(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
+        //{
+        //    // conversion of geometric parameters from millimeters to meters
+        //    b = b / 1000;
+        //    bt = bt / 1000;
+        //    o1 = o1 / 1000;
+        //    o2 = o2 / 1000;
+        //    h = h / 1000;
+        //    tw = tw / 1000;
+        //    tfb = tfb / 1000;
+        //    tft = tft / 1000;
+
+        //    var steelArea = (bt * tft) + (2 * tw * h) + ((b + o1 + o2) * tfb);
+        //    var ezSteel = (((bt * tft) * (tft + h)) - (((b + o1 + o2) * tfb) * (tfb + h))) / 2 / steelArea;
+        //    var eySteel = (((b + o1 + o2) * tfb) * (o2 - o1)) / 2 / steelArea;
+
+        //    double[] offsetY = { eySteel, 0 };   // !the sequence of steel and concrete offsets must match the sequence of steel and concrete sections
+        //    double[] offsetZ = { ezSteel, 0 };
+
+        //    return (offsetY, offsetZ);
+        //}
+
         /// <summary>
-        /// Calculate the offset of the steel part from the concrete part in Y and Z for a FilledHSQProfile.
-        /// </summary>
-        /// <param name="b">Intermediate width of the bottom flange [mm].</param>
-        /// <param name="bt">Top flange width [mm].</param>
-        /// <param name="o1">Left overhang [mm].</param>
-        /// <param name="o2">Right overhang [mm].</param>
-        /// <param name="h">Web hight [mm].</param>
-        /// <param name="tw">Web thickness [mm].</param>
-        /// <param name="tfb">Bottom flange thickness [mm].</param>
-        /// <param name="tft">Top flange thickness [mm].</param>
-        /// <returns></returns>
-        internal static (double[], double[]) CalculateFilledHSQSectionOffset(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
-        {
-            // conversion of geometric parameters from millimeters to meters
-            b = b / 1000;
-            bt = bt / 1000;
-            o1 = o1 / 1000;
-            o2 = o2 / 1000;
-            h = h / 1000;
-            tw = tw / 1000;
-            tfb = tfb / 1000;
-            tft = tft / 1000;
-
-            var steelArea = (bt * tft) + (2 * tw * h) + ((b + o1 + o2) * tfb);
-            var ezSteel = (((bt * tft) * (tft + h)) - (((b + o1 + o2) * tfb) * (tfb + h))) / 2 / steelArea;
-            var eySteel = (((b + o1 + o2) * tfb) * (o2 - o1)) / 2 / steelArea;
-
-            double[] offsetY = { eySteel, 0 };   // !the sequence of steel and concrete offsets must match the sequence of steel and concrete sections
-            double[] offsetZ = { ezSteel, 0 };
-
-            return (offsetY, offsetZ);
-        }
-
-        /// <summary>
-        /// Not implemented yet! WIP!
+        /// Create a FilledDeltaBeamProfile type CompositeSection object.
         /// </summary>
         /// <param name="steel">Steel part material.</param>
         /// <param name="concrete">Concrete part material.</param>
         /// <param name="deltaBeamProfile">Delta beam cross-section from database. Can be a D or DR section type.</param>
         /// <param name="name">Composite section name.</param>
         /// <returns></returns>
-        private static CompositeSection FilledDeltaBeamProfile(string name, Material steel, Material concrete, Section deltaBeamProfile)
+        public static CompositeSection FilledDeltaBeamProfile(string name, Material steel, Material concrete, Section deltaBeamProfile)
         {
             NotImplemented();
             CheckMaterialFamily(new List<Material> { steel }, concrete);
 
             // check input data
-            CheckSteelSectionCompatibility(CompositeSectionType.FilledSteelTube, deltaBeamProfile);
+            CheckSteelSectionCompatibility(CompositeSectionType.FilledDeltaBeamProfile, deltaBeamProfile);
 
             List<Material> materials = new List<Material>() { steel, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
-            List<Section> sections = new List<Section>();
-            //List<Section> sections = CreateFilledDeltaBeamSection(steelSection);      // !CreateFilledDeltaBeamSection() method is not impemented yet
+            List<Section> sections = CreateFilledDeltaBeamSection(deltaBeamProfile);      // !CreateFilledDeltaBeamSection() method is not impemented yet
 
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>
             {
                 new CompositeSectionParameter(CompositeSectionParameterType.Name, name)
             };
 
-            return new CompositeSection(CompositeSectionType.FilledDeltaBeamProfile, materials, sections, /*offsetYZ.Item1, offsetYZ.Item2,*/ parameters);
+            return new CompositeSection(CompositeSectionType.FilledDeltaBeamProfile, materials, sections, parameters);
+        }
+
+        /// <summary>
+        /// Create a parametric section for FilledDeltaBeamProfile type CompositeSection object.
+        /// </summary>
+        /// <param name="deltaBeamProfile">Steel section from database. Can be a D or DR section type.</param>
+        /// <returns></returns>
+        internal static List<Sections.Section> CreateFilledDeltaBeamSection(Section deltaBeamProfile)
+        {
+            // get contour points for concrete section part
+            List<Region> steelRegions = deltaBeamProfile.RegionGroup.Regions;
+            List<Edge> intSideEdgs = GetDeltaBeamSideEdges(steelRegions, out double topPtsY);
+            List<Point3d> concretePts = GetDeltaBeamInteriorPoints(intSideEdgs, topPtsY);
+
+            // create contours
+            List<Contour> concreteContours = new List<Contour> { new Contour(concretePts) };
+
+            // create region groups
+            RegionGroup conreteRegion = new RegionGroup(new Region(concreteContours));
+
+            // create sections
+            List<Section> sections = new List<Section>();
+            MaterialTypeEnum steelMatType = (MaterialTypeEnum)Enum.Parse(typeof(MaterialTypeEnum), deltaBeamProfile.MaterialType);
+            sections.Add(new Section(deltaBeamProfile.RegionGroup, "custom", steelMatType, "Steel section", steelMatType.ToString(), deltaBeamProfile.SizeName));
+            sections.Add(new Section(conreteRegion, "custom", MaterialTypeEnum.Concrete, "Concrete section", MaterialTypeEnum.Concrete.ToString(), "--"));
+
+            return sections;
+        }
+
+        /// <summary>
+        /// Private method for CreateFilledDeltaBeamSection()
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="Exception"></exception>
+        private static List<Edge> GetDeltaBeamSideEdges(List<Region> deltaBeamSteelRegions, out double topPtsY)
+        {
+            if (deltaBeamSteelRegions?.Count != 4)
+                throw new ArgumentException("Invalid input section! The input section must be a Deltabeam profile and the number of regions must be 4!");
+
+            topPtsY = 0;
+            List<Edge> sideEdges = null;
+
+            foreach (var region in deltaBeamSteelRegions)
+            {
+                if (region.Contours?.Count != 1)
+                    throw new ArgumentException("Invalid input section! Number of contours must be 1!");
+
+                var points = region.Contours[0].Points;
+                var topPts = points.Where(p => p.Y > 0).ToList();
+
+                if (topPts.Count == points.Count)
+                {
+                    topPtsY = points.Select(p => p.Y).Min();
+                }
+                else if (topPts.Count != points.Count && topPts != null)
+                {
+                    var edges = region.Contours[0].Edges;
+                    var interiorEdg = edges.OrderBy(e => ((Vector3d)e.GetIntermediatePoint(0.5)).Length()).First();
+
+                    sideEdges.Add(interiorEdg);
+                }
+            }
+
+            if (sideEdges is null || topPtsY == 0)
+                throw new Exception("Invalid section geometry! Deltabeam section origin must be (0,0,0)!");
+
+            return sideEdges;
+        }
+
+        /// <summary>
+        /// Private method for CreateFilledDeltaBeamSection()
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        private static List<Point3d> GetDeltaBeamInteriorPoints(List<Edge> sideEdges, double topPtsY)
+        {
+            Point3d leftBottPt = null;
+            Point3d leftTopPt = null;
+            Point3d rightBottPt = null;
+            Point3d rightTopPt = null;
+
+            foreach (var edg in sideEdges)
+            {
+                var pts = edg.Points.OrderBy(p => p.Y).ToList();
+                Edge newEdg = new Edge(pts[0], pts[1]);
+                double h = Math.Abs(pts[0].Y) + Math.Abs(pts[1].Y);
+                double hi = Math.Abs(pts[0].Y) + topPtsY;
+                Point3d pi = newEdg.GetIntermediatePoint(hi / h);
+                if (pts[0].X < 0)
+                {
+                    leftBottPt = pts[0];
+                    leftTopPt = pi;
+                }
+                else if (pts[0].X > 0)
+                {
+                    rightBottPt = pts[0];
+                    rightTopPt = pi;
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid section geometry! Section origin must be (0,0,0)!");
+                }
+            }
+            
+            return new List<Point3d>() { leftTopPt, leftBottPt, rightBottPt, rightTopPt };
         }
 
         /// <summary>
@@ -475,7 +583,7 @@ namespace FemDesign.Composites
             CheckMaterialFamily(new List<Material> { steel }, concrete);
 
             // check input data
-            CheckSteelSectionCompatibility(CompositeSectionType.FilledSteelTube, steelIProfile);
+            CheckSteelSectionCompatibility(CompositeSectionType.FilledIProfile, steelIProfile);
 
             List<Material> materials = new List<Material>() { concrete, steel };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
             List<Section> sections = CreateFilledISection(steelIProfile, cy, cz);
@@ -504,17 +612,19 @@ namespace FemDesign.Composites
             cz = Math.Round(cz, 2, MidpointRounding.AwayFromZero);
 
             // check inputs
-            if (cy <= 0 || cz <= 0)
-                throw new ArgumentException(" Composite section parameters must be positive, non-zero numbers!");
+            if (cy < 0 || cz < 0)
+                throw new ArgumentException(" Composite section parameters must be positive numbers!");
+
+            // definition of corner points (order of points matters!)
+            Results.SectionProperties secProp = steelIProfile.GetSectionProperties(Results.SectionalData.mm);
+            double h = secProp.Height;
+            double w = secProp.Width;
 
             // conversion of geometric parameters from millimeters to meters
             cy /= 1000;
             cz /= 1000;
-
-            // definition of corner points (order of points matters!)
-            Results.SectionProperties secProp = steelIProfile.GetSectionProperties(Results.SectionalData.m);
-            double h = secProp.Height;
-            double w = secProp.Width;
+            h /= 1000;
+            w /= 1000;
 
             List<Point3d> points = new List<Point3d>();
             points.Add(new Point3d(w / 2 + cy, h / 2 + cz, 0));
@@ -676,7 +786,7 @@ namespace FemDesign.Composites
             CheckMaterialFamily(new List<Material> { steel }, concrete);
 
             // check input data
-            CheckSteelSectionCompatibility(CompositeSectionType.FilledSteelTube, steelRHSProfile);
+            CheckSteelSectionCompatibility(CompositeSectionType.FilledRHSProfile, steelRHSProfile);
 
             List<Material> materials = new List<Material>() { steel, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
             List<Section> sections = CreateFilledRHSSection(steelRHSProfile);
@@ -973,7 +1083,7 @@ namespace FemDesign.Composites
             List<string> compatibleSectionTypes = GetCompatibleSteelSectionType(type).Select(f => f.ToString()).ToList();
 
             if (!compatibleSectionTypes.Contains(typeName, StringComparer.OrdinalIgnoreCase))
-                throw new ArgumentException($"Invalid steel section type. Compatible section type for {type}: {string.Join(", ", compatibleSectionTypes)}.");
+                throw new ArgumentException($"Invalid steel section type. Compatible section types for {type}: {string.Join(", ", compatibleSectionTypes)}.");
         }
 
         public static List<Sections.Family> GetCompatibleSteelSectionType(CompositeSectionType type)
@@ -1032,19 +1142,6 @@ namespace FemDesign.Composites
             }
         }
 
-        internal static void NotImplemented()
-        {
-            throw new ArgumentException($"This composite section type is not implemented yet. If needed please contact us. Implemented composite section types: " +
-                $"{CompositeSectionType.EffectiveCompositeSlab}, " +
-                $"{CompositeSectionType.FilledHSQProfile}, " +
-                $"{CompositeSectionType.FilledIProfile}, " +
-                $"{CompositeSectionType.FilledCruciformProfile}, " +
-                $"{CompositeSectionType.FilledRHSProfile}, " +
-                $"{CompositeSectionType.FilledSteelTube}, " +
-                $"{CompositeSectionType.FilledSteelTubeWithIProfile}, " +
-                $"{CompositeSectionType.FilledSteelTubeWithSteelCore}.");
-        }
-
         internal static void CheckMaterialFamily(List<Material> steelMaterials, Material concrete)
         {
             foreach(var steel in steelMaterials)
@@ -1071,7 +1168,7 @@ namespace FemDesign.Composites
 
             // Check materials
             List<Materials.Family> materialTypes = parts.Select(p => p.Material.Family).ToList();
-            int steelNum = materialTypes.Select(m => m == FemDesign.Materials.Family.Steel).Count();
+            int steelNum = materialTypes.Where(m => m == FemDesign.Materials.Family.Steel).Count();
 
             if ((!materialTypes.Contains(FemDesign.Materials.Family.Concrete)) || (!materialTypes.Contains(FemDesign.Materials.Family.Steel)))
                 throw new ArgumentException("Check the material types! Composite section must contain at least one steel and one concrete section part.");

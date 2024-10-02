@@ -3,7 +3,7 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using FemDesign.Grasshopper.Components.UIWidgets;
-
+using System.Threading.Tasks;
 
 namespace FemDesign.Grasshopper
 {
@@ -94,8 +94,22 @@ namespace FemDesign.Grasshopper
                 throw new ArgumentException($"Concrete input must be concrete material but it is {concrete.Family}");
             }
 
-            // create composite section
-            Composites.CompositeSection compositeSection = Composites.CompositeSection.EffectiveCompositeSlab(name, steel, concrete, steelProf, t, bEff, th, bt, bb, filled);
+            // create task to create composite section
+            Composites.CompositeSection compositeSection = null;
+            var task = Task.Run(() =>
+            {
+                compositeSection = Composites.CompositeSection.EffectiveCompositeSlab(name, steel, concrete, steelProf, t, bEff, th, bt, bb, filled);
+            });
+
+            task.ConfigureAwait(false);
+            try
+            {
+                task.Wait();
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
 
             // get output
             DA.SetData(0, compositeSection);

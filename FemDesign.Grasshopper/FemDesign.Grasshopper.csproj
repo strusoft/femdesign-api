@@ -322,6 +322,7 @@
     <Compile Include="Sections\Composite\FilledCruciformProfile.cs" />
     <Compile Include="Sections\Composite\EffectiveCompositeSlab.cs" />
     <Compile Include="Sections\Composite\FilledIProfile.cs" />
+    <Compile Include="Sections\Composite\DeltaBeamProfile.cs" />
     <Compile Include="Sections\Composite\SteelTubeWithIProfile.cs" />
     <Compile Include="Sections\Composite\SteelTubeWithSteelCore.cs" />
     <Compile Include="Sections\Composite\RHSProfile.cs" />
