@@ -147,17 +147,17 @@ namespace FemDesign.Composites
         }
 
         /// <summary>
-        /// Create a EffectiveCompositeSlab type CompositeSection object.
+        /// Create an EffectiveCompositeSlab type CompositeSection object.
         /// </summary>
         /// <param name="steel">Steel part material.</param>
         /// <param name="concrete">Concrete part material.</param>
         /// <param name="steelProfile">Steel section from database. Can be a KKR, VKR or I-profile section type.</param>
         /// <param name="name">Composite section name.</param>
-        /// <param name="t">Slab thickness.</param>
-        /// <param name="bEff">Concrete slab effective width.</param>
-        /// <param name="th">Hunch thickness.</param>
-        /// <param name="bt">Hunch width at the top.</param>
-        /// <param name="bb">Hunch width at the bottom.</param>
+        /// <param name="t">Slab thickness [mm].</param>
+        /// <param name="bEff">Concrete slab effective width [mm].</param>
+        /// <param name="th">Hunch thickness [mm].</param>
+        /// <param name="bt">Hunch width at the top [mm].</param>
+        /// <param name="bb">Hunch width at the bottom [mm].</param>
         /// <param name="filled">True if steel section is filled with concrete, false if not.</param>
         /// <returns></returns>
         public static CompositeSection EffectiveCompositeSlab(string name, Material steel, Material concrete, Section steelProfile, double t, double bEff, double th, double bt, double bb, bool filled = false)
@@ -188,11 +188,11 @@ namespace FemDesign.Composites
         /// Create a parametric section for EffectiveCompositeSlab type CompositeSection object.
         /// </summary>
         /// <param name="steelProfile">Steel section from database. Can be a KKR, VKR or I-profile section type.</param>
-        /// <param name="t">Slab thickness.</param>
-        /// <param name="bEff">Concrete slab effective width.</param>
-        /// <param name="th">Hunch thickness.</param>
-        /// <param name="bt">Hunch width at the top.</param>
-        /// <param name="bb">Hunch width at the bottom.</param>
+        /// <param name="t">Slab thickness [mm].</param>
+        /// <param name="bEff">Concrete slab effective width [mm].</param>
+        /// <param name="th">Hunch thickness [mm].</param>
+        /// <param name="bt">Hunch width at the top [mm].</param>
+        /// <param name="bb">Hunch width at the bottom [mm].</param>
         /// <param name="filled">True if steel section is filled with concrete, false if not.</param>
         /// <returns></returns>
         internal static List<Sections.Section> CreateEffectiveCompositeSlabSection(Section steelProfile, double t, double bEff, double th, double bt, double bb, bool filled = false)
@@ -445,7 +445,6 @@ namespace FemDesign.Composites
         /// <returns></returns>
         public static CompositeSection FilledDeltaBeamProfile(string name, Material steel, Material concrete, Section deltaBeamProfile)
         {
-            NotImplemented();
             CheckMaterialFamily(new List<Material> { steel }, concrete);
 
             // check input data
@@ -501,7 +500,7 @@ namespace FemDesign.Composites
                 throw new ArgumentException("Invalid input section! The input section must be a Deltabeam profile and the number of regions must be 4!");
 
             topPtsY = 0;
-            List<Edge> sideEdges = null;
+            List<Edge> sideEdges = new List<Edge>();
 
             foreach (var region in deltaBeamSteelRegions)
             {
@@ -515,7 +514,7 @@ namespace FemDesign.Composites
                 {
                     topPtsY = points.Select(p => p.Y).Min();
                 }
-                else if (topPts.Count != points.Count && topPts != null)
+                else if (topPts.Count != points.Count && topPts.Count != 0)
                 {
                     var edges = region.Contours[0].Edges;
                     var interiorEdg = edges.OrderBy(e => ((Vector3d)e.GetIntermediatePoint(0.5)).Length()).First();
@@ -524,7 +523,7 @@ namespace FemDesign.Composites
                 }
             }
 
-            if (sideEdges is null || topPtsY == 0)
+            if (sideEdges?.Count == 0 || topPtsY == 0)
                 throw new Exception("Invalid section geometry! Deltabeam section origin must be (0,0,0)!");
 
             return sideEdges;
@@ -1204,6 +1203,12 @@ namespace FemDesign.Composites
             }
 
             return sections;
+        }
+
+        public override string ToString()
+        {
+            List<string> parameters = ParameterDictionary.Select(d => d.Key + " = " + d.Value).ToList();
+            return $"{Type}, Materials: {string.Join(", ", this.Materials.Select(m => m.Name).ToList())}, Parameters: {string.Join(", ", parameters)}";
         }
     }
 }

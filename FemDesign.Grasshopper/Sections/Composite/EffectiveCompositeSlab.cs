@@ -9,39 +9,36 @@ namespace FemDesign.Grasshopper
 {
     public class EffectiveCompositeSlab : SubComponent
     {
+        public System.Drawing.Bitmap Icon => Properties.Resources.EffectiveCompositeSlab;
         public override string name() => "EffectiveCompositeSlab";
         public override string display_name() => "EffectiveCompositeSlab";
 
         public override void registerEvaluationUnits(EvaluationUnitManager mngr)
         {
-            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a composite section for bars based on the effective width of a composite slab. For more information, see FEM-Design GUI.");
+            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a composite section for bars based on the effective width of a composite slab. For more information, see FEM-Design GUI.", this.Icon);
             mngr.RegisterUnit(evaluationUnit);
             
             evaluationUnit.RegisterInputParam(new Param_String(), "SectionName", "SectionName", "Composite section name.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Steel", "Steel", "Steel material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Concrete", "Concrete", "Concrete material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "SteelProfile", "SteelProfile", "Steel profile.", GH_ParamAccess.item);
+
+            evaluationUnit.RegisterInputParam(new Param_Number(), "t", "t", "Slab thickness [mm].", GH_ParamAccess.item, new GH_Number(150));
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Number(), "t", "t", "Slab thickness.", GH_ParamAccess.item, new GH_Number(150));
+            evaluationUnit.RegisterInputParam(new Param_Number(), "bEff", "bEff", "Concrete slab effective width [mm].", GH_ParamAccess.item, new GH_Number(800));
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Number(), "bEff", "bEff", "Concrete slab effective width.", GH_ParamAccess.item, new GH_Number(800));
+            evaluationUnit.RegisterInputParam(new Param_Number(), "th", "th", "Hunch thickness [mm].", GH_ParamAccess.item, new GH_Number(60));
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Number(), "th", "th", "Hunch thickness.", GH_ParamAccess.item, new GH_Number(60));
+            evaluationUnit.RegisterInputParam(new Param_Number(), "bt", "bt", "Hunch width at the top [mm].", GH_ParamAccess.item, new GH_Number(400));
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
-            evaluationUnit.RegisterInputParam(new Param_Number(), "bt", "bt", "Hunch width at the top.", GH_ParamAccess.item, new GH_Number(400));
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
-
-            evaluationUnit.RegisterInputParam(new Param_Number(), "bb", "bb", "Hunch width at the bottom.", GH_ParamAccess.item, new GH_Number(200));
+            evaluationUnit.RegisterInputParam(new Param_Number(), "bb", "bb", "Hunch width at the bottom [mm].", GH_ParamAccess.item, new GH_Number(200));
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_Boolean(), "Filled", "Filled", "True if the steel section part is filled with concrete, false if not. The quality of the filling material is the same as the concrete of the slab.", GH_ParamAccess.item, new GH_Boolean(false));

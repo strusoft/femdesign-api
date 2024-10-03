@@ -9,25 +9,22 @@ namespace FemDesign.Grasshopper
 {
     public class RHSProfile : SubComponent
     {
+        public System.Drawing.Bitmap Icon => Properties.Resources.RHSProfile;
         public override string name() => "RHSProfile";
         public override string display_name() => "RHSProfile";
 
         public override void registerEvaluationUnits(EvaluationUnitManager mngr)
         {
-            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a composite section for rectangular hollow sections. For more information, see FEM-Design GUI.");
+            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a composite section for rectangular hollow sections. For more information, see FEM-Design GUI.", this.Icon);
             mngr.RegisterUnit(evaluationUnit);
             
             evaluationUnit.RegisterInputParam(new Param_String(), "SectionName", "SectionName", "Composite section name.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Steel", "Steel", "Steel material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Concrete", "Concrete", "Concrete material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "RHSProfile", "RHSProfile", "Steel RHS profile.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
         }
 
         public override void SolveInstance(IGH_DataAccess DA, out string msg, out GH_RuntimeMessageLevel level)

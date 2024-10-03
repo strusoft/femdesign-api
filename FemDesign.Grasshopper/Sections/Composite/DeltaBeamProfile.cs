@@ -1,33 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using FemDesign.Grasshopper.Components.UIWidgets;
-
+using System.Linq;
 
 namespace FemDesign.Grasshopper
 {
     public class DeltaBeamProfile : SubComponent
     {
+        public System.Drawing.Bitmap Icon => Properties.Resources.DeltaBeamProfile;
         public override string name() => "DeltaBeamProfile";
         public override string display_name() => "DeltaBeamProfile";
 
         public override void registerEvaluationUnits(EvaluationUnitManager mngr)
         {
-            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a composite section for Deltabeam sections. For more information, see FEM-Design GUI.");
+            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a composite section for Deltabeam sections. For more information, see FEM-Design GUI.", this.Icon);
             mngr.RegisterUnit(evaluationUnit);
             
             evaluationUnit.RegisterInputParam(new Param_String(), "SectionName", "SectionName", "Composite section name.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Steel", "Steel", "Steel material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Concrete", "Concrete", "Concrete material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "DeltaBeamProfile", "DeltaBeamProfile", "Steel DeltaBeam profile. Can be 'D' or 'DR' section family types.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
         }
 
         public override void SolveInstance(IGH_DataAccess DA, out string msg, out GH_RuntimeMessageLevel level)

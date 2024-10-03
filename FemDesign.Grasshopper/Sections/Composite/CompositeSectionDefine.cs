@@ -14,21 +14,21 @@ using System.Windows.Forms;
 using FemDesign.Grasshopper.Extension.ComponentExtension;
 using FemDesign.Loads;
 using Grasshopper.Kernel.Special;
+using Eto.Drawing;
 
 namespace FemDesign.Grasshopper
 {
     public class CompositeSectionDefine : GH_SwitcherComponent
     {
         private List<SubComponent> _subcomponents = new List<SubComponent>();
-        public override string UnitMenuName => "CompositeSection.Define";
-        protected override string DefaultEvaluationUnit => _subcomponents[2].name();
+        public override string UnitMenuName => "Section";
+        protected override string DefaultEvaluationUnit => _subcomponents[1].name();
         public override Guid ComponentGuid => new Guid("{A6B804EA-F254-4ABE-BEC5-FA69E92069AA}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
-
-        protected override Bitmap Icon => null;
+        protected override System.Drawing.Bitmap Icon => Properties.Resources.HSQProfile;
 
         public CompositeSectionDefine()
-            : base("CompositeSection.Define", "Define",
+            : base("Composite.Define", "Define",
               "Define a new composite section.",
               CategoryName.Name(), SubCategoryName.Cat4b())
         {
@@ -77,6 +77,7 @@ namespace FemDesign.Grasshopper
             {
                 return;
             }
+            
             foreach (SubComponent item in _subcomponents)
             {
                 if (unit.Name.Equals(item.name()))

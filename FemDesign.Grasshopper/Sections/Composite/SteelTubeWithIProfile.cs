@@ -13,28 +13,24 @@ namespace FemDesign.Grasshopper
 {
     public class SteelTubeWithIProfile : SubComponent
     {
+        public System.Drawing.Bitmap Icon => Properties.Resources.SteelTubeWithIProfile;
         public override string name() => "SteelTubeWithIProfile";
         public override string display_name() => "SteelTubeWithIProfile";
 
         public override void registerEvaluationUnits(EvaluationUnitManager mngr)
         {
-            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a filled steel tube composite section with I-profile. For more information, see FEM-Design GUI.");
+            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a filled steel tube composite section with I-profile. For more information, see FEM-Design GUI.", this.Icon);
             mngr.RegisterUnit(evaluationUnit);
             
             evaluationUnit.RegisterInputParam(new Param_String(), "SectionName", "SectionName", "Composite section name.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "TubeMaterial", "TubeMaterial", "Steel tube material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "IMateral", "IMateral", "I profile material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Concrete", "Concrete", "Concrete material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "IProfile", "IProfile", "Steel section from database. Must be an I-shaped section type.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_Number(), "d", "d", "Diameter of steel tube [mm].", GH_ParamAccess.item, new GH_Number(600));
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;

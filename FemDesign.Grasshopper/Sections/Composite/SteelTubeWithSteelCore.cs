@@ -9,25 +9,22 @@ namespace FemDesign.Grasshopper
 {
     public class SteelTubeWithSteelCore : SubComponent
     {
+        public System.Drawing.Bitmap Icon => Properties.Resources.SteelTubeWithSteelCore;
         public override string name() => "SteelTubeWithSteelCore";
         public override string display_name() => "SteelTubeWithSteelCore";
 
         public override void registerEvaluationUnits(EvaluationUnitManager mngr)
         {
-            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a filled steel tube composite section with a steel core. For more information, see FEM-Design GUI.");
+            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a filled steel tube composite section with a steel core. For more information, see FEM-Design GUI.", this.Icon);
             mngr.RegisterUnit(evaluationUnit);
             
             evaluationUnit.RegisterInputParam(new Param_String(), "SectionName", "SectionName", "Composite section name.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "TubeMaterial", "TubeMaterial", "Steel tube material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "CoreMaterial", "CoreMaterial", "Steel core material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Concrete", "Concrete", "Concrete material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_Number(), "d1", "d1", "Steel tube exterior diameter [mm].", GH_ParamAccess.item, new GH_Number(300));
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;

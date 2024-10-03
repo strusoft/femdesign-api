@@ -10,25 +10,22 @@ namespace FemDesign.Grasshopper
 {
     public class FilledIProfile : SubComponent
     {
+        public System.Drawing.Bitmap Icon => Properties.Resources.FilledIProfile;
         public override string name() => "FilledIProfile";
         public override string display_name() => "FilledIProfile";
 
         public override void registerEvaluationUnits(EvaluationUnitManager mngr)
         {
-            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a composite section for an 'I' profiled steel section with filled with concrete. For more information, see FEM-Design GUI.");
+            EvaluationUnit evaluationUnit = new EvaluationUnit(name(), display_name(), "Create a composite section for an 'I' profiled steel section with filled with concrete. For more information, see FEM-Design GUI.", this.Icon);
             mngr.RegisterUnit(evaluationUnit);
             
             evaluationUnit.RegisterInputParam(new Param_String(), "SectionName", "SectionName", "Composite section name.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
             
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Steel", "Steel", "Steel profile material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "Concrete", "Concrete", "Concrete material.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_GenericObject(), "IProfile", "IProfile", "'I' profile steel section.", GH_ParamAccess.item);
-            evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
 
             evaluationUnit.RegisterInputParam(new Param_Number(), "cy", "cy", "Concrete cover in Y direction [mm].", GH_ParamAccess.item, new GH_Number(80));
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
