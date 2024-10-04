@@ -210,11 +210,12 @@
     <Compile Include="Pipe\PipeOpen.cs" />
     <Compile Include="Pipe\PipeReadEigenFrequencyResults.cs" />
     <Compile Include="Pipe\PipeReadStabilityResults.cs" />
+    <Compile Include="Pipe\PipeResultFromBsc.cs" />
     <Compile Include="Pipe\PipeSetCfg.cs" />
     <Compile Include="Pipe\OBSOLETE\PipeSetGlobalCfg_OBSOLETE2306.cs" />
     <Compile Include="Pipe\WIP_PipeReadStabilityResults.cs" />
     <Compile Include="Pipe\PipeReadCaseCombResults.cs" />
-    <Compile Include="Pipe\PipeResultFromBsc.cs" />
+    <Compile Include="Pipe\OBSOLETE\PipeResultFromBsc_OBSOLETE.cs" />
     <Compile Include="Pipe\PipeRunAnalysis.cs" />
     <Compile Include="Bars\StiffnessModifierBar.cs" />
     <Compile Include="Bars\Truss.cs" />

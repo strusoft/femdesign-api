@@ -768,7 +768,7 @@ namespace FemDesign
         /// <param name="outputCsvPath"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public List<string> GetResultsFromBsc(string inputBscPath, string outputCsvPath = null)
+        public List<string> GetResultsFromBsc(string inputBscPath, string outputCsvPath = null, List<IStructureElement> element = null)
         {
             // Check input
             if (outputCsvPath == null)
@@ -779,7 +779,7 @@ namespace FemDesign
                 throw new Exception("Extension output file must be .csv");
 
             // Create .fdscript and list results
-            _listResultsByFdScript("GetResultsFromBsc", new List<string> { inputBscPath }, new List<string> { outputCsvPath });
+            _listResultsByFdScript("GetResultsFromBsc", new List<string> { inputBscPath }, new List<string> { outputCsvPath }, element);
 
             // Read results
             var results = System.IO.File.ReadAllLines(outputCsvPath, System.Text.Encoding.UTF8).Select(x => x.Replace("\t", ",")).ToList();

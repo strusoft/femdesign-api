@@ -14,19 +14,17 @@ using Grasshopper.Documentation;
 
 namespace FemDesign.Grasshopper
 {
-    public class PipeResultFromBsc : GH_AsyncComponent
+    public class PipeResultFromBsc_OBSOLETE : GH_AsyncComponent
     {
-        public PipeResultFromBsc() : base(" FEM-Design.GetResultFromBsc", "ResultFromBsc", "Extract results from a model with a .bsc file", CategoryName.Name(), SubCategoryName.Cat8())
+        public PipeResultFromBsc_OBSOLETE() : base(" FEM-Design.GetResultFromBsc", "ResultFromBsc", "Extract results from a model with a .bsc file", CategoryName.Name(), SubCategoryName.Cat8())
         {
-            BaseWorker = new ApplicationResultFromBsc(this);
+            BaseWorker = new ApplicationResultFromBsc_OBSOLETE(this);
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Connection", "Connection", "FEM-Design connection.", GH_ParamAccess.item);
             pManager.AddTextParameter("BscFilePath", "BscFilePath", "File path to .bsc batch-file.", GH_ParamAccess.list);
             pManager.AddTextParameter("CsvFilePath", "CsvFilePath", "Specify where the .csv will be saved. If not specified, the results will be saved in the same folder of the .bsc file.", GH_ParamAccess.list);
-            pManager[pManager.ParamCount - 1].Optional = true;
-            pManager.AddGenericParameter("Elements", "Elements", "Elements for which the results will be return. Default will return the values for all elements.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
@@ -40,22 +38,20 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{6A88FF5F-BC25-45D2-8140-385A652D30FE}");
-        public override GH_Exposure Exposure => GH_Exposure.tertiary;
-        private class ApplicationResultFromBsc : WorkerInstance
+        public override Guid ComponentGuid => new Guid("{E7EEAC5F-4C80-40D3-AA16-C2E6E3BD62BC}");
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
+        private class ApplicationResultFromBsc_OBSOLETE : WorkerInstance
         {
             public FemDesignConnection _connection = null;
 
             private List<string> bscPath = new List<string>();
             private List<string> csvPath = new List<string>();
 
-            private List<FemDesign.GenericClasses.IStructureElement> _elements = new List<GenericClasses.IStructureElement>();
-
             private DataTree<object> _results = new DataTree<object>();
             private bool _runNode = true;
             private bool _success = false;
 
-            public ApplicationResultFromBsc(GH_Component component) : base(component) { }
+            public ApplicationResultFromBsc_OBSOLETE(GH_Component component) : base(component) { }
 
             public override void DoWork(Action<string, string> ReportProgress, Action Done)
             {
@@ -94,10 +90,10 @@ namespace FemDesign.Grasshopper
 
                     ReportProgress("", "");
 
-                    var results = bscPath.Zip(csvPath, (bsc, csv) => _connection.GetResultsFromBsc(bsc, csv, _elements));
+                    var results = bscPath.Zip(csvPath, (bsc, csv) => _connection.GetResultsFromBsc(bsc, csv) );
 
                     int i = 0;
-                    foreach (var result in results)
+                    foreach( var result in results)
                     {
                         _results.AddRange(result, new GH_Path(i));
                         i++;
@@ -115,21 +111,22 @@ namespace FemDesign.Grasshopper
 
             }
 
-            public override WorkerInstance Duplicate() => new ApplicationResultFromBsc(Parent);
+            public override WorkerInstance Duplicate() => new ApplicationResultFromBsc_OBSOLETE(Parent);
 
             public override void GetData(IGH_DataAccess DA, GH_ComponentParamServer Params)
             {
                 if (!DA.GetData("Connection", ref _connection)) return;
                 DA.GetDataList("BscFilePath", bscPath);
-                if (!DA.GetDataList("CsvFilePath", csvPath))
+                if(!DA.GetDataList("CsvFilePath", csvPath))
                 {
-                    foreach (var bsc in bscPath)
+                    foreach(var bsc in bscPath)
                     {
                         csvPath.Add(System.IO.Path.ChangeExtension(bsc, "csv"));
                     }
                 };
 
-                DA.GetDataList("Elements", _elements);
+
+
                 DA.GetData("RunNode", ref _runNode);
             }
 
