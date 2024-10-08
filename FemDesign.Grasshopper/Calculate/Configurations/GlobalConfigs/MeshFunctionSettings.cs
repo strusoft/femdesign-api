@@ -52,6 +52,7 @@ namespace FemDesign.Grasshopper
 
             GH_ExtendableMenu gH_ExtendableMenu0 = new GH_ExtendableMenu(0, "");
             gH_ExtendableMenu0.Name = "Generate surface mesh";
+            gH_ExtendableMenu0.Expand();
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[0]);
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[1]);
             gH_ExtendableMenu0.RegisterInputPlug(evaluationUnit.Inputs[2]);
@@ -60,11 +61,13 @@ namespace FemDesign.Grasshopper
 
             GH_ExtendableMenu gH_ExtendableMenu1 = new GH_ExtendableMenu(1, "");
             gH_ExtendableMenu1.Name = "Smooth mesh";
+            gH_ExtendableMenu1.Expand();
             gH_ExtendableMenu1.RegisterInputPlug(evaluationUnit.Inputs[4]);
             evaluationUnit.AddMenu(gH_ExtendableMenu1);
 
             GH_ExtendableMenu gH_ExtendableMenu2 = new GH_ExtendableMenu(2, "");
             gH_ExtendableMenu2.Name = "Check mesh";
+            gH_ExtendableMenu2.Expand();
             gH_ExtendableMenu2.RegisterInputPlug(evaluationUnit.Inputs[5]);
             gH_ExtendableMenu2.RegisterInputPlug(evaluationUnit.Inputs[6]);
             gH_ExtendableMenu2.RegisterInputPlug(evaluationUnit.Inputs[7]);
