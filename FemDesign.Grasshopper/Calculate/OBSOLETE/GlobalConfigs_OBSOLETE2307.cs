@@ -17,17 +17,17 @@ using Grasshopper.Kernel.Special;
 
 namespace FemDesign.Grasshopper
 {
-    public class GlobalConfigs : GH_SwitcherComponent
+    public class GlobalConfigs_OBSOLETE2307 : GH_SwitcherComponent
     {
         private List<SubComponent> _subcomponents = new List<SubComponent>();
         public override string UnitMenuName => "GlobalConfigs";
-        protected override string DefaultEvaluationUnit => _subcomponents[2].name();
-        public override Guid ComponentGuid => new Guid("{6C9739B4-F454-4EB2-836C-602D585A026C}");
-        public override GH_Exposure Exposure => GH_Exposure.quinary;
+        protected override string DefaultEvaluationUnit => _subcomponents[1].name();
+        public override Guid ComponentGuid => new Guid("{41175D83-48B2-4614-A074-DC8BE7F71CAC}");
+        public override GH_Exposure Exposure => GH_Exposure.hidden;
 
         protected override Bitmap Icon => FemDesign.Properties.Resources.Config;
 
-        public GlobalConfigs()
+        public GlobalConfigs_OBSOLETE2307()
             : base("GlobConfig", "GlobalConfigurations",
               "General calculation settings for a FEM-Design model.",
               CategoryName.Name(), SubCategoryName.Cat7a())
@@ -46,7 +46,7 @@ namespace FemDesign.Grasshopper
 
         protected override void RegisterEvaluationUnits(EvaluationUnitManager mngr)
         {
-            _subcomponents.Add(new SoilCalculationSettings());
+            //_subcomponents.Add(new SoilCalculationSettings());
             _subcomponents.Add(new MeshGeneralSettings());
             _subcomponents.Add(new MeshElementSettings());
             _subcomponents.Add(new MeshFunctionSettings());

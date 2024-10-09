@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Bars\TrussBehaviour_OBSOLETE2305.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
+    <Compile Include="Calculate\OBSOLETE\GlobalConfigs_OBSOLETE2307.cs" />
     <Compile Include="Calculate\OBSOLETE\ApplicationRun_OBSOLETE2307.cs" />
     <Compile Include="Calculate\ApplicationRun.cs" />
     <Compile Include="Calculate\Configurations\Configs\Configs.cs" />
