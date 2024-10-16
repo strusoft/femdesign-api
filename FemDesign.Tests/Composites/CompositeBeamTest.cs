@@ -17,6 +17,7 @@ namespace FemDesign.Composites
     public class CompositeBeamTest
     {
         [TestMethod]
+        [TestCategory("FEM-Design required")]
         public void CompositeBeamB()
         {
             // Geometry
