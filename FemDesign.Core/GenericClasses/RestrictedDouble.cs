@@ -152,6 +152,14 @@ namespace FemDesign
         }
 
         /// <summary>
+        /// non_zero_max_10_1
+        /// </summary>
+        internal static double PositiveMax_1000(double val)
+        {
+            return RestrictedDouble.ValueInHalfClosedInterval(val, 0, 1000);
+        }
+
+        /// <summary>
         /// non_neg_max_20
         /// </summary>
         internal static double NonNegMax_20(double val)

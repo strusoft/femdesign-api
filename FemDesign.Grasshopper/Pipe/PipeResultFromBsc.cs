@@ -26,6 +26,8 @@ namespace FemDesign.Grasshopper
             pManager.AddTextParameter("BscFilePath", "BscFilePath", "File path to .bsc batch-file.", GH_ParamAccess.list);
             pManager.AddTextParameter("CsvFilePath", "CsvFilePath", "Specify where the .csv will be saved. If not specified, the results will be saved in the same folder of the .bsc file.", GH_ParamAccess.list);
             pManager[pManager.ParamCount - 1].Optional = true;
+            pManager.AddGenericParameter("Elements", "Elements", "Elements for which the results will be return. Default will return the values for all elements.", GH_ParamAccess.list);
+            pManager[pManager.ParamCount - 1].Optional = true;
             pManager.AddBooleanParameter("RunNode", "RunNode", "If true node will execute. If false node will not execute.", GH_ParamAccess.item, true);
             pManager[pManager.ParamCount - 1].Optional = true;
         }
@@ -38,7 +40,7 @@ namespace FemDesign.Grasshopper
 
         protected override System.Drawing.Bitmap Icon => FemDesign.Properties.Resources.FEM_readresult;
 
-        public override Guid ComponentGuid => new Guid("{E7EEAC5F-4C80-40D3-AA16-C2E6E3BD62BC}");
+        public override Guid ComponentGuid => new Guid("{6A88FF5F-BC25-45D2-8140-385A652D30FE}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
         private class ApplicationResultFromBsc : WorkerInstance
         {
@@ -46,6 +48,8 @@ namespace FemDesign.Grasshopper
 
             private List<string> bscPath = new List<string>();
             private List<string> csvPath = new List<string>();
+
+            private List<FemDesign.GenericClasses.IStructureElement> _elements = new List<GenericClasses.IStructureElement>();
 
             private DataTree<object> _results = new DataTree<object>();
             private bool _runNode = true;
@@ -90,10 +94,10 @@ namespace FemDesign.Grasshopper
 
                     ReportProgress("", "");
 
-                    var results = bscPath.Zip(csvPath, (bsc, csv) => _connection.GetResultsFromBsc(bsc, csv) );
+                    var results = bscPath.Zip(csvPath, (bsc, csv) => _connection.GetResultsFromBsc(bsc, csv, _elements));
 
                     int i = 0;
-                    foreach( var result in results)
+                    foreach (var result in results)
                     {
                         _results.AddRange(result, new GH_Path(i));
                         i++;
@@ -117,16 +121,15 @@ namespace FemDesign.Grasshopper
             {
                 if (!DA.GetData("Connection", ref _connection)) return;
                 DA.GetDataList("BscFilePath", bscPath);
-                if(!DA.GetDataList("CsvFilePath", csvPath))
+                if (!DA.GetDataList("CsvFilePath", csvPath))
                 {
-                    foreach(var bsc in bscPath)
+                    foreach (var bsc in bscPath)
                     {
                         csvPath.Add(System.IO.Path.ChangeExtension(bsc, "csv"));
                     }
                 };
 
-
-
+                DA.GetDataList("Elements", _elements);
                 DA.GetData("RunNode", ref _runNode);
             }
 

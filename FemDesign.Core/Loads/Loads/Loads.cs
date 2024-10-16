@@ -71,7 +71,7 @@ namespace FemDesign.Loads
         public ExcitationForce ExcitationForce { get; set; }
 
         [XmlElement("periodic_excitation", Order = 18)]
-        public StruSoft.Interop.StruXml.Data.Periodic_excitation_type PeriodicExcitations { get; set; } // periodic_excitation_type
+        public PeriodicExcitation PeriodicExcitations { get; set; } // periodic_excitation_type
 
         [XmlElement("moving_load", Order = 19)]
         public List<StruSoft.Interop.StruXml.Data.Moving_load_type> MovingLoads { get; set; } // moving_load_type
@@ -104,6 +104,10 @@ namespace FemDesign.Loads
             objs.AddRange(this.SurfaceTemperatureLoads);
             objs.AddRange(this.FootfallAnalysisData);
             objs.AddRange(this.Masses);
+            objs.Add(this.ExcitationForce);
+            objs.Add(this.PeriodicExcitations);
+            //objs.Add(this.GroundAccelerations);
+            //objs.Add(this.SeismicLoads);
             return objs;
         }
 

@@ -104,5 +104,28 @@ namespace FemDesign.Loads
             }
         }
 
+
+        public MassConversionTable(params (double gamma, LoadCase lc)[] values)
+        {
+            // get factors and load cases
+            List<double> factors = new List<double>();
+            List<LoadCase> loadCases = new List<LoadCase>();
+
+            foreach (var value in values)
+            {
+                factors.Add(value.gamma);
+                loadCases.Add(value.lc);
+            }
+
+            List<MassConversion> items = new List<MassConversion>();
+            for (int idx = 0; idx < factors.Count; idx++)
+            {
+                items.Add(new MassConversion(factors[idx], loadCases[idx].Guid));
+            }
+
+            this.EntityCreated();
+            this.MassConversions = items;
+        }
+
     }
 }

@@ -71,6 +71,11 @@ namespace FemDesign.Grasshopper
                 }
             }
 
+            if (displacements.Count != 1 && displacements.Count != 3)
+            {
+                throw new ArgumentException("`displacements` must contain 1 or 3 items.");
+            }
+
 
             // Convert geometry
             FemDesign.Geometry.Region region = surface.FromRhino();
@@ -94,7 +99,7 @@ namespace FemDesign.Grasshopper
             }
             else if(loadLocationValues.Count == 1 || loadLocationValues.Count == 0)
             {
-                obj = FemDesign.Loads.SurfaceSupportMotion.Uniform(region, direction, loadCase, comment);
+                obj = FemDesign.Loads.SurfaceSupportMotion.Uniform(region, displacements[0].FromRhino(), loadCase, comment);
             }
 
 

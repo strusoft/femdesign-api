@@ -600,9 +600,11 @@ namespace FemDesign.Calculate
 
         internal void _setImperfectionAnalysis(List<Loads.LoadCombination> loadCombination)
         {
-            //this.Comb.CombItem.Clear();
-
-            // check if 
+            //check if comb is defined. if not, create a new one. if exist, clear it
+            if (this.Comb == null)
+                this.Comb = new Comb();
+            else
+                this.Comb.CombItem.Clear();
 
             foreach (var element in loadCombination)
             {
