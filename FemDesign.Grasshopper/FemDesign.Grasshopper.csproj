@@ -69,6 +69,7 @@
     <Compile Include="..\FemDesign.Core\Properties\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Bars\CompositeBar.cs" />
     <Compile Include="Bars\TrussBehaviour_OBSOLETE2305.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
     <Compile Include="Calculate\OBSOLETE\GlobalConfigs_OBSOLETE2307.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Deconstruct\ModellingTools\PointConnectionDeconstruct.cs" />
     <Compile Include="Deconstruct\ModellingTools\OBSOLETE\LineConnectionDeconstruct_OBSOLETE.cs" />
     <Compile Include="Deconstruct\ModellingTools\SurfaceConnectionDeconstruct.cs" />
+    <Compile Include="Deconstruct\SectionDeconstruct _OBSOLETE2307.cs" />
     <Compile Include="Deconstruct\StructureGrid\AxisDeconstruct.cs" />
     <Compile Include="Loads\Load groups\LoadGroupToLoadComb.cs" />
     <Compile Include="Loads\Loads\Dynamics\ExcitationDiagram.cs" />
@@ -319,6 +321,16 @@
     <Compile Include="Results\Timber\BarTimberUtilization.cs" />
     <Compile Include="Results\Units.cs" />
     <Compile Include="Results\Utils\UtilGhMethods.cs" />
+    <Compile Include="Sections\Composite\CompositeSectionDefine.cs" />
+    <Compile Include="Sections\Composite\FilledCruciformProfile.cs" />
+    <Compile Include="Sections\Composite\EffectiveCompositeSlab.cs" />
+    <Compile Include="Sections\Composite\FilledIProfile.cs" />
+    <Compile Include="Sections\Composite\DeltaBeamProfile.cs" />
+    <Compile Include="Sections\Composite\SteelTubeWithIProfile.cs" />
+    <Compile Include="Sections\Composite\SteelTubeWithSteelCore.cs" />
+    <Compile Include="Sections\Composite\RHSProfile.cs" />
+    <Compile Include="Sections\Composite\HSQProfile.cs" />
+    <Compile Include="Sections\Composite\FilledSteelTube.cs" />
     <Compile Include="Sections\SectionGetSectionProperties.cs" />
     <Compile Include="Sections\SectionByFamily.cs" />
     <Compile Include="Sections\SectionDatabase.cs" />
@@ -930,16 +942,22 @@
     <Content Include="Resources\icons\CombDefine2.png" />
     <Content Include="Resources\icons\CombDefine3.png" />
     <None Include="Resources\icons\Config.png" />
+    <None Include="Resources\icons\DeltaBeamProfile.png" />
     <Content Include="Resources\icons\Diaphragm.bmp" />
     <Content Include="Resources\icons\DiaphragmDeconstruct.bmp" />
+    <None Include="Resources\icons\EffectiveCompositeSlab.png" />
     <Content Include="Resources\icons\ExcitationForceSettings.png" />
     <Content Include="Resources\icons\Fd_TabIcon_24_24.png" />
+    <None Include="Resources\icons\FilledCruciformProfile.png" />
+    <None Include="Resources\icons\FilledIProfile.png" />
+    <None Include="Resources\icons\FilledSteelTube.png" />
     <Content Include="Resources\icons\FootfallDefine2.png" />
     <Content Include="Resources\icons\FootfallDefine3.png" />
     <Content Include="Resources\icons\FreqDefine2.png" />
     <Content Include="Resources\icons\FreqDefine3.png" />
     <Content Include="Resources\icons\GroundAccelerationDefine2.png" />
     <Content Include="Resources\icons\GroundAccelerationDefine3.png" />
+    <None Include="Resources\icons\HSQProfile.png" />
     <Content Include="Resources\icons\ImperfectionDefine2.png" />
     <Content Include="Resources\icons\ImperfectionDefine3.png" />
     <Content Include="Resources\icons\LabelledSection.png" />
@@ -948,10 +966,13 @@
     <Content Include="Resources\icons\PeriodicExcitationDefine2.png" />
     <Content Include="Resources\icons\PeriodicExcitationDefine3.png" />
     <None Include="Resources\icons\PeriodicExcitationLoad.png" />
+    <None Include="Resources\icons\RHSProfile.png" />
     <Content Include="Resources\icons\StabilityDefine2.png" />
     <Content Include="Resources\icons\StabilityDefine3.png" />
     <Content Include="Resources\icons\StageDefine2.png" />
     <Content Include="Resources\icons\StageDefine3.png" />
+    <None Include="Resources\icons\SteelTubeWithIProfile.png" />
+    <None Include="Resources\icons\SteelTubeWithSteelCore.png" />
     <Content Include="Resources\icons\StiffnessMatrix4Type.bmp" />
     <None Include="Resources\icons\ExcitationForceDiagram.png" />
     <None Include="Resources\icons\ExcitationForceCombination.png" />
