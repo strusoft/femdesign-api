@@ -767,6 +767,12 @@ namespace FemDesign
                 if (this.Composites.CompositeSection != null)
                 {
                     inModel = this.Composites.CompositeSection.Any(x => x.Guid == complexCompositePart.CompositeSectionRef);
+
+                    // check section name
+                    var names = this.Composites.CompositeSection.Select(c => c.ParameterDictionary[FemDesign.Composites.CompositeSectionParameterType.Name]).ToList();
+                    var objName = complexCompositePart.CompositeSectionObj.ParameterDictionary[FemDesign.Composites.CompositeSectionParameterType.Name];
+                    if (names.Any(n => String.Equals(n, objName)))
+                        throw new Exception("One or more composite sections have the same name. Different composite sections must have different names!");
                 }
                 else
                 {

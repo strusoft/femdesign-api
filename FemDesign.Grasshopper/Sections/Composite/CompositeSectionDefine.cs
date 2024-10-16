@@ -22,7 +22,7 @@ namespace FemDesign.Grasshopper
     {
         private List<SubComponent> _subcomponents = new List<SubComponent>();
         public override string UnitMenuName => "Section";
-        protected override string DefaultEvaluationUnit => _subcomponents[1].name();
+        protected override string DefaultEvaluationUnit => _subcomponents[0].name();
         public override Guid ComponentGuid => new Guid("{A6B804EA-F254-4ABE-BEC5-FA69E92069AA}");
         public override GH_Exposure Exposure => GH_Exposure.tertiary;
         protected override System.Drawing.Bitmap Icon => Properties.Resources.HSQProfile;
@@ -46,14 +46,14 @@ namespace FemDesign.Grasshopper
 
         protected override void RegisterEvaluationUnits(EvaluationUnitManager mngr)
         {
-            _subcomponents.Add(new EffectiveCompositeSlab());
+            //_subcomponents.Add(new EffectiveCompositeSlab());
             _subcomponents.Add(new HSQProfile());
-            _subcomponents.Add(new DeltaBeamProfile());
-            _subcomponents.Add(new FilledIProfile());
+            //_subcomponents.Add(new DeltaBeamProfile());
+            //_subcomponents.Add(new FilledIProfile());
             _subcomponents.Add(new FilledCruciformProfile());
-            _subcomponents.Add(new RHSProfile());
+            //_subcomponents.Add(new RHSProfile());
             _subcomponents.Add(new FilledSteelTube());
-            _subcomponents.Add(new SteelTubeWithIProfile());
+            //_subcomponents.Add(new SteelTubeWithIProfile());
             _subcomponents.Add(new SteelTubeWithSteelCore());
 
             foreach (SubComponent item in _subcomponents)

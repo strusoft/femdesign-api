@@ -9,6 +9,7 @@ using FemDesign.Sections;
 using FemDesign.Materials;
 using FemDesign.Geometry;
 using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 namespace FemDesign.Composites
 {
@@ -160,7 +161,8 @@ namespace FemDesign.Composites
         /// <param name="bb">Hunch width at the bottom [mm].</param>
         /// <param name="filled">True if steel section is filled with concrete, false if not.</param>
         /// <returns></returns>
-        public static CompositeSection EffectiveCompositeSlab(string name, Material steel, Material concrete, Section steelProfile, double t, double bEff, double th, double bt, double bb, bool filled = false)
+        [Description("Waiting for Budapest. GitHub: #802. Fogbugz case: 135669")]
+        internal static CompositeSection EffectiveCompositeSlab(string name, Material steel, Material concrete, Section steelProfile, double t, double bEff, double th, double bt, double bb, bool filled = false)
         {
             CheckMaterialFamily(new List<Material> { steel }, concrete);
 
@@ -206,18 +208,16 @@ namespace FemDesign.Composites
 
             // check inputs
             string steelProfileFamiliy = steelProfile.TypeName;
-            var isRHS = steelProfileFamiliy == FemDesign.Sections.Family.VKR.ToString() || steelProfileFamiliy == FemDesign.Sections.Family.KKR.ToString();
+            var isRHS = steelProfileFamiliy == FemDesign.Sections.Family.VKR.ToString() || steelProfileFamiliy == FemDesign.Sections.Family.KKR.ToString() || steelProfile.RegionGroup.Regions?.Count > 1 || steelProfile.RegionGroup.Regions[0].Contours.Count > 1;
             if (filled && isRHS)
                 throw new ArgumentException($" For {CompositeSectionType.EffectiveCompositeSlab} composite section types, the RHS profiles must be unfilled!");
             if (t <= 0 || bEff <= 0 || th < 0 || bt <= 0 || bb <= 0)
                 throw new ArgumentException(" Composite section parameters must be positive, non-zero numbers!");
             if (bt < bb)
                 throw new ArgumentException(" Hunch width at the top must be greater than or equal to the hunch width at the bottom!");
-            //if (bb < widthI)
-            //    throw new ArgumentException($" Hunch width must be greater than or equal to the width of the steel profile!");
             if (bEff < bt)
                 throw new ArgumentException(" Concrete slab effective width top must be greater than or equal to the hunch width at the top!");
-
+            
             // conversion of geometric parameters from millimeters to meters
             t /= 1000;
             bEff /= 1000;
@@ -267,10 +267,11 @@ namespace FemDesign.Composites
             }
 
             // create sections
-            List<Section> sections = new List<Section>();
-            MaterialTypeEnum steelMatType = (MaterialTypeEnum)Enum.Parse(typeof(MaterialTypeEnum), steelProfile.MaterialType);
-            sections.Add(new Section(steelRegion, "custom", steelMatType, "Steel section", steelMatType.ToString(), steelProfile.SizeName));
-            sections.Add(new Section(slabRegion, "custom", MaterialTypeEnum.Concrete, "Concrete section", MaterialTypeEnum.Concrete.ToString(), "--"));
+            List<Section> sections = new List<Section>()
+            {
+                steelProfile,
+                new Section(slabRegion, "custom", MaterialTypeEnum.Concrete, "Concrete section", MaterialTypeEnum.Concrete.ToString(), "--")
+            };
 
             return sections;
         }
@@ -401,40 +402,6 @@ namespace FemDesign.Composites
             return SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
         }
 
-        ///// <summary>
-        ///// Calculate the offset of the steel part from the concrete part in Y and Z for a FilledHSQProfile.
-        ///// </summary>
-        ///// <param name="b">Intermediate width of the bottom flange [mm].</param>
-        ///// <param name="bt">Top flange width [mm].</param>
-        ///// <param name="o1">Left overhang [mm].</param>
-        ///// <param name="o2">Right overhang [mm].</param>
-        ///// <param name="h">Web hight [mm].</param>
-        ///// <param name="tw">Web thickness [mm].</param>
-        ///// <param name="tfb">Bottom flange thickness [mm].</param>
-        ///// <param name="tft">Top flange thickness [mm].</param>
-        ///// <returns></returns>
-        //internal static (double[], double[]) CalculateFilledHSQSectionOffset(double b, double bt, double o1, double o2, double h, double tw, double tfb, double tft)
-        //{
-        //    // conversion of geometric parameters from millimeters to meters
-        //    b = b / 1000;
-        //    bt = bt / 1000;
-        //    o1 = o1 / 1000;
-        //    o2 = o2 / 1000;
-        //    h = h / 1000;
-        //    tw = tw / 1000;
-        //    tfb = tfb / 1000;
-        //    tft = tft / 1000;
-
-        //    var steelArea = (bt * tft) + (2 * tw * h) + ((b + o1 + o2) * tfb);
-        //    var ezSteel = (((bt * tft) * (tft + h)) - (((b + o1 + o2) * tfb) * (tfb + h))) / 2 / steelArea;
-        //    var eySteel = (((b + o1 + o2) * tfb) * (o2 - o1)) / 2 / steelArea;
-
-        //    double[] offsetY = { eySteel, 0 };   // !the sequence of steel and concrete offsets must match the sequence of steel and concrete sections
-        //    double[] offsetZ = { ezSteel, 0 };
-
-        //    return (offsetY, offsetZ);
-        //}
-
         /// <summary>
         /// Create a FilledDeltaBeamProfile type CompositeSection object.
         /// </summary>
@@ -443,7 +410,8 @@ namespace FemDesign.Composites
         /// <param name="deltaBeamProfile">Delta beam cross-section from database. Can be a D or DR section type.</param>
         /// <param name="name">Composite section name.</param>
         /// <returns></returns>
-        public static CompositeSection FilledDeltaBeamProfile(string name, Material steel, Material concrete, Section deltaBeamProfile)
+        [Description("Waiting for Budapest. GitHub: #802. Fogbugz case: 135669")]
+        internal static CompositeSection FilledDeltaBeamProfile(string name, Material steel, Material concrete, Section deltaBeamProfile)
         {
             CheckMaterialFamily(new List<Material> { steel }, concrete);
 
@@ -480,10 +448,11 @@ namespace FemDesign.Composites
             RegionGroup conreteRegion = new RegionGroup(new Region(concreteContours));
 
             // create sections
-            List<Section> sections = new List<Section>();
-            MaterialTypeEnum steelMatType = (MaterialTypeEnum)Enum.Parse(typeof(MaterialTypeEnum), deltaBeamProfile.MaterialType);
-            sections.Add(new Section(deltaBeamProfile.RegionGroup, "custom", steelMatType, "Steel section", steelMatType.ToString(), deltaBeamProfile.SizeName));
-            sections.Add(new Section(conreteRegion, "custom", MaterialTypeEnum.Concrete, "Concrete section", MaterialTypeEnum.Concrete.ToString(), "--"));
+            List<Section> sections = new List<Section>()
+            {
+                deltaBeamProfile,
+                new Section(conreteRegion, "custom", MaterialTypeEnum.Concrete, "Concrete section", MaterialTypeEnum.Concrete.ToString(), "--")
+            };
 
             return sections;
         }
@@ -577,14 +546,15 @@ namespace FemDesign.Composites
         /// <param name="cy">Concrete cover in Y direction [mm].</param>
         /// <param name="cz">Concrete cover in Z direction [mm].</param>
         /// <returns></returns>
-        public static CompositeSection FilledIProfile(string name, Material steel, Material concrete, Section steelIProfile, double cy, double cz)
+        [Description("Waiting for Budapest. GitHub: #802. Fogbugz case: 135669")]
+        internal static CompositeSection FilledIProfile(string name, Material steel, Material concrete, Section steelIProfile, double cy, double cz)
         {
             CheckMaterialFamily(new List<Material> { steel }, concrete);
 
             // check input data
             CheckSteelSectionCompatibility(CompositeSectionType.FilledIProfile, steelIProfile);
 
-            List<Material> materials = new List<Material>() { concrete, steel };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
+            List<Material> materials = new List<Material>() { steel, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
             List<Section> sections = CreateFilledISection(steelIProfile, cy, cz);
 
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>
@@ -639,11 +609,14 @@ namespace FemDesign.Composites
             // define section data
             MaterialTypeEnum matTypeIProfile = (MaterialTypeEnum)Enum.Parse(typeof(MaterialTypeEnum), steelIProfile.MaterialType);
             List<MaterialTypeEnum> materialTypes = new List<MaterialTypeEnum> { MaterialTypeEnum.Concrete, matTypeIProfile };
-            List<string> groupNames = new List<string> { "Concrete section", "Steel section" };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
-            List<string> typeNames = materialTypes.Select(x => x.ToString()).ToList();
+            List<string> groupNames = new List<string> { "Concrete section", steelIProfile.GroupName };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
+            List<string> typeNames = new List<string> { MaterialTypeEnum.Concrete.ToString(), steelIProfile.TypeName };
             List<string> sizeNames = new List<string> { "--", steelIProfile.SizeName };
 
-            return SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
+            var sections = SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
+            sections.Reverse();
+
+            return sections;
         }
 
         /// <summary>
@@ -662,7 +635,7 @@ namespace FemDesign.Composites
         {
             CheckMaterialFamily(new List<Material> { steel }, concrete);
 
-            List<Material> materials = new List<Material>() { concrete, steel };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
+            List<Material> materials = new List<Material>() { steel, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
             List<Section> sections = CreateFilledCruciformSection(bc, hc, bf, tw, tf);
 
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>
@@ -700,6 +673,12 @@ namespace FemDesign.Composites
             // check inputs
             if (bc <= 0 || hc <= 0 || bf <= 0 || tw <= 0 || tf <= 0 )
                 throw new ArgumentException(" Composite section parameters must be positive, non-zero numbers!");
+            if (bf <= tw)
+                throw new ArgumentException(" Flange width must be greater than the thickness of the web!");
+            if (bf >= (bc - 2 * tf) && bf >= (hc - 2 * tf))
+                throw new ArgumentException(" Flange width must be smaller than the web hight/width!");
+            if (tf >= ((bc - bf) / 2) || tf >= ((hc - bf) / 2))
+                throw new ArgumentException(" Flange thickness is too big!");
 
             // conversion of geometric parameters from millimeters to meters
             bc /= 1000;
@@ -768,8 +747,10 @@ namespace FemDesign.Composites
             string steelSizeName = $"{bf * 1000}x{tf * 1000}-{hc * 1000}x{tw * 1000}-{bc * 1000}x{tw * 1000}";
             List<string> sizeNames = new List<string> { concreteSizeName, steelSizeName };
 
+            var sections = SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
+            sections.Reverse();
 
-            return SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
+            return sections;
         }
 
         /// <summary>
@@ -780,7 +761,8 @@ namespace FemDesign.Composites
         /// <param name="steelRHSProfile">Steel section from database. Can be a KKR or VKR section type.</param>
         /// <param name="name">Composite section name.</param>
         /// <returns></returns>
-        public static CompositeSection FilledRHSProfile(string name, Material steel, Material concrete, Section steelRHSProfile)
+        [Description("Waiting for Budapest. GitHub: #802. Fogbugz case: 135669")]
+        internal static CompositeSection FilledRHSProfile(string name, Material steel, Material concrete, Section steelRHSProfile)
         {
             CheckMaterialFamily(new List<Material> { steel }, concrete);
 
@@ -812,8 +794,8 @@ namespace FemDesign.Composites
             // define section data
             MaterialTypeEnum matTypeRHSProfile = (MaterialTypeEnum)Enum.Parse(typeof(MaterialTypeEnum), steelRHSProfile.MaterialType);
             List<MaterialTypeEnum> materialTypes = new List<MaterialTypeEnum> { matTypeRHSProfile, MaterialTypeEnum.Concrete };
-            List<string> groupNames = new List<string> { "Steel section", "Concrete section" };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
-            List<string> typeNames = materialTypes.Select(x => x.ToString()).ToList();
+            List<string> groupNames = new List<string> { steelRHSProfile.GroupName, "Concrete section" };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
+            List<string> typeNames = new List<string> { steelRHSProfile.TypeName, MaterialTypeEnum.Concrete.ToString() };
             List<string> sizeNames = new List<string> { steelRHSProfile.SizeName, "--" };
 
             return SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
@@ -904,14 +886,15 @@ namespace FemDesign.Composites
         /// <param name="d">Steel tube exterior diameter [mm].</param>
         /// <param name="t">Steel tube thickness [mm].</param>
         /// <returns></returns>
-        public static CompositeSection FilledSteelTubeWithIProfile(string name, Material steelTube, Material steelI, Material concrete, Section steelIProfile, double d, double t)
+        [Description("Waiting for Budapest. GitHub: #802. Fogbugz case: 135669")]
+        internal static CompositeSection FilledSteelTubeWithIProfile(string name, Material steelTube, Material steelI, Material concrete, Section steelIProfile, double d, double t)
         {
             CheckMaterialFamily(new List<Material> { steelTube, steelI }, concrete);
 
             // check input data
             CheckSteelSectionCompatibility(CompositeSectionType.FilledSteelTubeWithIProfile, steelIProfile);
 
-            List<Material> materials = new List<Material>() { steelTube, concrete, steelI };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
+            List<Material> materials = new List<Material>() { steelTube, steelI, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
             List<Section> sections = CreateFilledSteelTubeWithISection(steelIProfile, d, t);
 
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>
@@ -972,16 +955,20 @@ namespace FemDesign.Composites
 
             // define section data
             MaterialTypeEnum matTypeIProfile = (MaterialTypeEnum)Enum.Parse(typeof(MaterialTypeEnum), steelIProfile.MaterialType);
-            List<MaterialTypeEnum> materialTypes = new List<MaterialTypeEnum> { MaterialTypeEnum.SteelWelded, MaterialTypeEnum.Concrete, matTypeIProfile };
-            List<string> groupNames = new List<string> { "Steel section", "Concrete section", "Steel section" };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
-            List<string> typeNames = materialTypes.Select(x => x.ToString()).ToList();
+            MaterialTypeEnum matTypeTube = MaterialTypeEnum.SteelWelded;
+            MaterialTypeEnum matTypeConcrete = MaterialTypeEnum.Concrete;
+            List<MaterialTypeEnum> materialTypes = new List<MaterialTypeEnum> { matTypeTube, matTypeConcrete, matTypeIProfile };
+            List<string> groupNames = new List<string> { "Steel section", "Concrete section", steelIProfile.GroupName };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
+            List<string> typeNames = new List<string> { matTypeTube.ToString(), matTypeConcrete.ToString(), steelIProfile.TypeName };
 
             string steelTubeSizeName = $"{d * 1000}-{t * 1000}";
             string concreteSizeName = $"{(d - 2 * t) * 1000}";
             List<string> sizeNames = new List<string> { steelTubeSizeName, concreteSizeName, steelIProfile.SizeName };
 
+            var sections = SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
+            sections.Reverse(1, 2);
 
-            return SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
+            return sections;
         }
 
         /// <summary>
@@ -999,7 +986,7 @@ namespace FemDesign.Composites
         {
             CheckMaterialFamily(new List<Material> { steelTube, steelCore }, concrete);
 
-            List<Material> materials = new List<Material>() { steelTube, concrete, steelCore };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
+            List<Material> materials = new List<Material>() { steelTube, steelCore, concrete };     // !the sequence of steel and concrete materials must match the sequence of steel and concrete sections
             List<Section> sections = CreateFilledSteelTubeWithSteelCoreSection(d1, d2, t);
 
             List<CompositeSectionParameter> parameters = new List<CompositeSectionParameter>
@@ -1067,8 +1054,10 @@ namespace FemDesign.Composites
             string steelCoreSizeName = $"{(d2) * 1000}";
             List<string> sizeNames = new List<string> { steelTubeSizeName, concreteSizeName, steelCoreSizeName };
 
+            var sections = SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
+            sections.Reverse(1, 2);
 
-            return SectionsFromContours(contours, materialTypes, groupNames, typeNames, sizeNames);
+            return sections;
         }
 
         public static void CheckSteelSectionCompatibility(CompositeSectionType type, Section steelSection)
