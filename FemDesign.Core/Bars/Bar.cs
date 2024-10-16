@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using FemDesign.GenericClasses;
@@ -87,6 +88,9 @@ namespace FemDesign.Bars
                 return this.BarPart.Edge;
             }
         }
+
+        [XmlAttribute("shell_model")]
+        public ShellModelType ShellModel = ShellModelType.None;
 
         [XmlAttribute("type")]
         public BarType Type { get; set; }
@@ -391,7 +395,6 @@ namespace FemDesign.Bars
             this.BarPart = new BarPart(edge, this.Type, compositeSection, startEccentricity, endEccentricity, startConnectivity, endConnectivity, identifier);
         }
 
-
         /// <summary>
         /// Construct a truss element.
         /// </summary>
@@ -409,6 +412,21 @@ namespace FemDesign.Bars
             truss.Identifier = identifier;
             truss.BarPart = new BarPart(edge, truss.Type, material, section, identifier);
             return truss;
+        }
+
+        /// <summary>
+        /// Change the analytical model of the bar into a shell model.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public void ToShellModel(ShellModelType type)
+        {
+            if (this.Type == BarType.Truss)
+                throw new ArgumentException("Analytical models of Truss objects cannot be altered into shell models!");
+            if (this.BarPart.HasComplexCompositeRef || this.BarPart.HasDeltaBeamComplexSectionRef)
+                throw new ArgumentException("Analytical models of composite bars or bars with Deltabeam sections cannot be altered into shell models!");
+
+            this.ShellModel = type;
         }
 
         public void UpdateSection(Sections.Section section)
@@ -527,5 +545,30 @@ namespace FemDesign.Bars
                 return base.ToString();
             }
         }
+    }
+
+    [System.Serializable]
+    public enum ShellModelType
+    {
+        /// <summary>
+        /// Bar model.
+        /// </summary>
+        [Parseable("none", "None", "NONE")]
+        [XmlEnum("none")]
+        None,
+
+        /// <summary>
+        /// Shell model. Contains only shell elements.
+        /// </summary>
+        [Parseable("simple", "Simple", "SIMPLE")]
+        [XmlEnum("simple")]
+        Simple,
+
+        /// <summary>
+        /// Shell model. Fictitious bars on the boundary of the shell model.
+        /// </summary>
+        [Parseable("complex", "Complex", "COMPLEX")]
+        [XmlEnum("complex")]
+        Complex
     }
 }
