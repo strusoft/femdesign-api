@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FuzzySharp.Extractor;
+using System.IO;
 
 namespace FemDesign.Sections
 {
@@ -273,7 +274,8 @@ namespace FemDesign.Sections
             var secProp = new List<Results.SectionProperties>();
 
             // Run pipe
-            using (var femDesign = new FemDesignConnection(fdInstallationDir, minimized: true, tempOutputDir: true))
+            //var outDir = Path.Combine(Directory.GetCurrentDirectory(), "Temp", DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff"));
+            using (var femDesign = new FemDesignConnection(fdInstallationDir, minimized: true, /*outputDir: outDir,*/ tempOutputDir: true))
             {
                 femDesign.Open(model);
 

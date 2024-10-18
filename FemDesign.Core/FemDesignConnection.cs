@@ -1768,6 +1768,13 @@ namespace FemDesign
             string dir = Path.Combine(baseDir, _scriptsDirectory, _bscDirectory);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
+            var directoryInfo = new DirectoryInfo(dir);
+            if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+            {
+                // Remove read-only attribute
+                directoryInfo.Attributes &= ~FileAttributes.ReadOnly;
+            }
+            
             fileName = Path.ChangeExtension(fileName, _bscFileExtension);
             string path = Path.GetFullPath(Path.Combine(dir, fileName));
             return path;
@@ -1777,6 +1784,13 @@ namespace FemDesign
             string dir = Path.Combine(baseDir, _resultsDirectory);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
+            var directoryInfo = new DirectoryInfo(dir);
+            if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+            {
+                // Remove read-only attribute
+                directoryInfo.Attributes &= ~FileAttributes.ReadOnly;
+            }
+
             fileName = Path.ChangeExtension(fileName, _csvFileExtension);
             string path = Path.GetFullPath(Path.Combine(dir, fileName));
             return path;
@@ -1786,8 +1800,17 @@ namespace FemDesign
             string dir = Path.Combine(baseDir, _scriptsDirectory);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
+            var directoryInfo = new DirectoryInfo(dir);
+            if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+            {
+                // Remove read-only attribute
+                directoryInfo.Attributes &= ~FileAttributes.ReadOnly;
+            }
+            
             fileName = Path.GetFileName(Path.ChangeExtension(fileName, _fdscriptFileExtension));
             string path = Path.GetFullPath(Path.Combine(dir, fileName));
+
+
             return path;
         }
 
