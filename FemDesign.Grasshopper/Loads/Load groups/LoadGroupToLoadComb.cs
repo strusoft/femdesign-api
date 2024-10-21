@@ -131,10 +131,29 @@ namespace FemDesign.Grasshopper
 
             var loadCombinations = new List<FemDesign.Loads.LoadCombination>();
 
+
+            #region Set Current Directory
+            bool fileExist = OnPingDocument().IsFilePathDefined;
+            if (!fileExist)
+            {
+                // hops issue
+                //var folderPath = System.IO.Directory.GetCurrentDirectory();
+                string tempPath = System.IO.Path.GetTempPath();
+                System.IO.Directory.SetCurrentDirectory(tempPath);
+            }
+            else
+            {
+                var filePath = OnPingDocument().FilePath;
+                var currentDir = System.IO.Path.GetDirectoryName(filePath);
+                System.IO.Directory.SetCurrentDirectory(currentDir);
+            }
+            #endregion
+
+
             // Create Task
             var t = Task.Run(() =>
             {
-                var connection = new FemDesignConnection(minimized: true, tempOutputDir: false);
+                var connection = new FemDesignConnection(minimized: true);
 
                 var model = new Model(countryCode, loadCases: _loadCases, loadGroups: loadGroups);
                 model.Entities.Loads.LoadGroupTable.SimpleCombinationMethod = _combinationMethod;

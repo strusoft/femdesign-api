@@ -1016,10 +1016,6 @@ namespace FemDesign
 
         public void LoadGroupToLoadComb(bool fu = true, bool fua = true, bool fus = true, bool fsq = true, bool fsf = true, bool fsc = true, bool fSeisSigned = true, bool fSeisTorsion = true, bool fSeisZdir = true, bool fSkipMinDL = true, bool fForceTemp = true, bool fShortName = true)
         {
-            var version = Int32.Parse(this._process.MainModule.FileVersionInfo.FileVersion.Replace(".", ""), CultureInfo.InvariantCulture);
-            if (version < 22040)
-                throw new Exception("FEM-Design 22.00.004 or greater is required!");
-
             var cmdLoadGroupToLoadComb = new CmdLoadGroupToLoadComb(fu, fua, fus, fsq, fsf, fsc, fSeisSigned, fSeisTorsion, fSeisZdir, fSkipMinDL, fForceTemp, fShortName);
 
             string logfile = OutputFileHelper.GetLogfilePath(OutputDir);
