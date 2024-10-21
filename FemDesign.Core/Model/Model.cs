@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using FemDesign.GenericClasses;
 using FemDesign.LibraryItems;
 using FemDesign.Loads;
+using FemDesign.Composites;
 
 namespace FemDesign
 {
@@ -772,10 +773,13 @@ namespace FemDesign
                 {
                     inModel = this.Composites.CompositeSection.Any(x => x.Guid == complexCompositePart.CompositeSectionRef);
 
-                    // check section name
-                    var names = this.Composites.CompositeSection.Select(c => c.ParameterDictionary[FemDesign.Composites.CompositeSectionParameterType.Name]).ToList();
+                    // check section names
+                    Dictionary<string, Guid> guidDir = this.Composites.CompositeSection.ToDictionary(cs => cs.ParameterDictionary[CompositeSectionParameterType.Name], cs => cs.Guid);
                     var objName = complexCompositePart.CompositeSectionObj.ParameterDictionary[FemDesign.Composites.CompositeSectionParameterType.Name];
-                    if (names.Any(n => String.Equals(n, objName)))
+                    var objGuid = complexCompositePart.CompositeSectionObj.Guid;
+
+                    // Check if a section with the same name exists but with a different GUID
+                    if (guidDir.TryGetValue(objName, out var existingGuid) && objGuid != existingGuid)
                         throw new Exception("One or more composite sections have the same name. Different composite sections must have different names!");
                 }
                 else
