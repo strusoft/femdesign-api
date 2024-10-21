@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using FuzzySharp.Extractor;
+using System.IO;
 
 namespace FemDesign.Sections
 {
@@ -281,8 +282,6 @@ namespace FemDesign.Sections
                 units.SectionalData = sectionUnits;
 
                 secProp = femDesign._getResults<Results.SectionProperties>(units, timeStamp: true);
-
-                //femDesign.Disconnect();     // Check this. FEM-Design should not be left open after the process!
             }
 
             // Method that reorder the secProp list to match the input order using the section name
