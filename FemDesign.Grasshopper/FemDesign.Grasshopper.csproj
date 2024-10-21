@@ -69,6 +69,7 @@
     <Compile Include="..\FemDesign.Core\Properties\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Bars\BarDeconstructModify_OBSOLETE2307.cs" />
     <Compile Include="Bars\CompositeBar.cs" />
     <Compile Include="Bars\TrussBehaviour_OBSOLETE2305.cs" />
     <Compile Include="Bars\TrussBehaviour.cs" />
