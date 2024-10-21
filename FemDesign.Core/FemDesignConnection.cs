@@ -1069,16 +1069,27 @@ namespace FemDesign
             // TODO: Delete the files when they are not locked by FEM-Design
             this._deleteOutputDirectories();
         }
+
         private void _deleteOutputDirectories()
         {
             foreach (string dir in _outputDirsToBeDeleted)
                 if (Directory.Exists(dir))
                     _deleteFolderIfNotUsed(dir);
         }
+
         private static void _deleteFolderIfNotUsed(string folderPath)
         {
+            _removeReadOnlyAttribute(folderPath, out List<string> subDirectories);
+
             try
             {
+                // update directory info
+                foreach (var dir in subDirectories)
+                {
+                    var directoryInfo = new DirectoryInfo(dir);
+                    directoryInfo.Refresh();
+                }
+
                 Directory.Delete(folderPath, true);
             }
             catch (IOException ex)
@@ -1091,6 +1102,32 @@ namespace FemDesign
                 }
                 // The exception is not related to a file or folder being in use, rethrow it
                 throw;
+            }
+        }
+
+        private static void _removeReadOnlyAttribute(string folderPath, out List<string> subDirectories)
+        {
+            // get directories & subdirectories
+            subDirectories = new List<string> { folderPath };
+            int i = 0;
+            while (i < subDirectories.Count)
+            {
+                var subSubDirs = Directory.GetDirectories(subDirectories[i]).ToList();
+                if (subSubDirs?.Count > 0)
+                    subDirectories.AddRange(subSubDirs);
+
+                i++;
+            }
+
+            // check if directory is read-only
+            foreach (var dir in subDirectories)
+            {
+                var directoryInfo = new DirectoryInfo(dir);
+                if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                {
+                    // Remove read-only attribute
+                    directoryInfo.Attributes &= ~FileAttributes.ReadOnly;
+                }
             }
         }
 
@@ -1768,13 +1805,6 @@ namespace FemDesign
             string dir = Path.Combine(baseDir, _scriptsDirectory, _bscDirectory);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
-            var directoryInfo = new DirectoryInfo(dir);
-            if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-            {
-                // Remove read-only attribute
-                directoryInfo.Attributes &= ~FileAttributes.ReadOnly;
-            }
-            
             fileName = Path.ChangeExtension(fileName, _bscFileExtension);
             string path = Path.GetFullPath(Path.Combine(dir, fileName));
             return path;
@@ -1784,13 +1814,6 @@ namespace FemDesign
             string dir = Path.Combine(baseDir, _resultsDirectory);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
-            var directoryInfo = new DirectoryInfo(dir);
-            if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-            {
-                // Remove read-only attribute
-                directoryInfo.Attributes &= ~FileAttributes.ReadOnly;
-            }
-
             fileName = Path.ChangeExtension(fileName, _csvFileExtension);
             string path = Path.GetFullPath(Path.Combine(dir, fileName));
             return path;
@@ -1799,18 +1822,9 @@ namespace FemDesign
         {
             string dir = Path.Combine(baseDir, _scriptsDirectory);
             if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
-            var directoryInfo = new DirectoryInfo(dir);
-            if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-            {
-                // Remove read-only attribute
-                directoryInfo.Attributes &= ~FileAttributes.ReadOnly;
-            }
-            
+                Directory.CreateDirectory(dir);            
             fileName = Path.GetFileName(Path.ChangeExtension(fileName, _fdscriptFileExtension));
             string path = Path.GetFullPath(Path.Combine(dir, fileName));
-
-
             return path;
         }
 

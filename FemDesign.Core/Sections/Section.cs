@@ -274,8 +274,7 @@ namespace FemDesign.Sections
             var secProp = new List<Results.SectionProperties>();
 
             // Run pipe
-            //var outDir = Path.Combine(Directory.GetCurrentDirectory(), "Temp", DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_fff"));
-            using (var femDesign = new FemDesignConnection(fdInstallationDir, minimized: true, /*outputDir: outDir,*/ tempOutputDir: true))
+            using (var femDesign = new FemDesignConnection(fdInstallationDir, minimized: true, tempOutputDir: true))
             {
                 femDesign.Open(model);
 
@@ -283,8 +282,6 @@ namespace FemDesign.Sections
                 units.SectionalData = sectionUnits;
 
                 secProp = femDesign._getResults<Results.SectionProperties>(units, timeStamp: true);
-
-                //femDesign.Disconnect();     // Check this. FEM-Design should not be left open after the process!
             }
 
             // Method that reorder the secProp list to match the input order using the section name
