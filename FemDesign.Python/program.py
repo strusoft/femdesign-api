@@ -1,7 +1,7 @@
-from fdpipe import FemDesignConnection, Verbosity
-from fdscript import *
-from analysis import *
-from command import *
+from femdesign.analysis import Analysis, Comb, CombItem
+from femdesign.comunication import FemDesignConnection, Verbosity
+from femdesign.fdscript.command import *
+from femdesign.fdscript import Fdscript
 import pandas as pd
 import xml.etree.ElementTree as ET
 
@@ -87,5 +87,5 @@ def example_2():
 
 
 if __name__ == "__main__":
-    example_1()
+ #   example_1()
     example_2()

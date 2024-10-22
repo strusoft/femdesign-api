@@ -184,24 +184,6 @@ class Footfall:
         return footfall
 
 
-# class Bedding:
-#     def __init__(self, Ldcomb="a", Meshprep=0, Stiff_X=0.5, Stiff_Y=0.5):
-#         self.Ldcomb = Ldcomb
-#         self.Meshprep = Meshprep
-#         self.Stiff_X = Stiff_X
-#         self.Stiff_Y = Stiff_Y
-
-#     def to_xml_element(self):
-#         bedding = ET.Element("bedding")
-#         bedding.attrib = {
-#             "Ldcomb": str(self.Ldcomb),
-#             "Meshprep": str(self.Meshprep),
-#             "Stiff_X": str(self.Stiff_X),
-#             "Stiff_Y": str(self.Stiff_Y)
-#         }
-#         return bedding
-
-
 class ThGroundAcc:
     def __init__(self, flevelspectra=1, dts=0.20, tsend=5.0, q=1.0, facc=1, nres=5, tcend=20.0, method=0, alpha=0.000, beta=0.000, ksi=5.0):
         self.flevelspectra = flevelspectra
@@ -417,3 +399,20 @@ class Analysis:
     @classmethod
     def FootfallAnalysis(cls, footfall : Footfall, calcFootfall : bool = True):
         return cls(calcFootfall = calcFootfall, footfall = footfall)
+
+# class Bedding:
+#     def __init__(self, Ldcomb="a", Meshprep=0, Stiff_X=0.5, Stiff_Y=0.5):
+#         self.Ldcomb = Ldcomb
+#         self.Meshprep = Meshprep
+#         self.Stiff_X = Stiff_X
+#         self.Stiff_Y = Stiff_Y
+
+#     def to_xml_element(self):
+#         bedding = ET.Element("bedding")
+#         bedding.attrib = {
+#             "Ldcomb": str(self.Ldcomb),
+#             "Meshprep": str(self.Meshprep),
+#             "Stiff_X": str(self.Stiff_X),
+#             "Stiff_Y": str(self.Stiff_Y)
+#         }
+#         return bedding

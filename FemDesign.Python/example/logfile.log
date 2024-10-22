@@ -766,3 +766,49 @@ cmdlistgen:'$ MODULECOM LISTGEN'
 listgen successful
 t: 08/29 11.32.20.959
 Script file finished
+step: cmdopen
+t: 10/21 16.19.10.734
+cmdopen:'; CXL CS2SHELL OPEN'
+t: 10/21 16.19.12.990
+Script file finished
+step: cmdprojdescr
+t: 10/21 16.19.13.467
+cmdprojdescr:'$ MODULECOM PROJDESCR'
+t: 10/21 16.19.13.467
+Script file finished
+step: cmduser
+cmduser:'; CXL $MODULE RESMODE'
+step: cmdcalculation
+t: 10/21 16.19.14.180
+cmdcalculation:'; CXL $MODULE CALC'
+t: 10/21 16.19.16.100
+Script file finished
+step: cmdsave
+t: 10/21 16.19.16.719
+cmdsave:'; CXL CS2SHELL SAVE'
+t: 10/21 16.19.16.932
+Script file finished
+step: cmdlistgen
+t: 10/21 16.19.17.333
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 10/21 16.19.17.337
+Script file finished
+step: cmdlistgen
+t: 10/21 16.19.17.937
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 10/21 16.19.17.941
+Script file finished
+step: cmdlistgen
+t: 10/21 16.19.18.557
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 10/21 16.19.18.561
+Script file finished
+step: cmdlistgen
+t: 10/21 16.19.19.155
+cmdlistgen:'$ MODULECOM LISTGEN'
+listgen successful
+t: 10/21 16.19.19.158
+Script file finished

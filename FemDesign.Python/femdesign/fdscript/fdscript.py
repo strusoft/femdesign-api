@@ -1,7 +1,7 @@
 ## create a template for a class in python
 import os
 import xml.etree.ElementTree as ET
-from command import Command
+from femdesign.fdscript.command import Command
 
 class FdscriptHeader:
     """
