@@ -16,7 +16,7 @@ namespace FemDesign.Grasshopper
             evaluationUnit.Icon = FemDesign.Properties.Resources.Config;
             mngr.RegisterUnit(evaluationUnit);
 
-            evaluationUnit.RegisterInputParam(new Param_Boolean(), "Calc. as solid", "Calc. as solid", "Calculate soil as solid element.\nDefault is False.", GH_ParamAccess.item);
+            evaluationUnit.RegisterInputParam(new Param_Boolean(), "CalcAsSolid", "CalcAsSolid", "Calculate soil as solid element.\nDefault is False.", GH_ParamAccess.item);
             evaluationUnit.Inputs[evaluationUnit.Inputs.Count - 1].Parameter.Optional = true;
         }
 

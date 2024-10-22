@@ -149,11 +149,9 @@ Global
 		{5425BE85-A616-4DC7-8E80-CB124C8320EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5425BE85-A616-4DC7-8E80-CB124C8320EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5425BE85-A616-4DC7-8E80-CB124C8320EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5425BE85-A616-4DC7-8E80-CB124C8320EC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BEC4FB61-E232-4680-8B90-F154BF3C5884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BEC4FB61-E232-4680-8B90-F154BF3C5884}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEC4FB61-E232-4680-8B90-F154BF3C5884}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BEC4FB61-E232-4680-8B90-F154BF3C5884}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
