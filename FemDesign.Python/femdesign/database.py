@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import uuid
+import datetime
 
 namespace = {'': 'urn:strusoft'}
 
@@ -8,7 +9,7 @@ class Database:
         self.struxml_version = "01.00.000"
         self.source_software = f"FEM-Design API SDK {self.get_version()}"
         self.start_time = "1970-01-01T00:00:00.000"
-        self.end_time = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3]
+        self.end_time = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3]
         self.guid = str(uuid.uuid4())
         self.convert_id = "00000000-0000-0000-0000-000000000000"
         self.standard = "EC"

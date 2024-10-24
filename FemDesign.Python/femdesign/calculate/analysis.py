@@ -77,7 +77,7 @@ class CombItem:
         return comb_item
 
 
-class Comb:
+class CombSettings:
     def __init__(self, NLEmaxiter : int = 30, PLdefloadstep : int = 20, PLminloadstep : int = 2, PLmaxeqiter : int = 30, PlKeepLoadStep : bool = True, PlTolerance : int = 1, PlShellLayers : int = 10, PlShellCalcStr : bool = 1, NLSMohr : bool = True, NLSinitloadstep : int = 10, NLSminloadstep : int = 10, NLSactiveelemratio : int = 5, NLSplasticelemratio : int = 5, CRloadstep : int = 20, CRmaxiter : int = 30, CRstifferror : int = 2, combitems : list[CombItem] = None):
         self.NLEmaxiter = NLEmaxiter
         self.PLdefloadstep = PLdefloadstep
@@ -304,7 +304,7 @@ class Analysis:
                  elemfine : bool = True,
                  diaphragm : bool = False,
                  peaksmoothings : bool = False,
-                 comb : Comb = None,
+                 comb : CombSettings = None,
                  stage : Stage = None,
                  freq : Freq = None,
                  footfall : Footfall = None,
@@ -388,8 +388,8 @@ class Analysis:
         return analysis
 
     @classmethod
-    def StaticAnalysis(cls, comb : Comb = Comb.Default(), calcComb : bool = True):
-        return cls(calcCase = True, calcComb = calcComb, comb = comb)
+    def StaticAnalysis(cls, comb : CombSettings = CombSettings.Default(), calcCase : bool = True, calcComb : bool = True):
+        return cls(calcCase = calcCase, calcComb = calcComb, comb = comb)
     
     @classmethod
     def FrequencyAnalysis(cls, num_shapes : int = 5, auto_iter : int = 0, max_sturm : int = 0, norm_unit : Freq.ShapeNormalization  = Freq.ShapeNormalization.MassMatrix, x : bool = True, y : bool = True, z : bool = True, top : bool = -0.01):

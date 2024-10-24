@@ -1,1 +1,0 @@
-from .fdscript import Fdscript, FdscriptHeader

@@ -2,16 +2,13 @@ import subprocess
 from datetime import datetime
 from time import sleep
 
-from femdesign.utilities.filehelper import OutputFileHelper
-
 from enum import Enum
-
+from calculate.analysis import Analysis, Design, DesignModule
+from calculate.fdscript import Fdscript
+from utilities.filehelper import OutputFileHelper
+from calculate.command import CmdUser, CmdCalculation, CmdListGen, CmdOpen, CmdProjDescr, CmdSave
 import win32file
 import win32pipe
-
-from femdesign.fdscript.command import *
-import femdesign.analysis as analysis
-from femdesign.fdscript.fdscript import Fdscript, FdscriptHeader
 
 import os
 
@@ -343,7 +340,7 @@ class FemDesignConnection(_FdConnect):
         fdscript.serialise_to_file(path)
         super().RunScript(path)
 
-    def RunAnalysis(self, analysis : analysis.Analysis):
+    def RunAnalysis(self, analysis : Analysis):
         """Run analysis
 
         Args:
@@ -354,7 +351,7 @@ class FemDesignConnection(_FdConnect):
         fdscript = Fdscript(log, [CmdUser.ResMode(), CmdCalculation(analysis)])
         self.RunScript(fdscript, "analysis")
 
-    def RunDesign(self, designMode : DesignModule  , design : analysis.Design):
+    def RunDesign(self, designMode : DesignModule  , design : Design):
         """Run design
 
         Args:

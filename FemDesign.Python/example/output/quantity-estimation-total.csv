@@ -1,7 +1,0 @@
-Quantity estimation, Total
-Storey	Material	Struct.	Identifier	Quality	Total weight	CO2 footprint (A1-A3)
-	 type	type			[t]	[kg CO2e]
--	Steel	Beam	B.1	S 235	0.464	1,168.2
--	Steel	Beam	B.2	S 235	0.464	1,168.2
-TOTAL					0.927	2,336.5
-

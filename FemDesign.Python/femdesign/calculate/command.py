@@ -2,7 +2,9 @@ import os
 import xml.etree.ElementTree as ET
 from enum import Enum, auto
 from abc import ABC, abstractmethod
-from femdesign.analysis import Analysis, Design
+
+from analysis import Analysis, Design
+
 import uuid
 import pathlib
 
